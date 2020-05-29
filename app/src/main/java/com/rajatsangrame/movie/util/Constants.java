@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie;
+package com.rajatsangrame.movie.util;
 
 
 import java.util.Hashtable;

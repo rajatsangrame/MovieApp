@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
 
+    <string name="title_search">Search</string>
+    <string name="title_saved">Saved</string>
+
     <string name="movie_desc">A group of misfits encounter a young Yeti named Everest, and they set off to reunite the magical creature with his family on the mountain of his namesake.</string>
     <string name="movie_title">Avengers: Infinity War</string>
     <string name="movie_year">\u2605 %.02f %s %s</string>

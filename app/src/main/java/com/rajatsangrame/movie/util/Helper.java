@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie;
+package com.rajatsangrame.movie.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

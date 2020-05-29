@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.rajatsangrame.movie.Constants;
+import com.rajatsangrame.movie.util.Constants;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapters.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;

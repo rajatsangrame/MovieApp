@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="@string/app_name" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/ic_saved"
+        android:title="@string/title_saved" />
+</menu>

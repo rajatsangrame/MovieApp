@@ -12,6 +12,6 @@
     <color name="gradient_start">#7f000000</color>
     <color name="gradient_end">#00000000</color>
     <color name="option_item_tint_color">#ad000000</color>
-
+    <color name="colorGrey">#9E9E9E</color>
 
 </resources>

@@ -14,7 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.rajatsangrame.movie.Helper;
+import com.rajatsangrame.movie.util.Helper;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.databinding.ActivityMainBinding;
 import com.rajatsangrame.movie.model.Movie;
@@ -45,33 +45,33 @@ public class MainActivity extends AppCompatActivity implements MovieAdapterNew.M
             return;
         }
 
-        final MovieAdapterNew adapter = new MovieAdapterNew(this);
-        final MovieAdapterNew adapter2 = new MovieAdapterNew(this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManager2.setOrientation(RecyclerView.HORIZONTAL);
-        mBinding.mainLayout.recyclerView.setLayoutManager(layoutManager);
-        mBinding.mainLayout.recyclerView2.setLayoutManager(layoutManager2);
-        MovieViewModel itemViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-
-        itemViewModel.userPagedList.observe(this, new Observer<PagedList<Movie>>() {
-            @Override
-            public void onChanged(PagedList<Movie> users) {
-                adapter.submitList(users);
-
-            }
-        });
-        itemViewModel.userPagedList2.observe(this, new Observer<PagedList<Movie>>() {
-            @Override
-            public void onChanged(PagedList<Movie> users) {
-                adapter2.submitList(users);
-
-            }
-        });
-        mBinding.mainLayout.recyclerView.setAdapter(adapter);
-        mBinding.mainLayout.recyclerView2.setAdapter(adapter2);
-        mBinding.mainLayout.layoutProgress.progressBar.setVisibility(View.GONE);
+//        final MovieAdapterNew adapter = new MovieAdapterNew(this);
+//        final MovieAdapterNew adapter2 = new MovieAdapterNew(this);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
+//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+//        layoutManager2.setOrientation(RecyclerView.HORIZONTAL);
+//        mBinding.mainLayout.recyclerView.setLayoutManager(layoutManager);
+//        mBinding.mainLayout.recyclerView2.setLayoutManager(layoutManager2);
+//        MovieViewModel itemViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+//
+//        itemViewModel.userPagedList.observe(this, new Observer<PagedList<Movie>>() {
+//            @Override
+//            public void onChanged(PagedList<Movie> users) {
+//                adapter.submitList(users);
+//
+//            }
+//        });
+//        itemViewModel.userPagedList2.observe(this, new Observer<PagedList<Movie>>() {
+//            @Override
+//            public void onChanged(PagedList<Movie> users) {
+//                adapter2.submitList(users);
+//
+//            }
+//        });
+//        mBinding.mainLayout.recyclerView.setAdapter(adapter);
+//        mBinding.mainLayout.recyclerView2.setAdapter(adapter2);
+//        mBinding.mainLayout.layoutProgress.progressBar.setVisibility(View.GONE);
 
     }
 

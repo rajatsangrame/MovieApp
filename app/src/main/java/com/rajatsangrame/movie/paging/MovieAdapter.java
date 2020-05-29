@@ -24,8 +24,8 @@ import com.rajatsangrame.movie.model.Movie;
 import java.util.List;
 import java.util.Objects;
 
-import static com.rajatsangrame.movie.Constants.IMAGE_URL;
-import static com.rajatsangrame.movie.Constants.getGenreFromId;
+import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
+import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
 
 
 public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {

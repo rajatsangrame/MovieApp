@@ -16,7 +16,7 @@ import com.rajatsangrame.movie.model.ProductionCompanies;
 
 import java.util.List;
 
-import static com.rajatsangrame.movie.Constants.IMAGE_URL;
+import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
 
 /**
  * Created by Rajat Sangrame on 19/12/19.
