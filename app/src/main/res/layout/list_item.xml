@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:background="@drawable/shader_list_item"
+        android:background="@drawable/shader_bottom"
         android:layout_width="120dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"

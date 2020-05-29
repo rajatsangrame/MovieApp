@@ -14,23 +14,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <include
-                    android:id="@+id/layout_progress"
-                    layout="@layout/layout_progress" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/main_layout"
+                layout="@layout/content_main">
+            </include>
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
