@@ -1,12 +1,8 @@
 package com.rajatsangrame.movie.di.component;
 
-
-import androidx.fragment.app.Fragment;
-
-import com.rajatsangrame.movie.activities.MainActivity;
 import com.rajatsangrame.movie.di.module.HomeFragmentModule;
-import com.rajatsangrame.movie.di.module.MainActivityModule;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
+import com.rajatsangrame.movie.ui.home.HomeFragment;
 
 import dagger.Component;
 
@@ -18,6 +14,6 @@ import dagger.Component;
 @MainActivityScope
 public interface HomeFragmentComponent {
 
-    void injectFragment(Fragment fragment);
+    void injectFragment(HomeFragment fragment);
 
 }

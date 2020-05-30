@@ -1,8 +1,8 @@
 package com.rajatsangrame.movie.di.module;
 
-import androidx.fragment.app.Fragment;
-
+import com.rajatsangrame.movie.di.scope.MainActivityScope;
 import com.rajatsangrame.movie.paging.MovieAdapterNew;
+import com.rajatsangrame.movie.ui.home.HomeFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,13 +14,14 @@ import dagger.Provides;
 @Module()
 public class HomeFragmentModule {
 
-    private final Fragment fragment;
+    private final HomeFragment fragment;
 
-    public HomeFragmentModule(Fragment fragment) {
+    public HomeFragmentModule(HomeFragment fragment) {
         this.fragment = fragment;
     }
 
     @Provides
+    @MainActivityScope
     public MovieAdapterNew getRestaurantAdapter() {
         return new MovieAdapterNew(fragment);
     }
