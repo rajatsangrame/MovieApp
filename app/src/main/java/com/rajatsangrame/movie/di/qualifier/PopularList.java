@@ -7,5 +7,5 @@ import javax.inject.Qualifier;
  * http://github.com/rajatsangrame
  */
 @Qualifier
-public @interface LatestMediaSource {
+public @interface PopularList {
 }

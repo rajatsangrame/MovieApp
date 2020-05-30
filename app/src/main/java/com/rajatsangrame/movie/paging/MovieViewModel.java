@@ -6,8 +6,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.model.Movie;
-import com.rajatsangrame.movie.network.RetrofitClient;
-import com.rajatsangrame.movie.util.Genre;
+import com.rajatsangrame.movie.util.Category;
 
 
 /**
@@ -24,17 +23,15 @@ public class MovieViewModel extends ViewModel {
     }
 
     private void init() {
-        MovieDataSourceFactory itemDataSourceFactory = new MovieDataSourceFactory(Genre.POPULAR);
-        MovieDataSourceFactory itemDataSourceFactory2 = new MovieDataSourceFactory(Genre.TOP_RATED);
 
-        PagedList.Config config = new PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setPageSize(MovieDataSource.PAGE_SIZE)
-                .build();
-        userPagedList = new LivePagedListBuilder<>(itemDataSourceFactory, config).build();
-        userPagedList2 = new LivePagedListBuilder<>(itemDataSourceFactory2, config).build();
-
+//        MovieDataSourceFactory itemDataSourceFactory = new MovieDataSourceFactory(Category.POPULAR);
+//        MovieDataSourceFactory itemDataSourceFactory2 = new MovieDataSourceFactory(Category.TOP_RATED);
+//        PagedList.Config config = new PagedList.Config.Builder()
+//                .setEnablePlaceholders(false)
+//                .setPageSize(MovieDataSource.PAGE_SIZE)
+//                .build();
+//        userPagedList = new LivePagedListBuilder<>(itemDataSourceFactory, config).build();
+//        userPagedList2 = new LivePagedListBuilder<>(itemDataSourceFactory2, config).build();
 
     }
-
 }

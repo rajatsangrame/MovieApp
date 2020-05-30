@@ -2,6 +2,7 @@ package com.rajatsangrame.movie;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.rajatsangrame.movie.di.component.ApplicationComponent;
 import com.rajatsangrame.movie.di.component.DaggerApplicationComponent;
@@ -15,8 +16,8 @@ public class App extends Application {
 
     private ApplicationComponent component;
 
-    public static App get(Activity activity) {
-        return (App) activity.getApplication();
+    public static App get(Context context) {
+      return (App) context.getApplicationContext();
     }
 
     @Override

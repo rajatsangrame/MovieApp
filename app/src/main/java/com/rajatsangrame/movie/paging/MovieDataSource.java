@@ -7,7 +7,7 @@ import com.rajatsangrame.movie.model.Api;
 import com.rajatsangrame.movie.model.Movie;
 import com.rajatsangrame.movie.network.RetrofitApi;
 import com.rajatsangrame.movie.network.RetrofitClient;
-import com.rajatsangrame.movie.util.Genre;
+import com.rajatsangrame.movie.util.Category;
 
 import java.util.List;
 
@@ -19,20 +19,20 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
     public final static int PAGE_SIZE = 30;
     public final static long FIRST_PAGE = 1;
-    private Genre genreType;
+    private Category category;
+    private RetrofitApi retrofitApi;
 
-    public MovieDataSource(Genre genreType) {
-        this.genreType = genreType;
+    public MovieDataSource(Category category, RetrofitApi retrofitApi) {
+        this.category = category;
+        this.retrofitApi = retrofitApi;
     }
 
     @Override
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
-
-        RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == Genre.POPULAR) {
+        if (category == Category.POPULAR) {
             call = retrofitApi.getPopularMovies(FIRST_PAGE);
         } else {
             call = retrofitApi.getUpcoming(FIRST_PAGE);
@@ -62,9 +62,8 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadBefore(@NonNull final LoadParams<Long> params,
                            @NonNull final LoadCallback<Long, Movie> callback) {
 
-        RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == Genre.POPULAR) {
+        if (category == Category.POPULAR) {
             call = retrofitApi.getPopularMovies(params.key);
         } else {
             call = retrofitApi.getUpcoming(params.key);
@@ -98,9 +97,8 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadAfter(@NonNull final LoadParams<Long> params,
                           @NonNull final LoadCallback<Long, Movie> callback) {
 
-        RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == Genre.POPULAR) {
+        if (category == Category.POPULAR) {
             call = retrofitApi.getPopularMovies(params.key);
         } else {
             call = retrofitApi.getUpcoming(params.key);
