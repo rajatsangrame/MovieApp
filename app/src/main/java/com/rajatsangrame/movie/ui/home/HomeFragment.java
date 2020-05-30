@@ -19,7 +19,11 @@ import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
 import com.rajatsangrame.movie.di.component.HomeFragmentComponent;
 import com.rajatsangrame.movie.di.module.HomeFragmentModule;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
+import com.rajatsangrame.movie.di.qualifier.LatestMediaSource;
+import com.rajatsangrame.movie.di.qualifier.PopularMediaSource;
 import com.rajatsangrame.movie.paging.MovieAdapterNew;
+import com.rajatsangrame.movie.paging.MovieDataSource;
+import com.rajatsangrame.movie.paging.MovieDataSourceFactory;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
@@ -32,10 +36,21 @@ public class HomeFragment extends Fragment {
 
     @Inject
     MovieAdapterNew adapter;
+
     @Inject
     RestaurantRepository restaurantRepository;
+
     @Inject
     ViewModelFactory factory;
+
+    @Inject
+    @PopularMediaSource
+    MovieDataSourceFactory popularSourceFactory;
+
+    @Inject
+    @LatestMediaSource
+    MovieDataSourceFactory latestSourceFactory;
+
     private HomeViewModel homeViewModel;
 
     public static HomeFragment newInstance() {

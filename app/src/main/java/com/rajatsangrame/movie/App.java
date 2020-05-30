@@ -3,8 +3,6 @@ package com.rajatsangrame.movie;
 import android.app.Activity;
 import android.app.Application;
 
-import androidx.fragment.app.Fragment;
-
 import com.rajatsangrame.movie.di.component.ApplicationComponent;
 import com.rajatsangrame.movie.di.component.DaggerApplicationComponent;
 import com.rajatsangrame.movie.di.module.ContextModule;
@@ -18,7 +16,7 @@ public class App extends Application {
     private ApplicationComponent component;
 
     public static App get(Activity activity) {
-      return (App) activity.getApplication();
+        return (App) activity.getApplication();
     }
 
     @Override

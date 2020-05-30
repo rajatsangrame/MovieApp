@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.di.scope;
+package com.rajatsangrame.movie.di.qualifier;
 
 import javax.inject.Qualifier;
 
@@ -7,5 +7,5 @@ import javax.inject.Qualifier;
  * http://github.com/rajatsangrame
  */
 @Qualifier
-public @interface ApplicationContext {
+public @interface LatestMediaSource {
 }

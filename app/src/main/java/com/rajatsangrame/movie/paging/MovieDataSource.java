@@ -7,6 +7,7 @@ import com.rajatsangrame.movie.model.Api;
 import com.rajatsangrame.movie.model.Movie;
 import com.rajatsangrame.movie.network.RetrofitApi;
 import com.rajatsangrame.movie.network.RetrofitClient;
+import com.rajatsangrame.movie.util.Genre;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
     public final static int PAGE_SIZE = 30;
     public final static long FIRST_PAGE = 1;
-    private RetrofitClient.GENRE genreType;
+    private Genre genreType;
 
-    public MovieDataSource(RetrofitClient.GENRE genreType) {
+    public MovieDataSource(Genre genreType) {
         this.genreType = genreType;
     }
 
@@ -31,7 +32,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
         RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == RetrofitClient.GENRE.POPULAR) {
+        if (genreType == Genre.POPULAR) {
             call = retrofitApi.getPopularMovies(FIRST_PAGE);
         } else {
             call = retrofitApi.getUpcoming(FIRST_PAGE);
@@ -63,7 +64,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
         RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == RetrofitClient.GENRE.POPULAR) {
+        if (genreType == Genre.POPULAR) {
             call = retrofitApi.getPopularMovies(params.key);
         } else {
             call = retrofitApi.getUpcoming(params.key);
@@ -99,7 +100,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
         RetrofitApi retrofitApi = RetrofitClient.getInstance();
         Call<Api<Movie>> call;
-        if (genreType == RetrofitClient.GENRE.POPULAR) {
+        if (genreType == Genre.POPULAR) {
             call = retrofitApi.getPopularMovies(params.key);
         } else {
             call = retrofitApi.getUpcoming(params.key);

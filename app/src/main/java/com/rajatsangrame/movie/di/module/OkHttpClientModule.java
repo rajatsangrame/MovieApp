@@ -3,7 +3,7 @@ package com.rajatsangrame.movie.di.module;
 import android.content.Context;
 
 import com.rajatsangrame.movie.BuildConfig;
-import com.rajatsangrame.movie.di.scope.ApplicationContext;
+import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 
 import java.io.File;
 import java.io.IOException;

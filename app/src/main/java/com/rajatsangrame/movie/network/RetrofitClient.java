@@ -69,10 +69,6 @@ public class RetrofitClient {
         return sNewsApi;
     }
 
-    public enum GENRE {
-        POPULAR, TOP_RATED, LATEST
-    }
-
     // Make sure this class never initialize
     private RetrofitClient() {
     }

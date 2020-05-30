@@ -7,6 +7,7 @@ import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.model.Movie;
 import com.rajatsangrame.movie.network.RetrofitClient;
+import com.rajatsangrame.movie.util.Genre;
 
 
 /**
@@ -23,8 +24,9 @@ public class MovieViewModel extends ViewModel {
     }
 
     private void init() {
-        MovieDataSourceFactory itemDataSourceFactory = new MovieDataSourceFactory(RetrofitClient.GENRE.POPULAR);
-        MovieDataSourceFactory itemDataSourceFactory2 = new MovieDataSourceFactory(RetrofitClient.GENRE.TOP_RATED);
+        MovieDataSourceFactory itemDataSourceFactory = new MovieDataSourceFactory(Genre.POPULAR);
+        MovieDataSourceFactory itemDataSourceFactory2 = new MovieDataSourceFactory(Genre.TOP_RATED);
+
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)

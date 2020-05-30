@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.module.AppGlideModule;
-import com.rajatsangrame.movie.di.scope.ApplicationContext;
+import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.di.scope.ApplicationScope;
 
 import dagger.Module;

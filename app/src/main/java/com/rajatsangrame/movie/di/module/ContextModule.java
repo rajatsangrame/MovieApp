@@ -2,7 +2,7 @@ package com.rajatsangrame.movie.di.module;
 
 import android.content.Context;
 
-import com.rajatsangrame.movie.di.scope.ApplicationContext;
+import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.di.scope.ApplicationScope;
 
 import dagger.Module;
