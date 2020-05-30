@@ -9,8 +9,8 @@
 - [Paging](https://developer.android.com/topic/libraries/architecture/paging)
 
 
-<img src="img.png" width="40%">
-<img src="img2.png" width="40%">
-<img src="img3.png" width="40%">
+<img src="img.jpg" width="40%">
+<img src="img2.jpg" width="40%">
+<img src="img3.jpg" width="40%">
 
 
