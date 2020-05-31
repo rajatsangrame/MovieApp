@@ -26,9 +26,13 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
     private MoviesAdapterListener mListener;
     private Fragment fragment;
+    boolean isLargeView;
 
-    public MovieAdapter(Fragment fragment) {
+
+    public MovieAdapter(Fragment fragment, boolean isLargeView) {
         super(USER_COMPARATOR);
+        this.fragment = fragment;
+        this.isLargeView = isLargeView;
     }
 
     public void setListener(MoviesAdapterListener listener) {
@@ -38,8 +42,14 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+        View view;
+        if (!isLargeView) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_large, parent, false);
+        }
         return new MovieViewHolder(view);
     }
 
@@ -67,7 +77,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
             assert movie != null;
             final String URL = IMAGE_URL + movie.getPosterPath();
 
-            Glide.with(itemView.getContext())
+            Glide.with(fragment)
                     .load(URL)
                     .into(movieImage);
 
@@ -76,10 +86,13 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
         @Override
         public void onClick(View view) {
 
-            int index = this.getAdapterPosition();
-            Movie movie = getItem(index);
-            mListener.onMovieItemClicked(movie, view);
+            if (mListener != null) {
 
+                int index = this.getAdapterPosition();
+                Movie movie = getItem(index);
+                mListener.onMovieItemClicked(movie, view);
+
+            }
         }
     }
 
