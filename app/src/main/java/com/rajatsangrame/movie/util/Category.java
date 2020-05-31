@@ -5,5 +5,9 @@ package com.rajatsangrame.movie.util;
  * http://github.com/rajatsangrame
  */
 public enum Category {
-    POPULAR, TOP_RATED, LATEST
+    POPULAR,
+    POPULAR_TV,
+    NOW_PLAYING,
+    UPCOMING,
+    TOP_TV
 }

@@ -2,11 +2,6 @@ package com.rajatsangrame.movie.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagedList;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,19 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
-import com.rajatsangrame.movie.util.Helper;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.databinding.ActivityMainBinding;
 import com.rajatsangrame.movie.model.Movie;
-import com.rajatsangrame.movie.paging.MovieAdapterNew;
-import com.rajatsangrame.movie.paging.MovieViewModel;
-import com.rajatsangrame.movie.util.ViewModelFactory;
-
-import javax.inject.Inject;
 
 
-public class MainActivity extends AppCompatActivity implements MovieAdapterNew.MoviesAdapterListener {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.MoviesAdapterListener {
 
     private ActivityMainBinding mBinding;
 

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.example.rajat.movie"
         minSdkVersion 17
@@ -25,8 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -53,8 +54,9 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$rootProject.room_version"
 
     // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.arch_lifecycle_version"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.arch_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_version"
 
     //Gson
     implementation "com.google.code.gson:gson:$rootProject.gson_verison"
@@ -63,6 +65,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
     //Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"

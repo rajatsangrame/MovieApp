@@ -4,8 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class Helper {
+import com.rajatsangrame.movie.model.Api;
+import com.rajatsangrame.movie.model.Movie;
 
+import java.util.List;
+
+public class Utils {
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
@@ -14,4 +18,7 @@ public class Helper {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public static List<Movie> getListResult(Api<Movie> movieApi) {
+        return movieApi.getMovies();
+    }
 }

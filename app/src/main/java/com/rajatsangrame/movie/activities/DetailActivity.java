@@ -52,92 +52,92 @@ public class DetailActivity extends AppCompatActivity {
 
     private void fetchData(int id) {
 
-        mBinding.layoutProgress.progressBar.setVisibility(View.VISIBLE);
-
-        RetrofitApi api = RetrofitClient.getInstance();
-        api.getMovieDetails(id).enqueue(new Callback<MovieDetail>() {
-
-            @SuppressLint("StringFormatMatches")
-            @Override
-            public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
-
-                if (response.body() == null) {
-                    return;
-                }
-
-                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
-                movie = response.body();
-
-                mBinding.layoutDetail.tvDesc.setText(movie.getOverview());
-                Glide.with(DetailActivity.this)
-                        .load(Constants.IMAGE_URL + movie.getPosterPath())
-                        .into(mBinding.imageViewCollapsing);
-
-
-                String genre = getGenreFromList(movie.getGenres());
-                mBinding.layoutDetail.tvGenre.setText(genre);
-
-                String[] date = movie.getReleaseDate().split("-");
-                final String dot = "  •  ";
-                int timeDuration = movie.getRuntime();
-                String yearAndTime = getString(
-                        R.string.movie_year_and_time,
-                        date[0],
-                        dot,
-                        getRunTime(timeDuration)
-                );
-                mBinding.layoutDetail.tvYearDuration.setText(yearAndTime);
-
-                String ratingAndLike = getString(
-                        R.string.movie_rating_and_likes,
-                        movie.getVoteCount(),
-                        "    ",
-                        movie.getVoteAverage()
-                );
-
-                mBinding.layoutDetail.tvPopularity.setText(ratingAndLike);
-
-                List<ProductionCompanies> itemList = movie.getProductionCompanies();
-                if (itemList == null || itemList.isEmpty()) {
-                    return;
-                }
-
-                filterCompaniesList(itemList);
-
-                ProductionCompaniesAdapter adapter = new ProductionCompaniesAdapter(itemList,
-                        DetailActivity.this);
-                mBinding.layoutDetail.rvCompanies.setLayoutManager(
-                        new LinearLayoutManager(DetailActivity.this));
-                mBinding.layoutDetail.rvCompanies.setAdapter(adapter);
-
-                List<SpokenLanguages> languages = movie.getSpokenLanguages();
-
-                if (languages == null || languages.isEmpty()) {
-                    return;
-                }
-
-                filterLanguageList(languages);
-                String lang = getLanguages(languages);
-                mBinding.layoutDetail.tvLanguages.setText(lang);
-
-                if (movie.getHomepage() == null) {
-                    mBinding.layoutDetail.ivLink.setVisibility(View.INVISIBLE);
-
-                }
-
-                if (movie.getImdbId() == null) {
-                    mBinding.layoutDetail.ivImdb.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieDetail> call, Throwable t) {
-
-                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
-                showAlert();
-
-            }
-        });
+//        mBinding.layoutProgress.progressBar.setVisibility(View.VISIBLE);
+//
+//        RetrofitApi api = RetrofitClient.getInstance();
+//        api.getMovieDetails(id).enqueue(new Callback<MovieDetail>() {
+//
+//            @SuppressLint("StringFormatMatches")
+//            @Override
+//            public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
+//
+//                if (response.body() == null) {
+//                    return;
+//                }
+//
+//                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
+//                movie = response.body();
+//
+//                mBinding.layoutDetail.tvDesc.setText(movie.getOverview());
+//                Glide.with(DetailActivity.this)
+//                        .load(Constants.IMAGE_URL + movie.getPosterPath())
+//                        .into(mBinding.imageViewCollapsing);
+//
+//
+//                String genre = getGenreFromList(movie.getGenres());
+//                mBinding.layoutDetail.tvGenre.setText(genre);
+//
+//                String[] date = movie.getReleaseDate().split("-");
+//                final String dot = "  •  ";
+//                int timeDuration = movie.getRuntime();
+//                String yearAndTime = getString(
+//                        R.string.movie_year_and_time,
+//                        date[0],
+//                        dot,
+//                        getRunTime(timeDuration)
+//                );
+//                mBinding.layoutDetail.tvYearDuration.setText(yearAndTime);
+//
+//                String ratingAndLike = getString(
+//                        R.string.movie_rating_and_likes,
+//                        movie.getVoteCount(),
+//                        "    ",
+//                        movie.getVoteAverage()
+//                );
+//
+//                mBinding.layoutDetail.tvPopularity.setText(ratingAndLike);
+//
+//                List<ProductionCompanies> itemList = movie.getProductionCompanies();
+//                if (itemList == null || itemList.isEmpty()) {
+//                    return;
+//                }
+//
+//                filterCompaniesList(itemList);
+//
+//                ProductionCompaniesAdapter adapter = new ProductionCompaniesAdapter(itemList,
+//                        DetailActivity.this);
+//                mBinding.layoutDetail.rvCompanies.setLayoutManager(
+//                        new LinearLayoutManager(DetailActivity.this));
+//                mBinding.layoutDetail.rvCompanies.setAdapter(adapter);
+//
+//                List<SpokenLanguages> languages = movie.getSpokenLanguages();
+//
+//                if (languages == null || languages.isEmpty()) {
+//                    return;
+//                }
+//
+//                filterLanguageList(languages);
+//                String lang = getLanguages(languages);
+//                mBinding.layoutDetail.tvLanguages.setText(lang);
+//
+//                if (movie.getHomepage() == null) {
+//                    mBinding.layoutDetail.ivLink.setVisibility(View.INVISIBLE);
+//
+//                }
+//
+//                if (movie.getImdbId() == null) {
+//                    mBinding.layoutDetail.ivImdb.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MovieDetail> call, Throwable t) {
+//
+//                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
+//                showAlert();
+//
+//            }
+//        });
 
     }
 

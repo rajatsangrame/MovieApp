@@ -6,35 +6,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.model.Movie;
 
-import java.util.List;
 import java.util.Objects;
 
 import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
-import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
-
 
 public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {
 
     private MoviesAdapterListener mListener;
+    private Fragment fragment;
 
-    public MovieAdapter(MoviesAdapterListener listener) {
+    public MovieAdapter(Fragment fragment) {
         super(USER_COMPARATOR);
-        mListener = listener;
+    }
+
+    public void setListener(MoviesAdapterListener listener) {
+        this.mListener = listener;
     }
 
     @NonNull
@@ -53,20 +51,12 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView movieTitle;
-        private TextView movieYear;
-        private TextView movieGenre;
         private ImageView movieImage;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            movieTitle = itemView.findViewById(R.id.tv_movie_title);
-            movieYear = itemView.findViewById(R.id.tv_movie_year);
             movieImage = itemView.findViewById(R.id.iv_movie_image);
-            movieGenre = itemView.findViewById(R.id.tv_movie_genre);
-
-            movieImage.setOnClickListener(this);
             itemView.setOnClickListener(this);
 
         }
@@ -75,30 +65,10 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
         void bind(Movie movie) {
 
             assert movie != null;
-            if (movie.getTitle() != null) {
-                movieTitle.setText(movie.getTitle());
-            }
-
-            String[] date = movie.getReleaseDate().split("-");
-            final String dot = "  •  ";
-            String result = itemView.getContext().getString(
-                    R.string.movie_year,
-                    movie.getVoteAverage(),
-                    dot,
-                    date[0]);
-            movieYear.setText(result);
-            List<Integer> genreList = movie.getGenreIds();
-            String genre = getGenreFromList(genreList);
-            movieGenre.setText(genre);
-
-            final String URL = IMAGE_URL + movie.getBackdropPath();
+            final String URL = IMAGE_URL + movie.getPosterPath();
 
             Glide.with(itemView.getContext())
                     .load(URL)
-                    .apply(new RequestOptions().transforms(new CenterCrop(),
-                            new RoundedCorners(8))
-                            .error(itemView.getContext().getResources()
-                                    .getDrawable(R.color.cardBackground)))
                     .into(movieImage);
 
         }
@@ -111,33 +81,6 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
             mListener.onMovieItemClicked(movie, view);
 
         }
-    }
-
-    private String getGenreFromList(List<Integer> genreList) {
-
-        final String dot = "  •  ";
-        StringBuilder genre = new StringBuilder();
-
-        if (genreList == null) {
-            return genre.toString();
-        }
-
-        if (genreList.size() > 3) {
-
-            genreList.remove(genreList.size() - 1);
-            getGenreFromList(genreList);
-
-        }
-
-        for (int i = 0; i < genreList.size(); i++) {
-
-            genre.append(getGenreFromId(genreList.get(i)));
-            if (i < genreList.size() - 1) {
-                genre.append(dot);
-            }
-        }
-
-        return genre.toString();
     }
 
     private static final DiffUtil.ItemCallback<Movie> USER_COMPARATOR

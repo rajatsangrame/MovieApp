@@ -12,9 +12,6 @@ public class MovieDataSourceFactory extends DataSource.Factory<Long, Movie> {
     private Category category;
     private RetrofitApi retrofitApi;
 
-    private MovieDataSourceFactory() {
-    }
-
     public MovieDataSourceFactory(Category category, RetrofitApi retrofitApi) {
         this.category = category;
         this.retrofitApi = retrofitApi;
@@ -27,5 +24,8 @@ public class MovieDataSourceFactory extends DataSource.Factory<Long, Movie> {
         MovieDataSource movieDataSource = new MovieDataSource(category, retrofitApi);
         movieLiveDataSource.postValue(movieDataSource);
         return movieDataSource;
+    }
+
+    private MovieDataSourceFactory() {
     }
 }

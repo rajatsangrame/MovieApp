@@ -1,8 +1,11 @@
 package com.rajatsangrame.movie.di.module;
 
-import com.rajatsangrame.movie.di.qualifier.LatestList;
+import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
+import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
-import com.rajatsangrame.movie.paging.MovieAdapterNew;
+import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
+import com.rajatsangrame.movie.di.qualifier.UpcomingList;
+import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 
 import dagger.Module;
@@ -23,14 +26,32 @@ public class HomeFragmentModule {
 
     @Provides
     @PopularList
-    public MovieAdapterNew getPopularAdapter() {
-        return new MovieAdapterNew(fragment);
+    public MovieAdapter getPopularAdapter() {
+        return new MovieAdapter(fragment);
     }
 
     @Provides
-    @LatestList
-    public MovieAdapterNew getLatestAdapter() {
-        return new MovieAdapterNew(fragment);
+    @PopularTvList
+    public MovieAdapter getPopularTvAdapter() {
+        return new MovieAdapter(fragment);
+    }
+
+    @Provides
+    @NowPlayingList
+    public MovieAdapter getNowPlaying() {
+        return new MovieAdapter(fragment);
+    }
+
+    @Provides
+    @UpcomingList
+    public MovieAdapter getUpcomingMovie() {
+        return new MovieAdapter(fragment);
+    }
+
+    @Provides
+    @TopTvShowsList
+    public MovieAdapter getTopTvShows() {
+        return new MovieAdapter(fragment);
     }
 
 }
