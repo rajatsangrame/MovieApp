@@ -2,10 +2,9 @@ package com.rajatsangrame.movie.ui.search;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.paging.PagedList;
 
-import com.rajatsangrame.movie.data.model.Movie;
-import com.rajatsangrame.movie.data.rest.RetrofitApi;
+import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
 
 import java.util.List;
@@ -29,7 +28,11 @@ public class SearchViewModel extends ViewModel {
     private void init() {
     }
 
-    public LiveData<List<Movie>> getListLiveData(String query) {
-        return restaurantRepository.getSearchLiveData(query);
+    public void fetchQuery(String query) {
+        restaurantRepository.fetchQuery(query);
+    }
+
+    public LiveData<List<SearchResult>> getQueryLiveData() {
+        return restaurantRepository.getSearchLiveData();
     }
 }

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
 import com.rajatsangrame.movie.data.model.Api;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Category;
 import com.rajatsangrame.movie.util.Utils;

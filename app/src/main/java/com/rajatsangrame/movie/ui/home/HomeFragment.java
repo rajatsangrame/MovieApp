@@ -26,7 +26,7 @@ import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
 import com.rajatsangrame.movie.di.qualifier.UpcomingList;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 

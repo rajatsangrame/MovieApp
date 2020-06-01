@@ -7,7 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 
 import com.rajatsangrame.movie.data.model.Api;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Utils;
@@ -30,28 +31,32 @@ public class RestaurantRepository {
 
     private static final String TAG = "RestaurantRepository";
     RetrofitApi retrofitApi;
-    MutableLiveData<List<Movie>> moviesLiveData;
+    MutableLiveData<List<SearchResult>> moviesLiveData;
 
     public RestaurantRepository(@ApplicationContext Context context, RetrofitApi retrofitApi) {
         this.retrofitApi = retrofitApi;
         moviesLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<Movie>> getSearchLiveData(String query) {
+    public MutableLiveData<List<SearchResult>> getSearchLiveData() {
+        return moviesLiveData;
+    }
 
-        Single<Api<Movie>> single = retrofitApi.search(query);
+    public void fetchQuery(String query) {
+
+        Single<Api<SearchResult>> single = retrofitApi.search(query);
         single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<Movie>, List<Movie>>() {
+                .map(new Function<Api<SearchResult>, List<SearchResult>>() {
                     @Override
-                    public List<Movie> apply(Api<Movie> movieApi) throws Exception {
-                        return Utils.getListResult(movieApi);
+                    public List<SearchResult> apply(Api<SearchResult> movieApi) throws Exception {
+                        return Utils.getSearchResult(movieApi);
                     }
                 })
-                .subscribe(new Consumer<List<Movie>>() {
+                .subscribe(new Consumer<List<SearchResult>>() {
                     @Override
-                    public void accept(List<Movie> movies) throws Exception {
-                        moviesLiveData.postValue(movies);
+                    public void accept(List<SearchResult> movies) throws Exception {
+                        moviesLiveData.setValue(movies);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -59,6 +64,5 @@ public class RestaurantRepository {
                         Log.i(TAG, "accept: ");
                     }
                 });
-        return moviesLiveData;
     }
 }

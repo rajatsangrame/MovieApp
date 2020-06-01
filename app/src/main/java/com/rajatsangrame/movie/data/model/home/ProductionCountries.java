@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.data.model;
+package com.rajatsangrame.movie.data.model.home;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,16 +10,8 @@ public class ProductionCountries {
 	@SerializedName("name")
 	private String name;
 
-	public void setIso31661(String iso31661){
-		this.iso31661 = iso31661;
-	}
-
 	public String getIso31661(){
 		return iso31661;
-	}
-
-	public void setName(String name){
-		this.name = name;
 	}
 
 	public String getName(){

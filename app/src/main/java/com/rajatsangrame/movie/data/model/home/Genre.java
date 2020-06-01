@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.data.model;
+package com.rajatsangrame.movie.data.model.home;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,16 +10,8 @@ public class Genre {
 	@SerializedName("id")
 	private int id;
 
-	public void setName(String name){
-		this.name = name;
-	}
-
 	public String getName(){
 		return name;
-	}
-
-	public void setId(int id){
-		this.id = id;
 	}
 
 	public int getId(){

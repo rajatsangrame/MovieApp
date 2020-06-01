@@ -1,10 +1,10 @@
 package com.rajatsangrame.movie.data.rest;
 
 import com.rajatsangrame.movie.data.model.Api;
-import com.rajatsangrame.movie.data.model.Movie;
-import com.rajatsangrame.movie.data.model.MovieDetail;
+import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.home.MovieDetail;
+import com.rajatsangrame.movie.data.model.search.SearchResult;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -43,7 +43,7 @@ public interface RetrofitApi {
     @GET("/3/tv/{tv_id}")
     Single<Api<Movie>> getSimilarTv(@Path("id") int id);
 
-    @GET("/search/multi")
-    Single<Api<Movie>> search(@Query("query") String query);
+    @GET("/3/search/multi")
+    Single<Api<SearchResult>> search(@Query("query") String query);
 
 }

@@ -12,10 +12,10 @@ import android.view.View;
 
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
-import com.rajatsangrame.movie.data.model.Genre;
-import com.rajatsangrame.movie.data.model.MovieDetail;
-import com.rajatsangrame.movie.data.model.ProductionCompanies;
-import com.rajatsangrame.movie.data.model.SpokenLanguages;
+import com.rajatsangrame.movie.data.model.home.Genre;
+import com.rajatsangrame.movie.data.model.home.MovieDetail;
+import com.rajatsangrame.movie.data.model.home.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.home.SpokenLanguages;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.rajatsangrame.movie.di.module;
 
+import com.rajatsangrame.movie.adapter.SearchAdapter;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.search.SearchFragment;
@@ -22,8 +23,8 @@ public class SearchFragmentModule {
 
     @Provides
     @MainActivityScope
-    public MovieAdapter getSearchAdapter() {
-        return new MovieAdapter(fragment, false);
+    public SearchAdapter getSearchAdapter() {
+        return new SearchAdapter(fragment);
     }
 
 }

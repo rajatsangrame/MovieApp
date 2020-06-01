@@ -1,6 +1,7 @@
 package com.rajatsangrame.movie.ui.search;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,19 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.adapter.SearchAdapter;
+import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentSearchBinding;
 import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
 import com.rajatsangrame.movie.di.component.SearchFragmentComponent;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
 import com.rajatsangrame.movie.di.module.SearchFragmentModule;
-import com.rajatsangrame.movie.paging.MovieAdapter;
+import com.rajatsangrame.movie.util.Utils;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
@@ -31,10 +33,10 @@ import javax.inject.Inject;
 
 public class SearchFragment extends Fragment {
 
-    public static final String TAG = "HomeFragment";
+    public static final String TAG = "SearchFragment";
 
     @Inject
-    MovieAdapter searchAdapter;
+    SearchAdapter searchAdapter;
 
     @Inject
     RestaurantRepository restaurantRepository;
@@ -80,12 +82,25 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SearchViewModel searchViewModel = new ViewModelProvider(this, factory).get(SearchViewModel.class);
 
+        binding.etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    String query = binding.etSearch.getText().toString();
+                    searchViewModel.fetchQuery(query);
+                    return true;
+                }
+                return false;
+            }
+        });
         binding.rvSearch.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvSearch.setAdapter(searchAdapter);
-        searchViewModel.getListLiveData("big bang theory").observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+        searchViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<List<SearchResult>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(List<SearchResult> movies) {
 
+                List<SearchResult> newLIst = Utils.prepareListForSearchAdapter(movies);
+                searchAdapter.setMovieList(newLIst);
             }
         });
     }

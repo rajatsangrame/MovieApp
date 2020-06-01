@@ -3,7 +3,7 @@ package com.rajatsangrame.movie.paging;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Category;
 

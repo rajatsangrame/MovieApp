@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.util.Constants;
 
 import java.util.Objects;
 
@@ -26,7 +27,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
     private MoviesAdapterListener listener;
     private Fragment fragment;
-    boolean isLargeView;
+    private boolean isLargeView;
 
 
     public MovieAdapter(Fragment fragment, boolean isLargeView) {
@@ -43,12 +44,12 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (!isLargeView) {
+        if (viewType != Constants.NOW_PLAYING) { // Latest Movies
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
+                    .inflate(R.layout.home_list_item, parent, false);
         } else {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_large, parent, false);
+                    .inflate(R.layout.home_list_item_large, parent, false);
         }
         return new MovieViewHolder(view);
     }
@@ -57,6 +58,14 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         holder.bind(Objects.requireNonNull(getItem(position)));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (isLargeView) {
+            return Constants.NOW_PLAYING;
+        }
+        return super.getItemViewType(position);
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -83,6 +92,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
                     .into(movieImage);
 
         }
+
 
         @Override
         public void onClick(View view) {

@@ -6,7 +6,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.paging.MovieDataSource;
 import com.rajatsangrame.movie.paging.MovieDataSourceFactory;
