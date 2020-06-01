@@ -1,10 +1,8 @@
-package com.rajatsangrame.movie.activities;
+package com.rajatsangrame.movie.ui.detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,23 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.rajatsangrame.movie.util.Constants;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.adapters.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
-import com.rajatsangrame.movie.model.GenresItem;
-import com.rajatsangrame.movie.model.MovieDetail;
-import com.rajatsangrame.movie.model.ProductionCompanies;
-import com.rajatsangrame.movie.model.SpokenLanguages;
-import com.rajatsangrame.movie.network.RetrofitApi;
-import com.rajatsangrame.movie.network.RetrofitClient;
+import com.rajatsangrame.movie.data.model.GenresItem;
+import com.rajatsangrame.movie.data.model.MovieDetail;
+import com.rajatsangrame.movie.data.model.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.SpokenLanguages;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class DetailActivity extends AppCompatActivity {

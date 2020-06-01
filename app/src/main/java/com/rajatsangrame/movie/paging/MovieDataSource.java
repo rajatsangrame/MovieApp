@@ -3,31 +3,26 @@ package com.rajatsangrame.movie.paging;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
-import com.rajatsangrame.movie.model.Api;
-import com.rajatsangrame.movie.model.Movie;
-import com.rajatsangrame.movie.network.RetrofitApi;
-import com.rajatsangrame.movie.network.RetrofitClient;
+import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Category;
 import com.rajatsangrame.movie.util.Utils;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
+import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
+    private static final String TAG = "MovieDataSource";
     public final static int PAGE_SIZE = 10;
     public final static long FIRST_PAGE = 1;
     private Category category;
@@ -45,6 +40,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
+        Observable<Api<Movie>> apiObservable = retrofitApi.getLavda(FIRST_PAGE);
         Single<Api<Movie>> single = getSingle(retrofitApi, category, FIRST_PAGE);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,14 +55,17 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
                     public void accept(List<Movie> movies) throws Exception {
                         callback.onResult(movies, null, FIRST_PAGE + 1);
                     }
-                }));
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
+                    }
+                }));
     }
 
     @Override
     public void loadBefore(@NonNull final LoadParams<Long> params,
                            @NonNull final LoadCallback<Long, Movie> callback) {
-
         Single<Api<Movie>> single = getSingle(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,6 +85,11 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
                             key = 0;
                         }
                         callback.onResult(movies, key);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                     }
                 }));
     }
@@ -108,8 +112,12 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
                     public void accept(List<Movie> movies) throws Exception {
                         callback.onResult(movies, params.key + 1);
                     }
-                }));
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
+                    }
+                }));
     }
 
     private Single<Api<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
@@ -125,6 +133,12 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
             default:
                 // POPULAR
                 return retrofitApi.getPopularMovies(key);
+        }
+    }
+
+    public void clear() {
+        if (compositeDisposable != null) {
+            compositeDisposable.clear();
         }
     }
 }

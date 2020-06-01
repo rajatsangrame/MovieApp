@@ -1,10 +1,8 @@
 package com.rajatsangrame.movie.di.module;
 
-import com.rajatsangrame.movie.activities.MainActivity;
-import com.rajatsangrame.movie.di.scope.MainActivityScope;
+import com.rajatsangrame.movie.ui.main.MainActivity;
 
 import dagger.Module;
-import dagger.Provides;
 
 /**
  * Created by Rajat Sangrame on 9/5/20.

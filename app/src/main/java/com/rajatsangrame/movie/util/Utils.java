@@ -4,8 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.rajatsangrame.movie.model.Api;
-import com.rajatsangrame.movie.model.Movie;
+import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.Movie;
 
 import java.util.List;
 

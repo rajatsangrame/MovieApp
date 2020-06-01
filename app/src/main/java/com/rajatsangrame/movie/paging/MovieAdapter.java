@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.model.Movie;
+import com.rajatsangrame.movie.data.model.Movie;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
 
 public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {
 
-    private MoviesAdapterListener mListener;
+    private MoviesAdapterListener listener;
     private Fragment fragment;
     boolean isLargeView;
 
@@ -36,7 +36,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     }
 
     public void setListener(MoviesAdapterListener listener) {
-        this.mListener = listener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -79,6 +79,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
             Glide.with(fragment)
                     .load(URL)
+                    .placeholder(R.color.cardBackground)
                     .into(movieImage);
 
         }
@@ -86,11 +87,11 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
         @Override
         public void onClick(View view) {
 
-            if (mListener != null) {
+            if (listener != null) {
 
                 int index = this.getAdapterPosition();
                 Movie movie = getItem(index);
-                mListener.onMovieItemClicked(movie, view);
+                listener.onMovieItemClicked(movie, view);
 
             }
         }

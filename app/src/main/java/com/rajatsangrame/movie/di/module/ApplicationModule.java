@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.di.scope.ApplicationScope;
-import com.rajatsangrame.movie.network.RetrofitApi;
+import com.rajatsangrame.movie.data.rest.RetrofitApi;
 
 import dagger.Module;
 import dagger.Provides;

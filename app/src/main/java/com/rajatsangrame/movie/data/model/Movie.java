@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.model;
+package com.rajatsangrame.movie.data.model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

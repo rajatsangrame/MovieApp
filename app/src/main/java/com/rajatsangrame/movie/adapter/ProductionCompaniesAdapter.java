@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.adapters;
+package com.rajatsangrame.movie.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.model.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.ProductionCompanies;
 
 import java.util.List;
 

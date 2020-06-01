@@ -1,7 +1,7 @@
 package com.rajatsangrame.movie.di.component;
 
 
-import com.rajatsangrame.movie.activities.MainActivity;
+import com.rajatsangrame.movie.ui.main.MainActivity;
 import com.rajatsangrame.movie.di.module.MainActivityModule;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
 

@@ -52,7 +52,6 @@ public class OkHttpClientModule {
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
                 HttpUrl originalHttpUrl = original.url();
-
                 HttpUrl url = originalHttpUrl.newBuilder()
                         .addQueryParameter("api_key", BuildConfig.MovieApiKey)
                         .build();

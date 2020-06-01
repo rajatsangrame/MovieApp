@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 
 import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
-import com.rajatsangrame.movie.network.RetrofitApi;
+import com.rajatsangrame.movie.data.rest.RetrofitApi;
 
 import java.util.List;
 

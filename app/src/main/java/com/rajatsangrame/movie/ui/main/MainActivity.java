@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.activities;
+package com.rajatsangrame.movie.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,11 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import com.rajatsangrame.movie.ui.detail.DetailActivity;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.databinding.ActivityMainBinding;
-import com.rajatsangrame.movie.model.Movie;
+import com.rajatsangrame.movie.data.model.Movie;
 
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MoviesAdapterListener {
