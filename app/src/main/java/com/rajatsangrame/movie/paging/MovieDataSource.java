@@ -11,7 +11,6 @@ import com.rajatsangrame.movie.util.Utils;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -40,7 +39,6 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
-        Observable<Api<Movie>> apiObservable = retrofitApi.getLavda(FIRST_PAGE);
         Single<Api<Movie>> single = getSingle(retrofitApi, category, FIRST_PAGE);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

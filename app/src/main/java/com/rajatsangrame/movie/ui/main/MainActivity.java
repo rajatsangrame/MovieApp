@@ -1,113 +1,84 @@
 package com.rajatsangrame.movie.ui.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 
-
-import com.rajatsangrame.movie.ui.detail.DetailActivity;
-import com.rajatsangrame.movie.paging.MovieAdapter;
-import com.rajatsangrame.movie.ui.home.HomeFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.adapter.ViewPagerAdapter;
 import com.rajatsangrame.movie.databinding.ActivityMainBinding;
-import com.rajatsangrame.movie.data.model.Movie;
+import com.rajatsangrame.movie.di.component.DaggerMainActivityComponent;
+import com.rajatsangrame.movie.di.component.MainActivityComponent;
+import com.rajatsangrame.movie.di.module.MainActivityModule;
 
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.MoviesAdapterListener {
+import javax.inject.Inject;
 
-    private ActivityMainBinding mBinding;
+public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+    private int currentFragment;
+
+    @Inject
+    List<Fragment> fragmentList;
+
+    @Inject
+    ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        addHomeFragment();
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        getDependency();
+        init();
     }
 
-    private void addHomeFragment() {
-        if (getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG) == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container_fragment, HomeFragment.newInstance(), HomeFragment.TAG)
-                    .commit();
+    private void getDependency() {
+
+        MainActivityComponent component = DaggerMainActivityComponent
+                .builder()
+                .applicationComponent(App.get(this).getComponent())
+                .mainActivityModule(new MainActivityModule(this))
+                .build();
+        component.injectMainActivity(this);
+    }
+
+    private void init() {
+
+        binding.navigation.setOnNavigationItemSelectedListener(navigationListener);
+        binding.viewPager.setOffscreenPageLimit(2);
+        binding.viewPager.setAdapter(adapter);
+    }
+
+    private final BottomNavigationView.OnNavigationItemSelectedListener navigationListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+            if (currentFragment == menuItem.getItemId()) {
+                return false;
+            }
+            currentFragment = menuItem.getItemId();
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_home:
+                    binding.viewPager.setCurrentItem(0, false);
+                    return true;
+                case R.id.navigation_search:
+                    binding.viewPager.setCurrentItem(1, false);
+                    return true;
+                case R.id.navigation_saved:
+                    binding.viewPager.setCurrentItem(2, false);
+                    return true;
+            }
+            return false;
         }
-    }
-
-    void loadData() {
-
-//        if (!Helper.isNetworkAvailable(this)) {
-//            mBinding.mainLayout.layoutProgress.progressBar.setVisibility(View.GONE);
-//            showAlert();
-//            return;
-//        }
-//
-//        final MovieAdapterNew adapter = new MovieAdapterNew(this);
-//        final MovieAdapterNew adapter2 = new MovieAdapterNew(this);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
-//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-//        layoutManager2.setOrientation(RecyclerView.HORIZONTAL);
-//        mBinding.mainLayout.recyclerView.setLayoutManager(layoutManager);
-//        mBinding.mainLayout.recyclerView2.setLayoutManager(layoutManager2);
-//        MovieViewModel itemViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-//
-//        itemViewModel.userPagedList.observe(this, new Observer<PagedList<Movie>>() {
-//            @Override
-//            public void onChanged(PagedList<Movie> users) {
-//                adapter.submitList(users);
-//
-//            }
-//        });
-//        itemViewModel.userPagedList2.observe(this, new Observer<PagedList<Movie>>() {
-//            @Override
-//            public void onChanged(PagedList<Movie> users) {
-//                adapter2.submitList(users);
-//
-//            }
-//        });
-//        mBinding.mainLayout.recyclerView.setAdapter(adapter);
-//        mBinding.mainLayout.recyclerView2.setAdapter(adapter2);
-//        mBinding.mainLayout.layoutProgress.progressBar.setVisibility(View.GONE);
-
-    }
-
-    private void showAlert() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false)
-                .setMessage("No Internet Connection.")
-                .setTitle("Alert")
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        loadData();
-                    }
-                });
-        builder.show();
-    }
-
-    @Override
-    public void onMovieItemClicked(Movie movie, View view) {
-
-        Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("id", movie.getId());
-        intent.putExtra("title", movie.getTitle());
-        startActivity(intent);
-    }
-
+    };
 }
 

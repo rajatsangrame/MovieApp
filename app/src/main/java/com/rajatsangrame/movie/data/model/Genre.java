@@ -2,7 +2,7 @@ package com.rajatsangrame.movie.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GenresItem{
+public class Genre {
 
 	@SerializedName("name")
 	private String name;

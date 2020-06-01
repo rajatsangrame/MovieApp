@@ -18,11 +18,11 @@ import javax.inject.Inject;
 public class HomeViewModel extends ViewModel {
 
     private RestaurantRepository restaurantRepository;
-    public LiveData<PagedList<Movie>> pagedListPopular;
-    public LiveData<PagedList<Movie>> pagedListPopularTv;
-    public LiveData<PagedList<Movie>> pagedListNowPlaying;
-    public LiveData<PagedList<Movie>> pagedListUpcoming;
-    public LiveData<PagedList<Movie>> pagedListTopTv;
+    private LiveData<PagedList<Movie>> pagedListPopular;
+    private LiveData<PagedList<Movie>> pagedListPopularTv;
+    private LiveData<PagedList<Movie>> pagedListNowPlaying;
+    private LiveData<PagedList<Movie>> pagedListUpcoming;
+    private LiveData<PagedList<Movie>> pagedListTopTv;
     private MovieDataSourceFactory popularMovieSource;
     private MovieDataSourceFactory popularTvSource;
     private MovieDataSourceFactory nowPlayingSource;
@@ -62,5 +62,25 @@ public class HomeViewModel extends ViewModel {
         nowPlayingSource.clear();
         upComingSource.clear();
         topTvSource.clear();
+    }
+
+    public LiveData<PagedList<Movie>> getPagedListPopular() {
+        return pagedListPopular;
+    }
+
+    public LiveData<PagedList<Movie>> getPagedListPopularTv() {
+        return pagedListPopularTv;
+    }
+
+    public LiveData<PagedList<Movie>> getPagedListNowPlaying() {
+        return pagedListNowPlaying;
+    }
+
+    public LiveData<PagedList<Movie>> getPagedListUpcoming() {
+        return pagedListUpcoming;
+    }
+
+    public LiveData<PagedList<Movie>> getPagedListTopTv() {
+        return pagedListTopTv;
     }
 }

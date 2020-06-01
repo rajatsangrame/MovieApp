@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
-import com.rajatsangrame.movie.data.model.GenresItem;
+import com.rajatsangrame.movie.data.model.Genre;
 import com.rajatsangrame.movie.data.model.MovieDetail;
 import com.rajatsangrame.movie.data.model.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.SpokenLanguages;
@@ -200,7 +200,7 @@ public class DetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private String getGenreFromList(List<GenresItem> genreList) {
+    private String getGenreFromList(List<Genre> genreList) {
 
         final String dot = "  •  ";
         StringBuilder genre = new StringBuilder();

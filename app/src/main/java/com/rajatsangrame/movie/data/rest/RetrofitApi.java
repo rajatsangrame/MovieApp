@@ -34,10 +34,16 @@ public interface RetrofitApi {
     @GET("/3/movie/{id}")
     Single<MovieDetail> getMovieDetails(@Path("id") int id);
 
+    @GET("/3/movie/{id}/similar")
+    Single<Api<Movie>> getSimilarMovies(@Path("id") int id);
+
     @GET("/3/tv/{tv_id}")
     Single<MovieDetail> getTvDetails(@Path("id") int id);
 
-    @GET("/3/movie/upcoming")
-    Observable<Api<Movie>> getLavda(@Query("page") long page);
+    @GET("/3/tv/{tv_id}")
+    Single<Api<Movie>> getSimilarTv(@Path("id") int id);
+
+    @GET("/search/multi")
+    Single<Api<Movie>> search(@Query("query") String query);
 
 }

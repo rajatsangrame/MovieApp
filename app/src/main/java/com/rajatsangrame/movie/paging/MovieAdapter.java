@@ -87,13 +87,12 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
         @Override
         public void onClick(View view) {
 
-            if (listener != null) {
-
-                int index = this.getAdapterPosition();
-                Movie movie = getItem(index);
-                listener.onMovieItemClicked(movie, view);
-
+            if (listener == null) {
+                return;
             }
+            Movie movie = getItem(getAdapterPosition());
+            listener.onMovieItemClicked(movie, view);
+
         }
     }
 

@@ -24,7 +24,7 @@ public class MovieDetail{
 	private int revenue;
 
 	@SerializedName("genres")
-	private List<GenresItem> genres;
+	private List<Genre> genres;
 
 	@SerializedName("popularity")
 	private double popularity;
@@ -128,11 +128,11 @@ public class MovieDetail{
 		return revenue;
 	}
 
-	public void setGenres(List<GenresItem> genres){
+	public void setGenres(List<Genre> genres){
 		this.genres = genres;
 	}
 
-	public List<GenresItem> getGenres(){
+	public List<Genre> getGenres(){
 		return genres;
 	}
 

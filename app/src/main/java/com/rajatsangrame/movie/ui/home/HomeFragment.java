@@ -88,7 +88,8 @@ public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_home, container, false);
         return binding.getRoot();
@@ -104,7 +105,7 @@ public class HomeFragment extends Fragment {
         binding.rvPopularMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularMovie.setAdapter(popularMovieAdapter);
-        homeViewModel.pagedListPopular.observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListPopular().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 popularMovieAdapter.submitList(movies);
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment {
         binding.rvPopularTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularTv.setAdapter(popularTvAdapter);
-        homeViewModel.pagedListPopularTv.observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 popularTvAdapter.submitList(movies);
@@ -126,7 +127,7 @@ public class HomeFragment extends Fragment {
         binding.rvNowPlayingMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvNowPlayingMovie.setAdapter(nowPlayingAdapter);
-        homeViewModel.pagedListNowPlaying.observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListNowPlaying().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 nowPlayingAdapter.submitList(movies);
@@ -137,7 +138,7 @@ public class HomeFragment extends Fragment {
         binding.rvUpcomingMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvUpcomingMovie.setAdapter(upcomingAdapter);
-        homeViewModel.pagedListUpcoming.observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListUpcoming().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 upcomingAdapter.submitList(movies);
@@ -148,13 +149,11 @@ public class HomeFragment extends Fragment {
         binding.rvTopTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopTv.setAdapter(topTvShowAdapter);
-        homeViewModel.pagedListTopTv.observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 topTvShowAdapter.submitList(movies);
             }
         });
-
-
     }
 }
