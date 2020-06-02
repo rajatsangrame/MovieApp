@@ -13,6 +13,8 @@ import java.util.List;
 
 public class Utils {
 
+    private static final String TAG = "Utils";
+
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -20,45 +22,39 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static List<SearchResult> getSearchResult(Api<SearchResult> movieApi) {
-        return movieApi.getResults();
+    public static List<Movie> getListResult(Api<Movie> apiResponse) {
+        return apiResponse.getResults();
     }
 
-    public static List<Movie> getListResult(Api<Movie> movieApi) {
-        return movieApi.getResults();
-    }
+    public static List<SearchResult> prepareListForSearchAdapter(Api<SearchResult> apiResponse) {
 
-    public static List<SearchResult> prepareListForSearchAdapter(List<SearchResult> movieList) {
+        List<SearchResult> outputResult = new ArrayList<>();
 
-        List<String> movieType = new ArrayList<>();
+        if (apiResponse == null || apiResponse.getResults() == null) {
+            return outputResult;
+        }
+        List<SearchResult> apiSearchList = apiResponse.getResults();
+        List<String> itemType = new ArrayList<>();
 
-        for (SearchResult movie : movieList) {
+        for (SearchResult movie : apiSearchList) {
             String type = movie.getMediaType();
-            if (!movieType.contains(type)) {
-                movieType.add(type);
+            if (!itemType.contains(type)) {
+                itemType.add(type);
             }
         }
 
-        List<SearchResult> searchMovies = new ArrayList<>();
-
-        for (String type : movieType) {
+        for (String type : itemType) {
             SearchResult dummy = new SearchResult();
-            if (type.equals("movie")) {
-                dummy.setMediaTypeInt(Constants.MOVIE);
-            } else if (type.equals("tv")) {
-                dummy.setMediaTypeInt(Constants.TV);
-            } else {
-                dummy.setMediaTypeInt(-1);
-            }
-            searchMovies.add(dummy);
-
-            for (SearchResult itr : movieList) {
-
+            dummy.setItemType(Constants.HEADER);
+            dummy.setMediaType(type);
+            outputResult.add(dummy);
+            for (SearchResult itr : apiSearchList) {
+                itr.setItemType(Constants.ITEM);
                 if (itr.getMediaType().equals(type)) {
-                    searchMovies.add(itr);
+                    outputResult.add(itr);
                 }
             }
         }
-        return searchMovies;
+        return outputResult;
     }
 }

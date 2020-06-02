@@ -17,14 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.SearchAdapter;
-import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentSearchBinding;
 import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
 import com.rajatsangrame.movie.di.component.SearchFragmentComponent;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
 import com.rajatsangrame.movie.di.module.SearchFragmentModule;
-import com.rajatsangrame.movie.util.Utils;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
@@ -97,10 +95,8 @@ public class SearchFragment extends Fragment {
         binding.rvSearch.setAdapter(searchAdapter);
         searchViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<List<SearchResult>>() {
             @Override
-            public void onChanged(List<SearchResult> movies) {
-
-                List<SearchResult> newLIst = Utils.prepareListForSearchAdapter(movies);
-                searchAdapter.setMovieList(newLIst);
+            public void onChanged(List<SearchResult> searchResults) {
+                searchAdapter.setMovieList(searchResults);
             }
         });
     }

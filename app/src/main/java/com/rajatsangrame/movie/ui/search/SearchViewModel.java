@@ -3,7 +3,6 @@ package com.rajatsangrame.movie.ui.search;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
 

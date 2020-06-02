@@ -139,6 +139,7 @@ public class SearchResult {
 
 
     // ***************** Person ******************
+
     @SerializedName("gender")
     private int gender;
 
@@ -155,7 +156,6 @@ public class SearchResult {
         return gender;
     }
 
-
     public String getKnownForDepartment() {
         return knownForDepartment;
     }
@@ -163,7 +163,6 @@ public class SearchResult {
     public List<KnownForItem> getKnownFor() {
         return knownFor;
     }
-
 
     public String getName() {
         return name;
@@ -173,14 +172,17 @@ public class SearchResult {
         return profilePath;
     }
 
+    private int itemType;
 
-    private int mediaTypeInt;
-
-    public int getMediaTypeInt() {
-        return mediaTypeInt;
+    public int getItemType() {
+        return itemType;
     }
 
-    public void setMediaTypeInt(int mediaTypeInt) {
-        this.mediaTypeInt = mediaTypeInt;
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 }

@@ -6,8 +6,8 @@ import java.util.Hashtable;
 public class Constants {
 
     public static final int NOW_PLAYING = 2;
-    public static final int MOVIE = 0;
-    public static final int TV = 1;
+    public static final int HEADER = 1;
+    public static final int ITEM = 0;
 
     public final static String IMAGE_URL = "https://image.tmdb.org/t/p/w185";
     private static Hashtable<Integer, String> hashtable;
