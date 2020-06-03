@@ -25,8 +25,8 @@ public interface RetrofitApi {
     @GET("/3/movie/now_playing")
     Single<Api<Movie>> getNowPlaying(@Query("page") long page);
 
-    @GET("/3/movie/upcoming")
-    Single<Api<Movie>> getUpcoming(@Query("page") long page);
+    @GET("/3/movie/top_rated")
+    Single<Api<Movie>> getTopRatedMovie(@Query("page") long page);
 
     @GET("/3/tv/top_rated")
     Single<Api<Movie>> getTopRatedTv(@Query("page") long page);

@@ -25,7 +25,7 @@ import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
 import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
-import com.rajatsangrame.movie.di.qualifier.UpcomingList;
+import com.rajatsangrame.movie.di.qualifier.TopMovieList;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.util.ViewModelFactory;
@@ -49,12 +49,12 @@ public class HomeFragment extends Fragment {
     MovieAdapter nowPlayingAdapter;
 
     @Inject
-    @UpcomingList
-    MovieAdapter upcomingAdapter;
-
-    @Inject
     @TopTvShowsList
     MovieAdapter topTvShowAdapter;
+
+    @Inject
+    @TopMovieList
+    MovieAdapter topRatedMovieAdapter;
 
     @Inject
     RestaurantRepository restaurantRepository;
@@ -134,17 +134,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //Upcoming
-        binding.rvUpcomingMovie.setLayoutManager(new LinearLayoutManager(
-                view.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        binding.rvUpcomingMovie.setAdapter(upcomingAdapter);
-        homeViewModel.getPagedListUpcoming().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
-            @Override
-            public void onChanged(PagedList<Movie> movies) {
-                upcomingAdapter.submitList(movies);
-            }
-        });
-
         //Top Tv Shows
         binding.rvTopTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -153,6 +142,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(PagedList<Movie> movies) {
                 topTvShowAdapter.submitList(movies);
+            }
+        });
+
+        //Top Rated Movies
+        binding.rvTopratedMovie.setLayoutManager(new LinearLayoutManager(
+                view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvTopratedMovie.setAdapter(topRatedMovieAdapter);
+        homeViewModel.getPagedListTopRatedMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+            @Override
+            public void onChanged(PagedList<Movie> movies) {
+                topRatedMovieAdapter.submitList(movies);
             }
         });
     }

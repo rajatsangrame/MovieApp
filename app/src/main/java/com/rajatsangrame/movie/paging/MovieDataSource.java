@@ -124,8 +124,8 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
                 return retrofitApi.getPopularTv(key);
             case NOW_PLAYING:
                 return retrofitApi.getNowPlaying(key);
-            case UPCOMING:
-                return retrofitApi.getUpcoming(key);
+            case TOP_RATED_MOVIE:
+                return retrofitApi.getTopRatedMovie(key);
             case TOP_TV:
                 return retrofitApi.getTopRatedTv(key);
             default:

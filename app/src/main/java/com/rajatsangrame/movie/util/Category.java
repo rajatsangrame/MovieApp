@@ -8,6 +8,6 @@ public enum Category {
     POPULAR,
     POPULAR_TV,
     NOW_PLAYING,
-    UPCOMING,
+    TOP_RATED_MOVIE,
     TOP_TV
 }

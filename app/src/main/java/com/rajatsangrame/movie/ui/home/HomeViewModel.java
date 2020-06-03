@@ -21,13 +21,13 @@ public class HomeViewModel extends ViewModel {
     private LiveData<PagedList<Movie>> pagedListPopular;
     private LiveData<PagedList<Movie>> pagedListPopularTv;
     private LiveData<PagedList<Movie>> pagedListNowPlaying;
-    private LiveData<PagedList<Movie>> pagedListUpcoming;
     private LiveData<PagedList<Movie>> pagedListTopTv;
+    private LiveData<PagedList<Movie>> pagedListTopRatedMovie;
     private MovieDataSourceFactory popularMovieSource;
     private MovieDataSourceFactory popularTvSource;
     private MovieDataSourceFactory nowPlayingSource;
-    private MovieDataSourceFactory upComingSource;
     private MovieDataSourceFactory topTvSource;
+    private MovieDataSourceFactory topRatedMovieSource;
     private RetrofitApi retrofitApi;
 
     @Inject
@@ -41,8 +41,8 @@ public class HomeViewModel extends ViewModel {
         popularMovieSource = new MovieDataSourceFactory(Category.POPULAR, retrofitApi);
         popularTvSource = new MovieDataSourceFactory(Category.POPULAR_TV, retrofitApi);
         nowPlayingSource = new MovieDataSourceFactory(Category.NOW_PLAYING, retrofitApi);
-        upComingSource = new MovieDataSourceFactory(Category.UPCOMING, retrofitApi);
         topTvSource = new MovieDataSourceFactory(Category.TOP_TV, retrofitApi);
+        topRatedMovieSource = new MovieDataSourceFactory(Category.TOP_RATED_MOVIE, retrofitApi);
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
@@ -50,8 +50,8 @@ public class HomeViewModel extends ViewModel {
         pagedListPopular = new LivePagedListBuilder<>(popularMovieSource, config).build();
         pagedListPopularTv = new LivePagedListBuilder<>(popularTvSource, config).build();
         pagedListNowPlaying = new LivePagedListBuilder<>(nowPlayingSource, config).build();
-        pagedListUpcoming = new LivePagedListBuilder<>(upComingSource, config).build();
         pagedListTopTv = new LivePagedListBuilder<>(topTvSource, config).build();
+        pagedListTopRatedMovie = new LivePagedListBuilder<>(topRatedMovieSource, config).build();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class HomeViewModel extends ViewModel {
         popularMovieSource.clear();
         popularTvSource.clear();
         nowPlayingSource.clear();
-        upComingSource.clear();
+        topRatedMovieSource.clear();
         topTvSource.clear();
     }
 
@@ -76,8 +76,8 @@ public class HomeViewModel extends ViewModel {
         return pagedListNowPlaying;
     }
 
-    public LiveData<PagedList<Movie>> getPagedListUpcoming() {
-        return pagedListUpcoming;
+    public LiveData<PagedList<Movie>> getPagedListTopRatedMovie() {
+        return pagedListTopRatedMovie;
     }
 
     public LiveData<PagedList<Movie>> getPagedListTopTv() {

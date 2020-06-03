@@ -4,7 +4,7 @@ import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
 import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
-import com.rajatsangrame.movie.di.qualifier.UpcomingList;
+import com.rajatsangrame.movie.di.qualifier.TopMovieList;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 
@@ -43,8 +43,8 @@ public class HomeFragmentModule {
     }
 
     @Provides
-    @UpcomingList
-    public MovieAdapter getUpcomingMovie() {
+    @TopMovieList
+    public MovieAdapter getTopMovie() {
         return new MovieAdapter(fragment);
     }
 
