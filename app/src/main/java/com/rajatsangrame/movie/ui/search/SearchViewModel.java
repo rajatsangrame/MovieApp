@@ -1,6 +1,7 @@
 package com.rajatsangrame.movie.ui.search;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rajatsangrame.movie.data.model.search.SearchResult;
@@ -31,7 +32,11 @@ public class SearchViewModel extends ViewModel {
         restaurantRepository.fetchQuery(query);
     }
 
-    public LiveData<List<SearchResult>> getQueryLiveData() {
+    public MutableLiveData<List<SearchResult>> getQueryLiveData() {
         return restaurantRepository.getSearchLiveData();
+    }
+
+    public void setQueryLiveData(List<SearchResult> resultList) {
+        restaurantRepository.getSearchLiveData().setValue(resultList);
     }
 }

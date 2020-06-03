@@ -16,6 +16,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by Rajat Sangrame on 9/5/20.
@@ -25,11 +26,13 @@ import okhttp3.Response;
 public class OkHttpClientModule {
 
     @Provides
-    public OkHttpClient okHttpClient(Cache cache, Interceptor interceptor) {
+    public OkHttpClient okHttpClient(Cache cache, Interceptor interceptor,
+                                     HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient()
                 .newBuilder()
                 .cache(cache)
                 .addInterceptor(interceptor)
+                .addInterceptor(loggingInterceptor)
                 .build();
     }
 
@@ -61,5 +64,12 @@ public class OkHttpClientModule {
                 return chain.proceed(request);
             }
         };
+    }
+
+    @Provides
+    public HttpLoggingInterceptor loggingInterceptor() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return logging;
     }
 }

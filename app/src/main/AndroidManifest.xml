@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.detail.DetailActivity" />
-        <activity android:name="com.rajatsangrame.movie.ui.main.MainActivity">
+        <activity
+            android:name="com.rajatsangrame.movie.ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

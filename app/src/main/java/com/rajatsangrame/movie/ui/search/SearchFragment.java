@@ -1,10 +1,15 @@
 package com.rajatsangrame.movie.ui.search;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +28,10 @@ import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
 import com.rajatsangrame.movie.di.component.SearchFragmentComponent;
 import com.rajatsangrame.movie.di.module.RestaurantRepository;
 import com.rajatsangrame.movie.di.module.SearchFragmentModule;
+import com.rajatsangrame.movie.util.Utils;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -80,24 +87,56 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SearchViewModel searchViewModel = new ViewModelProvider(this, factory).get(SearchViewModel.class);
 
-        binding.etSearch.setOnKeyListener(new View.OnKeyListener() {
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     String query = binding.etSearch.getText().toString();
-                    searchViewModel.fetchQuery(query);
-                    return true;
+                    if (!query.isEmpty()) {
+                        Log.i(TAG, "onEditorAction: false");
+                        searchViewModel.fetchQuery(query);
+                        Utils.hideKeyboard(getContext());
+                    }
                 }
-                return false;
+                Log.i(TAG, "onEditorAction: true");
+                return true;
             }
         });
+
         binding.rvSearch.setLayoutManager(new LinearLayoutManager(view.getContext()));
         binding.rvSearch.setAdapter(searchAdapter);
         searchViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<List<SearchResult>>() {
             @Override
             public void onChanged(List<SearchResult> searchResults) {
+                clearRecyclerView();
                 searchAdapter.setMovieList(searchResults);
+                if (!searchResults.isEmpty()){
+                    clearFocus();
+                }
             }
         });
+        binding.ivClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestFocus();
+                searchViewModel.setQueryLiveData(new ArrayList<>());
+            }
+        });
+    }
+
+    private void clearRecyclerView() {
+        binding.rvSearch.removeAllViews();
+    }
+
+    private void requestFocus() {
+        binding.etSearch.setText("");
+        binding.etSearch.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(binding.etSearch,InputMethodManager.SHOW_IMPLICIT);
+
+    }
+
+    private void clearFocus() {
+        binding.etSearch.clearFocus();
     }
 }

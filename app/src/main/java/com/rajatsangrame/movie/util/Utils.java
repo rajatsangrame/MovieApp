@@ -1,8 +1,10 @@
 package com.rajatsangrame.movie.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.inputmethod.InputMethodManager;
 
 import com.rajatsangrame.movie.data.model.Api;
 import com.rajatsangrame.movie.data.model.home.Movie;
@@ -20,6 +22,13 @@ public class Utils {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public static void hideKeyboard(Context context) {
+        // Check if no view has focus:
+        InputMethodManager inputManager = (InputMethodManager)
+                context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.toggleSoftInput(0, 0);
     }
 
     public static List<Movie> getListResult(Api<Movie> apiResponse) {

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.data.model.home.Movie;
-import com.rajatsangrame.movie.util.Constants;
+import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
 import java.util.Objects;
 
@@ -26,14 +27,12 @@ import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
 public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {
 
     private MoviesAdapterListener listener;
+    private HomeListItemBinding binding;
     private Fragment fragment;
-    private boolean isLargeView;
 
-
-    public MovieAdapter(Fragment fragment, boolean isLargeView) {
+    public MovieAdapter(Fragment fragment) {
         super(USER_COMPARATOR);
         this.fragment = fragment;
-        this.isLargeView = isLargeView;
     }
 
     public void setListener(MoviesAdapterListener listener) {
@@ -43,15 +42,11 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (viewType != Constants.NOW_PLAYING) { // Latest Movies
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.home_list_item, parent, false);
-        } else {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.home_list_item_large, parent, false);
-        }
-        return new MovieViewHolder(view);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        binding = DataBindingUtil.inflate(layoutInflater,
+                R.layout.home_list_item, parent, false);
+        return new MovieViewHolder(binding.getRoot());
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -60,22 +55,11 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
         holder.bind(Objects.requireNonNull(getItem(position)));
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (isLargeView) {
-            return Constants.NOW_PLAYING;
-        }
-        return super.getItemViewType(position);
-    }
-
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private ImageView movieImage;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            movieImage = itemView.findViewById(R.id.iv_movie_image);
             itemView.setOnClickListener(this);
 
         }
@@ -89,10 +73,9 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
             Glide.with(fragment)
                     .load(URL)
                     .placeholder(R.color.cardBackground)
-                    .into(movieImage);
+                    .into(binding.ivMovieImage);
 
         }
-
 
         @Override
         public void onClick(View view) {
@@ -120,7 +103,6 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
             return oldItem == newItem;
         }
     };
-
 
     public interface MoviesAdapterListener {
 

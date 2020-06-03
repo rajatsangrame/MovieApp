@@ -27,31 +27,31 @@ public class HomeFragmentModule {
     @Provides
     @PopularList
     public MovieAdapter getPopularAdapter() {
-        return new MovieAdapter(fragment,false);
+        return new MovieAdapter(fragment);
     }
 
     @Provides
     @PopularTvList
     public MovieAdapter getPopularTvAdapter() {
-        return new MovieAdapter(fragment,false);
+        return new MovieAdapter(fragment);
     }
 
     @Provides
     @NowPlayingList
     public MovieAdapter getNowPlaying() {
-        return new MovieAdapter(fragment,true);
+        return new MovieAdapter(fragment);
     }
 
     @Provides
     @UpcomingList
     public MovieAdapter getUpcomingMovie() {
-        return new MovieAdapter(fragment,false);
+        return new MovieAdapter(fragment);
     }
 
     @Provides
     @TopTvShowsList
     public MovieAdapter getTopTvShows() {
-        return new MovieAdapter(fragment,false);
+        return new MovieAdapter(fragment);
     }
 
 }
