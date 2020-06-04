@@ -3,26 +3,19 @@ package com.rajatsangrame.movie.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.SearchItemBinding;
 import com.rajatsangrame.movie.databinding.SearchItemHeaderBinding;
-import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.util.Constants;
 
 import java.util.List;
-
-import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
-import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
 
 /**
  * Created by Rajat Sangrame on 2/6/20.
@@ -34,8 +27,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
     private MoviesAdapterListener listener;
     private final Fragment fragment;
     private List<SearchResult> searchResultList;
-    private SearchItemBinding binding;
-    private SearchItemHeaderBinding headerBinding;
 
     public SearchAdapter(Fragment fragment) {
         this.fragment = fragment;
@@ -56,14 +47,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         if (viewType == Constants.HEADER) {
-            headerBinding = DataBindingUtil.inflate(layoutInflater,
+            SearchItemHeaderBinding headerBinding = DataBindingUtil.inflate(layoutInflater,
                     R.layout.search_item_header, parent, false);
-            return new MovieViewHolder(headerBinding.getRoot());
+            return new MovieViewHolder(headerBinding);
 
         } else {
-            binding = DataBindingUtil.inflate(layoutInflater,
+            SearchItemBinding binding = DataBindingUtil.inflate(layoutInflater,
                     R.layout.search_item, parent, false);
-            return new MovieViewHolder(binding.getRoot());
+            return new MovieViewHolder(binding);
 
         }
     }
@@ -71,11 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         SearchResult movie = searchResultList.get(position);
-        if (movie.getItemType() == Constants.HEADER) {
-            headerBinding.tvSearchHeader.setText(movie.getMediaType().toUpperCase());
-        } else {
-            holder.bind(movie);
-        }
+        holder.bind(movie);
     }
 
 
@@ -98,38 +85,36 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
+        SearchItemBinding binding;
+        SearchItemHeaderBinding headerBinding;
 
+        public MovieViewHolder(SearchItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public MovieViewHolder(SearchItemHeaderBinding binding) {
+            super(binding.getRoot());
+            this.headerBinding = binding;
         }
 
         void bind(SearchResult result) {
 
-            if (result.getMediaType().equals("person")) {
-                binding.llPerson.setVisibility(View.VISIBLE);
-                binding.llMovie.setVisibility(View.GONE);
-
-                binding.tvPersonName.setText(result.getName());
-                binding.tvPersonKnown.setText(result.getKnownForDepartment());
+            if (binding != null) {
+                if (result.getMediaType().equals("person")) {
+                    binding.llPerson.setVisibility(View.VISIBLE);
+                } else if (result.getMediaType().equals("tv")) {
+                    binding.llTv.setVisibility(View.VISIBLE);
+                } else {
+                    binding.llMovie.setVisibility(View.VISIBLE);
+                }
+                binding.setSearch(result);
+                binding.executePendingBindings();
                 return;
             }
 
-            binding.llMovie.setVisibility(View.VISIBLE);
-            binding.llPerson.setVisibility(View.GONE);
-            if (result.getMediaType().equals("tv")) {
-                binding.tvMovieTitle.setText(result.getName());
-            }else{
-                binding.tvMovieTitle.setText(result.getTitle());
-            }
-            List<Integer> genreList = result.getGenreIds();
-            String genre = getGenreFromList(genreList);
-            binding.tvMovieGenre.setText(genre);
-            final String URL = Constants.IMAGE_URL + result.getBackdropPath();
-            Glide.with(itemView.getContext())
-                    .load(URL)
-                    .placeholder(R.color.cardBackground)
-                    .into(binding.ivMovieImage);
-
+            headerBinding.setSearch(result);
+            headerBinding.executePendingBindings();
         }
 
         @Override
@@ -143,33 +128,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
             listener.onItemClicked(movie, view);
 
         }
-    }
-
-    private String getGenreFromList(List<Integer> genreList) {
-
-        final String dot = "  •  ";
-        StringBuilder genre = new StringBuilder();
-
-        if (genreList == null) {
-            return genre.toString();
-        }
-
-        if (genreList.size() > 3) {
-
-            genreList.remove(genreList.size() - 1);
-            getGenreFromList(genreList);
-
-        }
-
-        for (int i = 0; i < genreList.size(); i++) {
-
-            genre.append(getGenreFromId(genreList.get(i)));
-            if (i < genreList.size() - 1) {
-                genre.append(dot);
-            }
-        }
-
-        return genre.toString();
     }
 
     public interface MoviesAdapterListener {

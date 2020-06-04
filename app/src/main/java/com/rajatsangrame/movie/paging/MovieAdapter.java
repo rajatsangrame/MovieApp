@@ -21,8 +21,6 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
     private MoviesAdapterListener listener;
     private Fragment fragment;
-    private HomeListItemBinding binding;
-
 
     public MovieAdapter(Fragment fragment) {
         super(USER_COMPARATOR);
@@ -37,7 +35,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        binding = HomeListItemBinding.inflate(layoutInflater, parent, false);
+        HomeListItemBinding binding = HomeListItemBinding.inflate(layoutInflater, parent, false);
         return new MovieViewHolder(binding);
     }
 
@@ -51,6 +49,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         HomeListItemBinding binding;
+
         public MovieViewHolder(HomeListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.rajatsangrame.movie.data.model.Api;
@@ -36,13 +37,13 @@ public class Utils {
     }
 
     public static List<SearchResult> prepareListForSearchAdapter(Api<SearchResult> apiResponse) {
-
+        long init = System.currentTimeMillis();
         List<SearchResult> outputResult = new ArrayList<>();
 
         if (apiResponse == null || apiResponse.getResults() == null) {
             return outputResult;
         }
-        List<SearchResult> apiSearchList = apiResponse.getResults();
+        List<SearchResult> apiSearchList = clearRawEntries(apiResponse);
         List<String> itemType = new ArrayList<>();
 
         for (SearchResult movie : apiSearchList) {
@@ -64,6 +65,19 @@ public class Utils {
                 }
             }
         }
+        Log.i(TAG, "prepareListForSearchAdapter: " + (System.currentTimeMillis() - init));
         return outputResult;
+    }
+
+    private static List<SearchResult> clearRawEntries(Api<SearchResult> apiResponse) {
+        List<SearchResult> list = new ArrayList<>();
+        for (SearchResult itr : apiResponse.getResults()) {
+            if (itr.getMediaType().equals("person") || itr.getBackdropPath() != null) {
+
+                Log.i(TAG, "clearRawEntries: " + itr.getBackdropPath());
+                list.add(itr);
+            }
+        }
+        return list;
     }
 }

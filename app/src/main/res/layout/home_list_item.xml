@@ -20,11 +20,10 @@
 
         <ImageView
             android:id="@+id/iv_movie_image"
+            bind:url="@{movie.posterPath}"
             android:layout_width="100dp"
             android:layout_height="145dp"
-            bind:url="@{movie.posterPath}"
-            android:scaleType="centerCrop"
-            />
+            android:scaleType="centerCrop" />
 
     </FrameLayout>
 </layout>
