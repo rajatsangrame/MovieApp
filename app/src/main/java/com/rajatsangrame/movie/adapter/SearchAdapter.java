@@ -124,7 +124,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
             List<Integer> genreList = result.getGenreIds();
             String genre = getGenreFromList(genreList);
             binding.tvMovieGenre.setText(genre);
-            final String URL = IMAGE_URL + result.getBackdropPath();
+            final String URL = Constants.IMAGE_URL + result.getBackdropPath();
             Glide.with(itemView.getContext())
                     .load(URL)
                     .placeholder(R.color.cardBackground)

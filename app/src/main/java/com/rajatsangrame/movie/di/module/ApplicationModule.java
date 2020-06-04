@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module(includes = {ViewModelModule.class, OkHttpClientModule.class})
 public class ApplicationModule {
 
-    private static final String BASE_URL = "http://api.themoviedb.org";
+    public static final String BASE_URL = "http://api.themoviedb.org";
 
     @Provides
     public RetrofitApi randomUsersApi(Retrofit retrofit) {

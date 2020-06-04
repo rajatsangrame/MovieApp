@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <import type="com.rajatsangrame.movie.util.BindingUtils" />
+
+        <variable
+            name="movie"
+            type="com.rajatsangrame.movie.data.model.home.Movie" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
@@ -13,7 +22,9 @@
             android:id="@+id/iv_movie_image"
             android:layout_width="100dp"
             android:layout_height="145dp"
-            android:scaleType="centerCrop" />
+            bind:url="@{movie.posterPath}"
+            android:scaleType="centerCrop"
+            />
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>

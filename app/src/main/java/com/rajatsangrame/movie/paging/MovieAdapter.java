@@ -5,7 +5,6 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,20 +13,15 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
-
-import java.util.Objects;
-
-import static com.rajatsangrame.movie.util.Constants.IMAGE_URL;
 
 public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {
 
     private MoviesAdapterListener listener;
     private Fragment fragment;
-    boolean isLargeView;
+    private HomeListItemBinding binding;
 
 
     public MovieAdapter(Fragment fragment) {
@@ -42,41 +36,25 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_list_item, parent, false);
-        return new MovieViewHolder(view);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        binding = HomeListItemBinding.inflate(layoutInflater, parent, false);
+        return new MovieViewHolder(binding);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.bind(Objects.requireNonNull(getItem(position)));
+        holder.binding.setMovie(getItem(position));
+        holder.binding.executePendingBindings();
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView movieImage;
-
-        public MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            movieImage = itemView.findViewById(R.id.iv_movie_image);
-            itemView.setOnClickListener(this);
-
-        }
-
-        @SuppressLint("StringFormatInvalid")
-        void bind(Movie movie) {
-
-            assert movie != null;
-            final String URL = IMAGE_URL + movie.getPosterPath();
-
-            Glide.with(fragment)
-                    .load(URL)
-                    .placeholder(R.color.cardBackground)
-                    .into(movieImage);
-
+        HomeListItemBinding binding;
+        public MovieViewHolder(HomeListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this);
         }
 
         @Override

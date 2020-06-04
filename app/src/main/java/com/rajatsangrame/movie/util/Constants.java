@@ -8,7 +8,6 @@ public class Constants {
     public static final int NOW_PLAYING = 2;
     public static final int HEADER = 11;
     public static final int ITEM = 12;
-
     public final static String IMAGE_URL = "https://image.tmdb.org/t/p/w185";
     private static Hashtable<Integer, String> hashtable;
 
@@ -43,5 +42,4 @@ public class Constants {
         hashtable.put(10752, "War");
         hashtable.put(37, "Western");
     }
-
 }
