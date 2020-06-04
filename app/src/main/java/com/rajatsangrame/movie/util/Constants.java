@@ -5,7 +5,6 @@ import java.util.Hashtable;
 
 public class Constants {
 
-    public static final int NOW_PLAYING = 2;
     public static final int HEADER = 11;
     public static final int ITEM = 12;
     public final static String IMAGE_URL = "https://image.tmdb.org/t/p/w185";
@@ -40,6 +39,7 @@ public class Constants {
         hashtable.put(10770, "TV Movie");
         hashtable.put(53, "Thriller");
         hashtable.put(10752, "War");
+        //10765
         hashtable.put(37, "Western");
     }
 }

@@ -1,6 +1,5 @@
 package com.rajatsangrame.movie.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,9 +36,7 @@ public class Utils {
     }
 
     public static List<SearchResult> prepareListForSearchAdapter(Api<SearchResult> apiResponse) {
-        long init = System.currentTimeMillis();
         List<SearchResult> outputResult = new ArrayList<>();
-
         if (apiResponse == null || apiResponse.getResults() == null) {
             return outputResult;
         }
@@ -65,7 +62,6 @@ public class Utils {
                 }
             }
         }
-        Log.i(TAG, "prepareListForSearchAdapter: " + (System.currentTimeMillis() - init));
         return outputResult;
     }
 
