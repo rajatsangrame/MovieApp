@@ -5,7 +5,7 @@ import androidx.paging.DataSource;
 
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
-import com.rajatsangrame.movie.util.Category;
+import com.rajatsangrame.movie.data.rest.Category;
 
 public class MovieDataSourceFactory extends DataSource.Factory<Long, Movie> {
 

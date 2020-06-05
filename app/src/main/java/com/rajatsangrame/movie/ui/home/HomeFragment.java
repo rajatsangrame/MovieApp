@@ -16,17 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.databinding.FragmentHomeBinding;
 import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
 import com.rajatsangrame.movie.di.component.HomeFragmentComponent;
 import com.rajatsangrame.movie.di.module.HomeFragmentModule;
-import com.rajatsangrame.movie.di.module.RestaurantRepository;
+import com.rajatsangrame.movie.di.module.Repository;
 import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
 import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
 import com.rajatsangrame.movie.di.qualifier.TopMovieList;
-import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     MovieAdapter topRatedMovieAdapter;
 
     @Inject
-    RestaurantRepository restaurantRepository;
+    Repository restaurantRepository;
 
     @Inject
     ViewModelFactory factory;
@@ -105,13 +105,14 @@ public class HomeFragment extends Fragment {
         binding.rvPopularMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularMovie.setAdapter(popularMovieAdapter);
-        homeViewModel.getPagedListPopular().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListPopular().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
+            public void onChanged(PagedList<MovieDB> movies) {
                 popularMovieAdapter.submitList(movies);
             }
         });
 
+        /*
         //Popular Tv
         binding.rvPopularTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -155,5 +156,6 @@ public class HomeFragment extends Fragment {
                 topRatedMovieAdapter.submitList(movies);
             }
         });
+         */
     }
 }

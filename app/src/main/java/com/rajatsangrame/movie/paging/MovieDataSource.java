@@ -6,7 +6,7 @@ import androidx.paging.PageKeyedDataSource;
 import com.rajatsangrame.movie.data.model.Api;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
-import com.rajatsangrame.movie.util.Category;
+import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.util.Utils;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
-        Single<Api<Movie>> single = getSingle(retrofitApi, category, FIRST_PAGE);
+        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, FIRST_PAGE);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<Api<Movie>, List<Movie>>() {
@@ -64,7 +64,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     @Override
     public void loadBefore(@NonNull final LoadParams<Long> params,
                            @NonNull final LoadCallback<Long, Movie> callback) {
-        Single<Api<Movie>> single = getSingle(retrofitApi, category, params.key);
+        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<Api<Movie>, List<Movie>>() {
@@ -96,7 +96,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadAfter(@NonNull final LoadParams<Long> params,
                           @NonNull final LoadCallback<Long, Movie> callback) {
 
-        Single<Api<Movie>> single = getSingle(retrofitApi, category, params.key);
+        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<Api<Movie>, List<Movie>>() {
@@ -116,22 +116,6 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
                     }
                 }));
-    }
-
-    private Single<Api<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
-        switch (category) {
-            case POPULAR_TV:
-                return retrofitApi.getPopularTv(key);
-            case NOW_PLAYING:
-                return retrofitApi.getNowPlaying(key);
-            case TOP_RATED_MOVIE:
-                return retrofitApi.getTopRatedMovie(key);
-            case TOP_TV:
-                return retrofitApi.getTopRatedTv(key);
-            default:
-                // POPULAR
-                return retrofitApi.getPopularMovies(key);
-        }
     }
 
     public void clear() {

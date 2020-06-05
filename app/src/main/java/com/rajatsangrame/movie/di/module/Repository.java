@@ -1,13 +1,12 @@
 package com.rajatsangrame.movie.di.module;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.rajatsangrame.movie.data.db.MovieDatabase;
 import com.rajatsangrame.movie.data.model.Api;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
-import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Utils;
 
@@ -24,19 +23,25 @@ import io.reactivex.schedulers.Schedulers;
  * http://github.com/rajatsangrame
  */
 
-public class RestaurantRepository {
+public class Repository {
 
     private static final String TAG = "RestaurantRepository";
-    RetrofitApi retrofitApi;
-    MutableLiveData<List<SearchResult>> liveDataSearchResult;
+    private RetrofitApi retrofitApi;
+    private MutableLiveData<List<SearchResult>> liveDataSearchResult;
+    private MovieDatabase database;
 
-    public RestaurantRepository(@ApplicationContext Context context, RetrofitApi retrofitApi) {
+    public Repository(RetrofitApi retrofitApi, MovieDatabase database) {
         this.retrofitApi = retrofitApi;
+        this.database = database;
         liveDataSearchResult = new MutableLiveData<>();
     }
 
     public MutableLiveData<List<SearchResult>> getSearchLiveData() {
         return liveDataSearchResult;
+    }
+
+    public MovieDatabase getDatabase() {
+        return database;
     }
 
     public void fetchQuery(String query) {

@@ -29,7 +29,7 @@
 
             <ImageView
                 android:id="@+id/iv_movie_image"
-                bind:url="@{search.backdropPath}"
+                loadImageUrl="@{search.backdropPath}"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/tv_movie_genre"
-                bind:genre="@{search.genreIds}"
+                genre="@{search.genreIds}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -91,7 +91,7 @@
 
             <ImageView
                 android:id="@+id/iv_tv_image"
-                bind:url="@{search.backdropPath}"
+                loadImageUrl="@{search.backdropPath}"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
@@ -117,7 +117,7 @@
 
             <TextView
                 android:id="@+id/tv_genre_tv"
-                bind:genre="@{search.genreIds}"
+                genre="@{search.genreIds}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"

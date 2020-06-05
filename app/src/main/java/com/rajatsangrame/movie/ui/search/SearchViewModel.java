@@ -1,11 +1,10 @@
 package com.rajatsangrame.movie.ui.search;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rajatsangrame.movie.data.model.search.SearchResult;
-import com.rajatsangrame.movie.di.module.RestaurantRepository;
+import com.rajatsangrame.movie.di.module.Repository;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ import javax.inject.Inject;
  */
 public class SearchViewModel extends ViewModel {
 
-    private RestaurantRepository restaurantRepository;
+    private Repository restaurantRepository;
 
     @Inject
-    public SearchViewModel(RestaurantRepository restaurantRepository) {
+    public SearchViewModel(Repository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
         init();
     }

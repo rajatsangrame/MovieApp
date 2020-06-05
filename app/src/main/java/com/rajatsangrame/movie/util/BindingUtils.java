@@ -17,7 +17,7 @@ public class BindingUtils {
 
     public final static String IMAGE_URL = "https://image.tmdb.org/t/p/w185";
 
-    @BindingAdapter({"bind:url"})
+    @BindingAdapter({"loadImageUrl"})
     public static void loadImage(ImageView imageView, String url) {
 
         Context context = imageView.getContext();
@@ -30,7 +30,7 @@ public class BindingUtils {
 
     }
 
-    @BindingAdapter({"bind:genre"})
+    @BindingAdapter({"genre"})
     public static void getGenreFromList(TextView textView, List<Integer> genreList) {
 
         final String dot = "  •  ";

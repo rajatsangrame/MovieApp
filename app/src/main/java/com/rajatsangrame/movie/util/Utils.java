@@ -6,12 +6,17 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.model.Api;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
+import com.rajatsangrame.movie.data.rest.Category;
+import com.rajatsangrame.movie.data.rest.RetrofitApi;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Single;
 
 public class Utils {
 
@@ -75,5 +80,38 @@ public class Utils {
             }
         }
         return list;
+    }
+
+    public static Single<Api<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
+        switch (category) {
+            case POPULAR_TV:
+                return retrofitApi.getPopularTv(key);
+            case NOW_PLAYING:
+                return retrofitApi.getNowPlaying(key);
+            case TOP_RATED_MOVIE:
+                return retrofitApi.getTopRatedMovie(key);
+            case TOP_TV:
+                return retrofitApi.getTopRatedTv(key);
+            default:
+                // POPULAR
+                return retrofitApi.getPopularMovies(key);
+        }
+    }
+
+    public static List<MovieDB> getMovieList(Api<Movie> apiResponse, Category category) {
+        List<MovieDB> dbList = new ArrayList<>();
+        if (apiResponse == null || apiResponse.getResults() == null)
+            return dbList;
+
+        for (Movie movie : apiResponse.getResults()) {
+
+            MovieDB db = new MovieDB(movie.getId(),
+                    movie.getTitle(),
+                    category.name(),
+                    movie.getPosterPath(),
+                    movie.getPopularity());
+            dbList.add(db);
+        }
+        return dbList;
     }
 }

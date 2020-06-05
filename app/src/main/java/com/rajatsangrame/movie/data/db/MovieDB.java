@@ -1,6 +1,5 @@
 package com.rajatsangrame.movie.data.db;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -23,6 +22,9 @@ public class MovieDB {
     @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "fetch_category")
+    private String fetchCategory;
+
     @ColumnInfo(name = "poster_path")
     private String posterPath;
 
@@ -38,8 +40,16 @@ public class MovieDB {
     @ColumnInfo(name = "original_title")
     private String originalTitle;
 
-    @ColumnInfo(name = "video")
-    private boolean video;
+    @ColumnInfo(name = "popularity")
+    private double popularity;
+
+    public MovieDB(int id, String title, String fetchCategory, String posterPath, double popularity) {
+        this.id = id;
+        this.title = title;
+        this.fetchCategory = fetchCategory;
+        this.posterPath = posterPath;
+        this.popularity = popularity;
+    }
 
     public int getId() {
         return id;
@@ -55,6 +65,14 @@ public class MovieDB {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getFetchCategory() {
+        return fetchCategory;
+    }
+
+    public void setFetchCategory(String fetchCategory) {
+        this.fetchCategory = fetchCategory;
     }
 
     public String getPosterPath() {
@@ -97,20 +115,17 @@ public class MovieDB {
         this.originalTitle = originalTitle;
     }
 
-    public boolean isVideo() {
-        return video;
+    public double getPopularity() {
+        return popularity;
     }
 
-    public void setVideo(boolean video) {
-        this.video = video;
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
     }
 
     /*
     @ColumnInfo(name = "release_date")
     private String releaseDate;
-
-    @ColumnInfo(name = "popularity")
-    private double popularity;
 
     @ColumnInfo(name = "vote_average")
     private double voteAverage;

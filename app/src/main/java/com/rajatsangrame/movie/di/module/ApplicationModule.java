@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rajatsangrame.movie.data.db.MovieDatabase;
 import com.rajatsangrame.movie.di.qualifier.ApplicationContext;
 import com.rajatsangrame.movie.di.scope.ApplicationScope;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -54,8 +55,13 @@ public class ApplicationModule {
 
     @ApplicationScope
     @Provides
-    RestaurantRepository getRepository(@ApplicationContext Context context, RetrofitApi retrofitApi) {
-        return new RestaurantRepository(context, retrofitApi);
+    Repository getRepository(@ApplicationContext Context context, RetrofitApi retrofitApi, MovieDatabase database) {
+        return new Repository(retrofitApi, database);
     }
 
+    @ApplicationScope
+    @Provides
+    MovieDatabase getDatabase(@ApplicationContext Context context) {
+        return MovieDatabase.getDatabase(context);
+    }
 }

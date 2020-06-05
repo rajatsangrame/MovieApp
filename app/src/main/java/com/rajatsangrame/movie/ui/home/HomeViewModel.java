@@ -2,85 +2,75 @@ package com.rajatsangrame.movie.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.rajatsangrame.movie.di.module.RestaurantRepository;
-import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.MovieDao;
+import com.rajatsangrame.movie.di.module.Repository;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
+import com.rajatsangrame.movie.paging.BoundaryCallBack;
 import com.rajatsangrame.movie.paging.MovieDataSource;
-import com.rajatsangrame.movie.paging.MovieDataSourceFactory;
-import com.rajatsangrame.movie.util.Category;
+import com.rajatsangrame.movie.data.rest.Category;
 
 import javax.inject.Inject;
 
 
 public class HomeViewModel extends ViewModel {
 
-    private RestaurantRepository restaurantRepository;
-    private LiveData<PagedList<Movie>> pagedListPopular;
-    private LiveData<PagedList<Movie>> pagedListPopularTv;
-    private LiveData<PagedList<Movie>> pagedListNowPlaying;
-    private LiveData<PagedList<Movie>> pagedListTopTv;
-    private LiveData<PagedList<Movie>> pagedListTopRatedMovie;
-    private MovieDataSourceFactory popularMovieSource;
-    private MovieDataSourceFactory popularTvSource;
-    private MovieDataSourceFactory nowPlayingSource;
-    private MovieDataSourceFactory topTvSource;
-    private MovieDataSourceFactory topRatedMovieSource;
+    private Repository restaurantRepository;
+    private LiveData<PagedList<MovieDB>> pagedListPopular;
+    //    private LiveData<PagedList<Movie>> pagedListPopularTv;
+//    private LiveData<PagedList<Movie>> pagedListNowPlaying;
+//    private LiveData<PagedList<Movie>> pagedListTopTv;
+//    private LiveData<PagedList<Movie>> pagedListTopRatedMovie;
     private RetrofitApi retrofitApi;
+    private MovieDao movieDao;
 
     @Inject
-    public HomeViewModel(RestaurantRepository restaurantRepository, RetrofitApi retrofitApi) {
+    public HomeViewModel(Repository restaurantRepository, RetrofitApi retrofitApi) {
         this.restaurantRepository = restaurantRepository;
         this.retrofitApi = retrofitApi;
+        this.movieDao = restaurantRepository.getDatabase().movieDao();
         init();
     }
 
     private void init() {
-        popularMovieSource = new MovieDataSourceFactory(Category.POPULAR, retrofitApi);
-        popularTvSource = new MovieDataSourceFactory(Category.POPULAR_TV, retrofitApi);
-        nowPlayingSource = new MovieDataSourceFactory(Category.NOW_PLAYING, retrofitApi);
-        topTvSource = new MovieDataSourceFactory(Category.TOP_TV, retrofitApi);
-        topRatedMovieSource = new MovieDataSourceFactory(Category.TOP_RATED_MOVIE, retrofitApi);
+
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        pagedListPopular = new LivePagedListBuilder<>(popularMovieSource, config).build();
-        pagedListPopularTv = new LivePagedListBuilder<>(popularTvSource, config).build();
-        pagedListNowPlaying = new LivePagedListBuilder<>(nowPlayingSource, config).build();
-        pagedListTopTv = new LivePagedListBuilder<>(topTvSource, config).build();
-        pagedListTopRatedMovie = new LivePagedListBuilder<>(topRatedMovieSource, config).build();
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, movieDao, Category.POPULAR);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getDataSource(Category.POPULAR.name());
+        pagedListPopular = new LivePagedListBuilder<>(factory, config)
+                .setBoundaryCallback(boundaryCallBack)
+                .build();
+
+//        pagedListPopularTv = new LivePagedListBuilder<>(popularTvSource, config).build();
+//        pagedListNowPlaying = new LivePagedListBuilder<>(nowPlayingSource, config).build();
+//        pagedListTopTv = new LivePagedListBuilder<>(topTvSource, config).build();
+//        pagedListTopRatedMovie = new LivePagedListBuilder<>(topRatedMovieSource, config).build();
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        popularMovieSource.clear();
-        popularTvSource.clear();
-        nowPlayingSource.clear();
-        topRatedMovieSource.clear();
-        topTvSource.clear();
-    }
-
-    public LiveData<PagedList<Movie>> getPagedListPopular() {
+    public LiveData<PagedList<MovieDB>> getPagedListPopular() {
         return pagedListPopular;
     }
-
-    public LiveData<PagedList<Movie>> getPagedListPopularTv() {
-        return pagedListPopularTv;
-    }
-
-    public LiveData<PagedList<Movie>> getPagedListNowPlaying() {
-        return pagedListNowPlaying;
-    }
-
-    public LiveData<PagedList<Movie>> getPagedListTopRatedMovie() {
-        return pagedListTopRatedMovie;
-    }
-
-    public LiveData<PagedList<Movie>> getPagedListTopTv() {
-        return pagedListTopTv;
-    }
+//
+//    public LiveData<PagedList<Movie>> getPagedListPopularTv() {
+//        return pagedListPopularTv;
+//    }
+//
+//    public LiveData<PagedList<Movie>> getPagedListNowPlaying() {
+//        return pagedListNowPlaying;
+//    }
+//
+//    public LiveData<PagedList<Movie>> getPagedListTopRatedMovie() {
+//        return pagedListTopRatedMovie;
+//    }
+//
+//    public LiveData<PagedList<Movie>> getPagedListTopTv() {
+//        return pagedListTopTv;
+//    }
 }

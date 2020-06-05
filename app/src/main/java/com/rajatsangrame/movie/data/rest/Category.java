@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.util;
+package com.rajatsangrame.movie.data.rest;
 
 /**
  * Created by Rajat Sangrame on 30/5/20.

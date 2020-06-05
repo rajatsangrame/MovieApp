@@ -13,11 +13,12 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
 
-public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieViewHolder> {
 
     private MoviesAdapterListener listener;
     private Fragment fragment;
@@ -62,23 +63,23 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
             if (listener == null) {
                 return;
             }
-            Movie movie = getItem(getAdapterPosition());
+            MovieDB movie = getItem(getAdapterPosition());
             listener.onMovieItemClicked(movie, view);
 
         }
     }
 
-    private static final DiffUtil.ItemCallback<Movie> USER_COMPARATOR
-            = new DiffUtil.ItemCallback<Movie>() {
+    private static final DiffUtil.ItemCallback<MovieDB> USER_COMPARATOR
+            = new DiffUtil.ItemCallback<MovieDB>() {
 
         @Override
-        public boolean areItemsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areItemsTheSame(@NonNull MovieDB oldItem, @NonNull MovieDB newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @SuppressLint("DiffUtilEquals")
         @Override
-        public boolean areContentsTheSame(@NonNull Movie oldItem, @NonNull Movie newItem) {
+        public boolean areContentsTheSame(@NonNull MovieDB oldItem, @NonNull MovieDB newItem) {
             return oldItem == newItem;
         }
     };
@@ -86,7 +87,7 @@ public class MovieAdapter extends PagedListAdapter<Movie, MovieAdapter.MovieView
 
     public interface MoviesAdapterListener {
 
-        void onMovieItemClicked(Movie movie, View view);
+        void onMovieItemClicked(MovieDB movie, View view);
 
     }
 }

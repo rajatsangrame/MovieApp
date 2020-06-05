@@ -3,7 +3,7 @@ package com.rajatsangrame.movie.di.component;
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.di.module.ApplicationModule;
 import com.rajatsangrame.movie.di.module.GlideModule;
-import com.rajatsangrame.movie.di.module.RestaurantRepository;
+import com.rajatsangrame.movie.di.module.Repository;
 import com.rajatsangrame.movie.di.scope.ApplicationScope;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.ViewModelFactory;
@@ -22,7 +22,7 @@ public interface ApplicationComponent {
 
     Glide getGlide(); // For custom glide
 
-    RestaurantRepository getRepository();
+    Repository getRepository();
 
     ViewModelFactory getViewModelFactory();
 
