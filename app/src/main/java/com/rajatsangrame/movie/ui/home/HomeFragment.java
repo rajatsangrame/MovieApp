@@ -21,7 +21,6 @@ import com.rajatsangrame.movie.databinding.FragmentHomeBinding;
 import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
 import com.rajatsangrame.movie.di.component.HomeFragmentComponent;
 import com.rajatsangrame.movie.di.module.HomeFragmentModule;
-import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
 import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
@@ -57,12 +56,10 @@ public class HomeFragment extends Fragment {
     MovieAdapter topRatedMovieAdapter;
 
     @Inject
-    Repository repository;
-
-    @Inject
     ViewModelFactory factory;
 
     private FragmentHomeBinding binding;
+    private HomeViewModel homeViewModel;
 
     public static HomeFragment newInstance() {
         Bundle args = new Bundle();
@@ -99,7 +96,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HomeViewModel homeViewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
 
         //Pop Movies
         binding.rvPopularMovie.setLayoutManager(new LinearLayoutManager(
@@ -112,14 +109,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        /*
         //Popular Tv
         binding.rvPopularTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularTv.setAdapter(popularTvAdapter);
-        homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
+            public void onChanged(PagedList<MovieDB> movies) {
                 popularTvAdapter.submitList(movies);
             }
         });
@@ -128,9 +124,9 @@ public class HomeFragment extends Fragment {
         binding.rvNowPlayingMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvNowPlayingMovie.setAdapter(nowPlayingAdapter);
-        homeViewModel.getPagedListNowPlaying().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListNowPlaying().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
+            public void onChanged(PagedList<MovieDB> movies) {
                 nowPlayingAdapter.submitList(movies);
             }
         });
@@ -139,9 +135,9 @@ public class HomeFragment extends Fragment {
         binding.rvTopTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopTv.setAdapter(topTvShowAdapter);
-        homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
+            public void onChanged(PagedList<MovieDB> movies) {
                 topTvShowAdapter.submitList(movies);
             }
         });
@@ -150,12 +146,17 @@ public class HomeFragment extends Fragment {
         binding.rvTopratedMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvTopratedMovie.setAdapter(topRatedMovieAdapter);
-        homeViewModel.getPagedListTopRatedMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<Movie>>() {
+        homeViewModel.getPagedListTopRatedMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
-            public void onChanged(PagedList<Movie> movies) {
+            public void onChanged(PagedList<MovieDB> movies) {
                 topRatedMovieAdapter.submitList(movies);
             }
         });
-         */
+    }
+
+    @Override
+    public void onDestroy() {
+        homeViewModel.dispose();
+        super.onDestroy();
     }
 }

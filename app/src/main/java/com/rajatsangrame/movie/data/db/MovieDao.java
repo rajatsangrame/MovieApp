@@ -18,5 +18,11 @@ public interface MovieDao {
     long insert(MovieDB movieDB);
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC")
+    DataSource.Factory<Integer, MovieDB> getPopularDataSource(String category);
+
+    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY vote_average DESC")
+    DataSource.Factory<Integer, MovieDB> getTopRatedDataSource(String category);
+
+    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getDataSource(String category);
 }

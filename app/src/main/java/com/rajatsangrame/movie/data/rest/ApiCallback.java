@@ -12,5 +12,7 @@ public interface ApiCallback {
 
     void onSuccess(List<MovieDB> movieDBList);
 
+    void onSuccess(String message);
+
     void onError(String errorMessage);
 }

@@ -5,8 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PagedList;
 
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.MovieDao;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.Category;
@@ -18,9 +18,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,16 +33,20 @@ public class BoundaryCallBack extends PagedList.BoundaryCallback<MovieDB> {
     private static final String TAG = "BoundaryCallBack";
     private final Category category;
     private final RetrofitApi retrofitApi;
-    private final Executor ioExecutor;
-    private final MovieDao movieDao;
+    private final Repository repository;
     private int lastRequestedPage = 1;
     boolean isRequestInProgress;
+    private CompositeDisposable compositeDisposable;
+    private Executor ioExecutor;
 
-    public BoundaryCallBack(RetrofitApi retrofitApi, MovieDao movieDao, Category category) {
+    public BoundaryCallBack(RetrofitApi retrofitApi, Repository repository,
+                            CompositeDisposable disposable, Category category) {
         this.retrofitApi = retrofitApi;
+        this.repository = repository;
+        this.compositeDisposable = disposable;
         this.category = category;
-        this.movieDao = movieDao;
         this.ioExecutor = Executors.newSingleThreadExecutor();
+
     }
 
     @Override
@@ -62,48 +66,43 @@ public class BoundaryCallBack extends PagedList.BoundaryCallback<MovieDB> {
 
     private void requestAndSaveData() {
 
+        Log.d(TAG, "requestAndSaveData: started");
         int pageLimit = 5;
         if (lastRequestedPage > pageLimit) {
-            Log.d(TAG, "requestAndSaveData: page limit");
+            Log.i(TAG, "requestAndSaveData: page limit");
             return;
         }
 
         if (isRequestInProgress) {
-            Log.d(TAG, "requestAndSaveData: isRequestInProgress");
+            Log.i(TAG, "requestAndSaveData: isRequestInProgress");
             return;
         }
 
         isRequestInProgress = true;
         Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, lastRequestedPage);
-        single.subscribeOn(Schedulers.io())
+        compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ApiResponse<Movie>, List<MovieDB>>() {
                     @Override
                     public List<MovieDB> apply(ApiResponse<Movie> movieApi) throws Exception {
                         return Utils.getMovieList(movieApi, category);
                     }
-                }).subscribe(new SingleObserver<List<MovieDB>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(List<MovieDB> movieList) {
-                ioExecutor.execute(new Runnable() {
+                }).subscribe(new Consumer<List<MovieDB>>() {
                     @Override
-                    public void run() {
-                        movieDao.bulkInsert(movieList);
-                        lastRequestedPage++;
-                        isRequestInProgress = false;
+                    public void accept(List<MovieDB> movieDBList) throws Exception {
+                        repository.insertBulk(movieDBList, new Repository.InsertCallback() {
+                            @Override
+                            public void insertFinished() {
+                                lastRequestedPage++;
+                                isRequestInProgress = false;
+                            }
+                        });
                     }
-                });
-            }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+                    }
+                }));
     }
 }

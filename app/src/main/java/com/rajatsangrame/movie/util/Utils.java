@@ -109,7 +109,9 @@ public class Utils {
                     movie.getTitle(),
                     category.name(),
                     movie.getPosterPath(),
-                    movie.getPopularity());
+                    movie.getPopularity(),
+                    movie.getVoteAverage(),
+                    System.currentTimeMillis());
             dbList.add(db);
         }
         return dbList;

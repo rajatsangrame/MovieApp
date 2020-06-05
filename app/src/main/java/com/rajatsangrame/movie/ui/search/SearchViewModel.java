@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.Repository;
+import com.rajatsangrame.movie.data.rest.ApiCallback;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Rajat Sangrame on 1/6/20.
@@ -27,8 +30,8 @@ public class SearchViewModel extends ViewModel {
     private void init() {
     }
 
-    public void fetchQuery(String query) {
-        repository.fetchQuery(query);
+    public void fetchQuery(String query, CompositeDisposable disposable, ApiCallback callback) {
+        repository.fetchQuery(query, disposable, callback);
     }
 
     public MutableLiveData<List<SearchResult>> getQueryLiveData() {

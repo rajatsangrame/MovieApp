@@ -16,61 +16,122 @@ import com.rajatsangrame.movie.data.rest.Category;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
 
 public class HomeViewModel extends ViewModel {
 
     private Repository repository;
     private LiveData<PagedList<MovieDB>> pagedListPopular;
-    //    private LiveData<PagedList<Movie>> pagedListPopularTv;
-//    private LiveData<PagedList<Movie>> pagedListNowPlaying;
-//    private LiveData<PagedList<Movie>> pagedListTopTv;
-//    private LiveData<PagedList<Movie>> pagedListTopRatedMovie;
-    private RetrofitApi retrofitApi;
-    private MovieDao movieDao;
+    private LiveData<PagedList<MovieDB>> pagedListPopularTv;
+    private LiveData<PagedList<MovieDB>> pagedListNowPlaying;
+    private LiveData<PagedList<MovieDB>> pagedListTopTv;
+    private LiveData<PagedList<MovieDB>> pagedListTopRatedMovie;
+    private final RetrofitApi retrofitApi;
+    private final MovieDao movieDao;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public HomeViewModel(Repository repository, RetrofitApi retrofitApi) {
         this.repository = repository;
         this.retrofitApi = retrofitApi;
         this.movieDao = repository.getDatabase().movieDao();
-        init();
+        initPagedList();
     }
 
-    private void init() {
+    private void initPagedList() {
+        initPopularMovie();
+        initPopularTV();
+        initNowPlaying();
+        initTopTv();
+        initTopMovie();
+    }
 
+    void initPopularMovie() {
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, movieDao, Category.POPULAR);
-        DataSource.Factory<Integer, MovieDB> factory = movieDao.getDataSource(Category.POPULAR.name());
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+                compositeDisposable, Category.POPULAR);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getPopularDataSource(Category.POPULAR.name());
         pagedListPopular = new LivePagedListBuilder<>(factory, config)
                 .setBoundaryCallback(boundaryCallBack)
                 .build();
+    }
 
-//        pagedListPopularTv = new LivePagedListBuilder<>(popularTvSource, config).build();
-//        pagedListNowPlaying = new LivePagedListBuilder<>(nowPlayingSource, config).build();
-//        pagedListTopTv = new LivePagedListBuilder<>(topTvSource, config).build();
-//        pagedListTopRatedMovie = new LivePagedListBuilder<>(topRatedMovieSource, config).build();
+    void initPopularTV() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(MovieDataSource.PAGE_SIZE)
+                .build();
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+                compositeDisposable, Category.POPULAR_TV);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getPopularDataSource(Category.POPULAR_TV.name());
+        pagedListPopularTv = new LivePagedListBuilder<>(factory, config)
+                .setBoundaryCallback(boundaryCallBack)
+                .build();
+    }
+
+    void initNowPlaying() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(MovieDataSource.PAGE_SIZE)
+                .build();
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+                compositeDisposable, Category.NOW_PLAYING);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getDataSource(Category.NOW_PLAYING.name());
+        pagedListNowPlaying = new LivePagedListBuilder<>(factory, config)
+                .setBoundaryCallback(boundaryCallBack)
+                .build();
+    }
+
+    void initTopTv() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(MovieDataSource.PAGE_SIZE)
+                .build();
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+                compositeDisposable, Category.TOP_TV);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getTopRatedDataSource(Category.TOP_TV.name());
+        pagedListTopTv = new LivePagedListBuilder<>(factory, config)
+                .setBoundaryCallback(boundaryCallBack)
+                .build();
+    }
+
+    void initTopMovie() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPageSize(MovieDataSource.PAGE_SIZE)
+                .build();
+        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+                compositeDisposable, Category.TOP_RATED_MOVIE);
+        DataSource.Factory<Integer, MovieDB> factory = movieDao.getTopRatedDataSource(Category.TOP_RATED_MOVIE.name());
+        pagedListTopRatedMovie = new LivePagedListBuilder<>(factory, config)
+                .setBoundaryCallback(boundaryCallBack)
+                .build();
     }
 
     public LiveData<PagedList<MovieDB>> getPagedListPopular() {
         return pagedListPopular;
     }
-//
-//    public LiveData<PagedList<Movie>> getPagedListPopularTv() {
-//        return pagedListPopularTv;
-//    }
-//
-//    public LiveData<PagedList<Movie>> getPagedListNowPlaying() {
-//        return pagedListNowPlaying;
-//    }
-//
-//    public LiveData<PagedList<Movie>> getPagedListTopRatedMovie() {
-//        return pagedListTopRatedMovie;
-//    }
-//
-//    public LiveData<PagedList<Movie>> getPagedListTopTv() {
-//        return pagedListTopTv;
-//    }
+
+    public LiveData<PagedList<MovieDB>> getPagedListPopularTv() {
+        return pagedListPopularTv;
+    }
+
+    public LiveData<PagedList<MovieDB>> getPagedListNowPlaying() {
+        return pagedListNowPlaying;
+    }
+
+    public LiveData<PagedList<MovieDB>> getPagedListTopRatedMovie() {
+        return pagedListTopRatedMovie;
+    }
+
+    public LiveData<PagedList<MovieDB>> getPagedListTopTv() {
+        return pagedListTopTv;
+    }
+
+    public void dispose() {
+        compositeDisposable.dispose();
+    }
 }

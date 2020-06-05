@@ -43,12 +43,27 @@ public class MovieDB {
     @ColumnInfo(name = "popularity")
     private double popularity;
 
-    public MovieDB(int id, String title, String fetchCategory, String posterPath, double popularity) {
+    @ColumnInfo(name = "vote_average")
+    private double voteAverage;
+
+    @ColumnInfo(name = "entry_timestamp")
+    private long entryTimeStamp;
+
+    public MovieDB(int id,
+                   String title,
+                   String fetchCategory,
+                   String posterPath,
+                   double popularity,
+                   double voteAverage,
+                   long entryTimeStamp) {
+
         this.id = id;
         this.title = title;
         this.fetchCategory = fetchCategory;
         this.posterPath = posterPath;
         this.popularity = popularity;
+        this.voteAverage = voteAverage;
+        this.entryTimeStamp = entryTimeStamp;
     }
 
     public int getId() {
@@ -123,12 +138,25 @@ public class MovieDB {
         this.popularity = popularity;
     }
 
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public long getEntryTimeStamp() {
+        return entryTimeStamp;
+    }
+
+    public void setEntryTimeStamp(long entryTimeStamp) {
+        this.entryTimeStamp = entryTimeStamp;
+    }
+
     /*
     @ColumnInfo(name = "release_date")
     private String releaseDate;
-
-    @ColumnInfo(name = "vote_average")
-    private double voteAverage;
 
     @ColumnInfo(name = "adult")
     private boolean adult;

@@ -56,7 +56,7 @@ public class ApplicationModule {
 
     @ApplicationScope
     @Provides
-    Repository getRepository(@ApplicationContext Context context, RetrofitApi retrofitApi, MovieDatabase database) {
+    Repository getRepository(RetrofitApi retrofitApi, MovieDatabase database) {
         return new Repository(retrofitApi, database);
     }
 

@@ -36,6 +36,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public class SearchFragment extends Fragment {
 
     public static final String TAG = "SearchFragment";
@@ -50,6 +52,7 @@ public class SearchFragment extends Fragment {
     ViewModelFactory factory;
 
     private FragmentSearchBinding binding;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public static SearchFragment newInstance() {
         Bundle args = new Bundle();
@@ -79,7 +82,6 @@ public class SearchFragment extends Fragment {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_search, container, false);
         return binding.getRoot();
-
     }
 
     @Override
@@ -94,7 +96,7 @@ public class SearchFragment extends Fragment {
                     String query = binding.etSearch.getText().toString();
                     if (!query.isEmpty()) {
                         Log.i(TAG, "onEditorAction: false");
-                        searchViewModel.fetchQuery(query);
+                        searchViewModel.fetchQuery(query, compositeDisposable, null);
                         Utils.hideKeyboard(getContext());
                     }
                 }
@@ -110,7 +112,7 @@ public class SearchFragment extends Fragment {
             public void onChanged(List<SearchResult> searchResults) {
                 clearRecyclerView();
                 searchAdapter.setMovieList(searchResults);
-                if (!searchResults.isEmpty()){
+                if (!searchResults.isEmpty()) {
                     clearFocus();
                 }
             }
@@ -132,11 +134,17 @@ public class SearchFragment extends Fragment {
         binding.etSearch.setText("");
         binding.etSearch.requestFocus();
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(binding.etSearch,InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(binding.etSearch, InputMethodManager.SHOW_IMPLICIT);
 
     }
 
     private void clearFocus() {
         binding.etSearch.clearFocus();
+    }
+
+    @Override
+    public void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
     }
 }
