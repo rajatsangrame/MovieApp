@@ -7,7 +7,7 @@ import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDao;
-import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -62,25 +62,24 @@ public class BoundaryCallBack extends PagedList.BoundaryCallback<MovieDB> {
 
     private void requestAndSaveData() {
 
-        Log.d(TAG, "requestAndSaveData: started");
         int pageLimit = 5;
         if (lastRequestedPage > pageLimit) {
-            Log.i(TAG, "requestAndSaveData: page limit");
+            Log.d(TAG, "requestAndSaveData: page limit");
             return;
         }
 
         if (isRequestInProgress) {
-            Log.i(TAG, "requestAndSaveData: isRequestInProgress");
+            Log.d(TAG, "requestAndSaveData: isRequestInProgress");
             return;
         }
 
         isRequestInProgress = true;
-        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, lastRequestedPage);
+        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, lastRequestedPage);
         single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<Movie>, List<MovieDB>>() {
+                .map(new Function<ApiResponse<Movie>, List<MovieDB>>() {
                     @Override
-                    public List<MovieDB> apply(Api<Movie> movieApi) throws Exception {
+                    public List<MovieDB> apply(ApiResponse<Movie> movieApi) throws Exception {
                         return Utils.getMovieList(movieApi, category);
                     }
                 }).subscribe(new SingleObserver<List<MovieDB>>() {
@@ -107,5 +106,4 @@ public class BoundaryCallBack extends PagedList.BoundaryCallback<MovieDB> {
             }
         });
     }
-
 }

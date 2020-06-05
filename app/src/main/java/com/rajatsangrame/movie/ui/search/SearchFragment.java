@@ -26,7 +26,7 @@ import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentSearchBinding;
 import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
 import com.rajatsangrame.movie.di.component.SearchFragmentComponent;
-import com.rajatsangrame.movie.di.module.Repository;
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.di.module.SearchFragmentModule;
 import com.rajatsangrame.movie.util.Utils;
 import com.rajatsangrame.movie.util.ViewModelFactory;
@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
     SearchAdapter searchAdapter;
 
     @Inject
-    Repository restaurantRepository;
+    Repository repository;
 
     @Inject
     ViewModelFactory factory;

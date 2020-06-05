@@ -7,6 +7,11 @@ import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.data.rest.Category;
 
+/**
+ * @deprecated This class was used in online network paging. Not used in network = db
+ * checkout branch `without-db` for the use case
+ */
+@Deprecated
 public class MovieDataSourceFactory extends DataSource.Factory<Long, Movie> {
 
     private Category category;

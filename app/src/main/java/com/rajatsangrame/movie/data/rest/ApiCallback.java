@@ -1,6 +1,6 @@
 package com.rajatsangrame.movie.data.rest;
 
-import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.db.MovieDB;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ApiCallback {
 
-    void onSuccess(List<Movie> movieList);
+    void onSuccess(List<MovieDB> movieDBList);
 
     void onError(String errorMessage);
 }

@@ -21,7 +21,7 @@ import com.rajatsangrame.movie.databinding.FragmentHomeBinding;
 import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
 import com.rajatsangrame.movie.di.component.HomeFragmentComponent;
 import com.rajatsangrame.movie.di.module.HomeFragmentModule;
-import com.rajatsangrame.movie.di.module.Repository;
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.di.qualifier.NowPlayingList;
 import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     MovieAdapter topRatedMovieAdapter;
 
     @Inject
-    Repository restaurantRepository;
+    Repository repository;
 
     @Inject
     ViewModelFactory factory;

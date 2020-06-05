@@ -1,11 +1,11 @@
-package com.rajatsangrame.movie.di.module;
+package com.rajatsangrame.movie.data;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.rajatsangrame.movie.data.db.MovieDatabase;
-import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Utils;
@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Repository {
 
-    private static final String TAG = "RestaurantRepository";
+    private static final String TAG = "Repository";
     private RetrofitApi retrofitApi;
     private MutableLiveData<List<SearchResult>> liveDataSearchResult;
     private MovieDatabase database;
@@ -46,12 +46,12 @@ public class Repository {
 
     public void fetchQuery(String query) {
 
-        Single<Api<SearchResult>> single = retrofitApi.search(query);
+        Single<ApiResponse<SearchResult>> single = retrofitApi.search(query);
         single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<SearchResult>, List<SearchResult>>() {
+                .map(new Function<ApiResponse<SearchResult>, List<SearchResult>>() {
                     @Override
-                    public List<SearchResult> apply(Api<SearchResult> movieApi) throws Exception {
+                    public List<SearchResult> apply(ApiResponse<SearchResult> movieApi) throws Exception {
                         return Utils.prepareListForSearchAdapter(movieApi);
                     }
                 })

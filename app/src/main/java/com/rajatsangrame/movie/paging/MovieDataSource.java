@@ -3,7 +3,7 @@ package com.rajatsangrame.movie.paging;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
-import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.data.rest.Category;
@@ -18,7 +18,11 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-
+/**
+ * @deprecated This class was used in online network paging. Not used in network = db
+ * checkout branch `without-db` for the use case
+ */
+@Deprecated
 public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
     private static final String TAG = "MovieDataSource";
@@ -39,12 +43,12 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
-        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, FIRST_PAGE);
+        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, FIRST_PAGE);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<Movie>, List<Movie>>() {
+                .map(new Function<ApiResponse<Movie>, List<Movie>>() {
                     @Override
-                    public List<Movie> apply(Api<Movie> movieApi) throws Exception {
+                    public List<Movie> apply(ApiResponse<Movie> movieApi) throws Exception {
                         return Utils.getListResult(movieApi);
                     }
                 })
@@ -64,12 +68,12 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     @Override
     public void loadBefore(@NonNull final LoadParams<Long> params,
                            @NonNull final LoadCallback<Long, Movie> callback) {
-        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
+        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<Movie>, List<Movie>>() {
+                .map(new Function<ApiResponse<Movie>, List<Movie>>() {
                     @Override
-                    public List<Movie> apply(Api<Movie> movieApi) throws Exception {
+                    public List<Movie> apply(ApiResponse<Movie> movieApi) throws Exception {
                         return Utils.getListResult(movieApi);
                     }
                 })
@@ -96,12 +100,12 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadAfter(@NonNull final LoadParams<Long> params,
                           @NonNull final LoadCallback<Long, Movie> callback) {
 
-        Single<Api<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
+        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Api<Movie>, List<Movie>>() {
+                .map(new Function<ApiResponse<Movie>, List<Movie>>() {
                     @Override
-                    public List<Movie> apply(Api<Movie> movieApi) throws Exception {
+                    public List<Movie> apply(ApiResponse<Movie> movieApi) throws Exception {
                         return Utils.getListResult(movieApi);
                     }
                 })

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
 

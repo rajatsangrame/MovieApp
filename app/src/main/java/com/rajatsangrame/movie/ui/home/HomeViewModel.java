@@ -8,7 +8,7 @@ import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDao;
-import com.rajatsangrame.movie.di.module.Repository;
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.paging.BoundaryCallBack;
 import com.rajatsangrame.movie.paging.MovieDataSource;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 public class HomeViewModel extends ViewModel {
 
-    private Repository restaurantRepository;
+    private Repository repository;
     private LiveData<PagedList<MovieDB>> pagedListPopular;
     //    private LiveData<PagedList<Movie>> pagedListPopularTv;
 //    private LiveData<PagedList<Movie>> pagedListNowPlaying;
@@ -29,10 +29,10 @@ public class HomeViewModel extends ViewModel {
     private MovieDao movieDao;
 
     @Inject
-    public HomeViewModel(Repository restaurantRepository, RetrofitApi retrofitApi) {
-        this.restaurantRepository = restaurantRepository;
+    public HomeViewModel(Repository repository, RetrofitApi retrofitApi) {
+        this.repository = repository;
         this.retrofitApi = retrofitApi;
-        this.movieDao = restaurantRepository.getDatabase().movieDao();
+        this.movieDao = repository.getDatabase().movieDao();
         init();
     }
 

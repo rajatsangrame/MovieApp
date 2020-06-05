@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Rajat Sangrame on 18/12/19.
  * http://github.com/rajatsangrame
  */
-public class Api<T> {
+public class ApiResponse<T> {
 
     @SerializedName("page")
     private int page;

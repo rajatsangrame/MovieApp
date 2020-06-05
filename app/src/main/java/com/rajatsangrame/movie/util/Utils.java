@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.model.Api;
+import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.home.Movie;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.Category;
@@ -36,11 +36,11 @@ public class Utils {
         inputManager.toggleSoftInput(0, 0);
     }
 
-    public static List<Movie> getListResult(Api<Movie> apiResponse) {
+    public static List<Movie> getListResult(ApiResponse<Movie> apiResponse) {
         return apiResponse.getResults();
     }
 
-    public static List<SearchResult> prepareListForSearchAdapter(Api<SearchResult> apiResponse) {
+    public static List<SearchResult> prepareListForSearchAdapter(ApiResponse<SearchResult> apiResponse) {
         List<SearchResult> outputResult = new ArrayList<>();
         if (apiResponse == null || apiResponse.getResults() == null) {
             return outputResult;
@@ -70,7 +70,7 @@ public class Utils {
         return outputResult;
     }
 
-    private static List<SearchResult> clearRawEntries(Api<SearchResult> apiResponse) {
+    private static List<SearchResult> clearRawEntries(ApiResponse<SearchResult> apiResponse) {
         List<SearchResult> list = new ArrayList<>();
         for (SearchResult itr : apiResponse.getResults()) {
             if (itr.getMediaType().equals("person") || itr.getBackdropPath() != null) {
@@ -82,7 +82,7 @@ public class Utils {
         return list;
     }
 
-    public static Single<Api<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
+    public static Single<ApiResponse<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
         switch (category) {
             case POPULAR_TV:
                 return retrofitApi.getPopularTv(key);
@@ -98,7 +98,7 @@ public class Utils {
         }
     }
 
-    public static List<MovieDB> getMovieList(Api<Movie> apiResponse, Category category) {
+    public static List<MovieDB> getMovieList(ApiResponse<Movie> apiResponse, Category category) {
         List<MovieDB> dbList = new ArrayList<>();
         if (apiResponse == null || apiResponse.getResults() == null)
             return dbList;

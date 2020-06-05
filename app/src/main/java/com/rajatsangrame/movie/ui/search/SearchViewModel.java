@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rajatsangrame.movie.data.model.search.SearchResult;
-import com.rajatsangrame.movie.di.module.Repository;
+import com.rajatsangrame.movie.data.Repository;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ import javax.inject.Inject;
  */
 public class SearchViewModel extends ViewModel {
 
-    private Repository restaurantRepository;
+    private Repository repository;
 
     @Inject
-    public SearchViewModel(Repository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
+    public SearchViewModel(Repository repository) {
+        this.repository = repository;
         init();
     }
 
@@ -28,14 +28,14 @@ public class SearchViewModel extends ViewModel {
     }
 
     public void fetchQuery(String query) {
-        restaurantRepository.fetchQuery(query);
+        repository.fetchQuery(query);
     }
 
     public MutableLiveData<List<SearchResult>> getQueryLiveData() {
-        return restaurantRepository.getSearchLiveData();
+        return repository.getSearchLiveData();
     }
 
     public void setQueryLiveData(List<SearchResult> resultList) {
-        restaurantRepository.getSearchLiveData().setValue(resultList);
+        repository.getSearchLiveData().setValue(resultList);
     }
 }
