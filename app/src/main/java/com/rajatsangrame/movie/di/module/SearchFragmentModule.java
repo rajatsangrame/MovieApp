@@ -2,7 +2,6 @@ package com.rajatsangrame.movie.di.module;
 
 import com.rajatsangrame.movie.adapter.SearchAdapter;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
-import com.rajatsangrame.movie.paging.MovieAdapter;
 import com.rajatsangrame.movie.ui.search.SearchFragment;
 
 import dagger.Module;

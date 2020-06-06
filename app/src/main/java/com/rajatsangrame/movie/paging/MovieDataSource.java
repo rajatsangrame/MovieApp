@@ -43,7 +43,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadInitial(@NonNull final LoadInitialParams<Long> params,
                             @NonNull final LoadInitialCallback<Long, Movie> callback) {
 
-        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, FIRST_PAGE);
+        Single<ApiResponse<Movie>> single = Utils.getSingleMovie(retrofitApi, category, FIRST_PAGE);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ApiResponse<Movie>, List<Movie>>() {
@@ -68,7 +68,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     @Override
     public void loadBefore(@NonNull final LoadParams<Long> params,
                            @NonNull final LoadCallback<Long, Movie> callback) {
-        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
+        Single<ApiResponse<Movie>> single = Utils.getSingleMovie(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ApiResponse<Movie>, List<Movie>>() {
@@ -100,7 +100,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     public void loadAfter(@NonNull final LoadParams<Long> params,
                           @NonNull final LoadCallback<Long, Movie> callback) {
 
-        Single<ApiResponse<Movie>> single = Utils.getSingle(retrofitApi, category, params.key);
+        Single<ApiResponse<Movie>> single = Utils.getSingleMovie(retrofitApi, category, params.key);
         compositeDisposable.add(single.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<ApiResponse<Movie>, List<Movie>>() {

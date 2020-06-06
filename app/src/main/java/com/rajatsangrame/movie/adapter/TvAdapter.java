@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.paging;
+package com.rajatsangrame.movie.adapter;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -83,8 +83,4 @@ public class TvAdapter extends PagedListAdapter<TVDB, TvAdapter.MovieViewHolder>
         }
     };
 
-
-    public interface OnClickListener {
-        void onItemClicked(TVDB movie, View view);
-    }
 }

@@ -9,6 +9,8 @@ import androidx.paging.PagedList;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDao;
 import com.rajatsangrame.movie.data.Repository;
+import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.db.TvDao;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.paging.BoundaryCallBack;
 import com.rajatsangrame.movie.paging.MovieDataSource;
@@ -22,12 +24,13 @@ public class HomeViewModel extends ViewModel {
 
     private Repository repository;
     private LiveData<PagedList<MovieDB>> pagedListPopular;
-    private LiveData<PagedList<MovieDB>> pagedListPopularTv;
     private LiveData<PagedList<MovieDB>> pagedListNowPlaying;
-    private LiveData<PagedList<MovieDB>> pagedListTopTv;
     private LiveData<PagedList<MovieDB>> pagedListTopRatedMovie;
+    private LiveData<PagedList<TVDB>> pagedListPopularTv;
+    private LiveData<PagedList<TVDB>> pagedListTopTv;
     private final RetrofitApi retrofitApi;
     private final MovieDao movieDao;
+    private final TvDao tvDao;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
@@ -35,6 +38,8 @@ public class HomeViewModel extends ViewModel {
         this.repository = repository;
         this.retrofitApi = retrofitApi;
         this.movieDao = repository.getDatabase().movieDao();
+        this.tvDao = repository.getDatabase().tvDao();
+
         initPagedList();
     }
 
@@ -51,7 +56,7 @@ public class HomeViewModel extends ViewModel {
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+        BoundaryCallBack<MovieDB> boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
                 compositeDisposable, Category.POPULAR);
         DataSource.Factory<Integer, MovieDB> factory = movieDao.getPopularDataSource(Category.POPULAR.name());
         pagedListPopular = new LivePagedListBuilder<>(factory, config)
@@ -64,9 +69,9 @@ public class HomeViewModel extends ViewModel {
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+        BoundaryCallBack<TVDB> boundaryCallBack = new BoundaryCallBack<>(retrofitApi, repository,
                 compositeDisposable, Category.POPULAR_TV);
-        DataSource.Factory<Integer, MovieDB> factory = movieDao.getPopularDataSource(Category.POPULAR_TV.name());
+        DataSource.Factory<Integer, TVDB> factory = tvDao.getPopularTVDataSource(Category.POPULAR_TV.name());
         pagedListPopularTv = new LivePagedListBuilder<>(factory, config)
                 .setBoundaryCallback(boundaryCallBack)
                 .build();
@@ -77,7 +82,7 @@ public class HomeViewModel extends ViewModel {
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+        BoundaryCallBack<MovieDB> boundaryCallBack = new BoundaryCallBack<>(retrofitApi, repository,
                 compositeDisposable, Category.NOW_PLAYING);
         DataSource.Factory<Integer, MovieDB> factory = movieDao.getDataSource(Category.NOW_PLAYING.name());
         pagedListNowPlaying = new LivePagedListBuilder<>(factory, config)
@@ -90,9 +95,9 @@ public class HomeViewModel extends ViewModel {
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+        BoundaryCallBack<TVDB> boundaryCallBack = new BoundaryCallBack<>(retrofitApi, repository,
                 compositeDisposable, Category.TOP_TV);
-        DataSource.Factory<Integer, MovieDB> factory = movieDao.getTopRatedDataSource(Category.TOP_TV.name());
+        DataSource.Factory<Integer, TVDB> factory = tvDao.getTopRatedTVDataSource(Category.TOP_TV.name());
         pagedListTopTv = new LivePagedListBuilder<>(factory, config)
                 .setBoundaryCallback(boundaryCallBack)
                 .build();
@@ -103,7 +108,7 @@ public class HomeViewModel extends ViewModel {
                 .setEnablePlaceholders(false)
                 .setPageSize(MovieDataSource.PAGE_SIZE)
                 .build();
-        BoundaryCallBack boundaryCallBack = new BoundaryCallBack(retrofitApi, repository,
+        BoundaryCallBack<MovieDB> boundaryCallBack = new BoundaryCallBack<>(retrofitApi, repository,
                 compositeDisposable, Category.TOP_RATED_MOVIE);
         DataSource.Factory<Integer, MovieDB> factory = movieDao.getTopRatedDataSource(Category.TOP_RATED_MOVIE.name());
         pagedListTopRatedMovie = new LivePagedListBuilder<>(factory, config)
@@ -115,7 +120,7 @@ public class HomeViewModel extends ViewModel {
         return pagedListPopular;
     }
 
-    public LiveData<PagedList<MovieDB>> getPagedListPopularTv() {
+    public LiveData<PagedList<TVDB>> getPagedListPopularTv() {
         return pagedListPopularTv;
     }
 
@@ -127,7 +132,7 @@ public class HomeViewModel extends ViewModel {
         return pagedListTopRatedMovie;
     }
 
-    public LiveData<PagedList<MovieDB>> getPagedListTopTv() {
+    public LiveData<PagedList<TVDB>> getPagedListTopTv() {
         return pagedListTopTv;
     }
 

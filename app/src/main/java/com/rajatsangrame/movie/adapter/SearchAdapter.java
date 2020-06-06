@@ -129,9 +129,4 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
 
         }
     }
-
-    public interface OnClickListener {
-        void onItemClicked(SearchResult movie, View view);
-    }
-
 }

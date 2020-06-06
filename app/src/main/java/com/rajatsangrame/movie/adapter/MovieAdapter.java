@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.paging;
+package com.rajatsangrame.movie.adapter;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -82,9 +82,4 @@ public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieVi
             return oldItem == newItem;
         }
     };
-
-
-    public interface OnClickListener {
-        void onItemClicked(MovieDB movie, View view);
-    }
 }

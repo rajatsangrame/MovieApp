@@ -2,6 +2,7 @@ package com.rajatsangrame.movie.data.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -16,7 +17,7 @@ public class TVDB {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private Integer id;
+    private int id;
 
     @ColumnInfo(name = "first_air_date")
     private String firstAirDate;
@@ -37,16 +38,16 @@ public class TVDB {
     private String originalName;
 
     @ColumnInfo(name = "popularity")
-    private Double popularity;
+    private double popularity;
 
     @ColumnInfo(name = "vote_average")
-    private Double voteAverage;
+    private double voteAverage;
 
     @ColumnInfo(name = "name")
     private String name;
 
     @ColumnInfo(name = "vote_count")
-    private Integer voteCount;
+    private int voteCount;
 
     @ColumnInfo(name = "fetch_category")
     private String fetchCategory;
@@ -57,11 +58,37 @@ public class TVDB {
     @ColumnInfo(name = "saved")
     private boolean saved;
 
-    public Integer getId() {
+    public TVDB(int id) {
+        this.id = id;
+    }
+
+    @Ignore
+    public TVDB(int id,
+                   String name,
+                   String fetchCategory,
+                   String posterPath,
+                   String backdropPath,
+                   String overview,
+                   double popularity,
+                   double voteAverage,
+                   long entryTimeStamp) {
+
+        this.id = id;
+        this.name = name;
+        this.fetchCategory = fetchCategory;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+        this.overview = overview;
+        this.popularity = popularity;
+        this.voteAverage = voteAverage;
+        this.entryTimeStamp = entryTimeStamp;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -113,19 +140,19 @@ public class TVDB {
         this.originalName = originalName;
     }
 
-    public Double getPopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(Double popularity) {
+    public void setPopularity(double popularity) {
         this.popularity = popularity;
     }
 
-    public Double getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -137,11 +164,11 @@ public class TVDB {
         this.name = name;
     }
 
-    public Integer getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
+    public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -174,6 +201,6 @@ public class TVDB {
     private List<String> originCountry;
 
     @ColumnInfo(name = "genre_ids")
-    private List<Integer> genreIds;
+    private List<int> genreIds;
      */
 }

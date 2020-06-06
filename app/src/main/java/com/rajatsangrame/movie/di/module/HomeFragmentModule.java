@@ -5,7 +5,8 @@ import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
 import com.rajatsangrame.movie.di.qualifier.TopMovieList;
-import com.rajatsangrame.movie.paging.MovieAdapter;
+import com.rajatsangrame.movie.adapter.MovieAdapter;
+import com.rajatsangrame.movie.adapter.TvAdapter;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 
 import dagger.Module;
@@ -32,8 +33,8 @@ public class HomeFragmentModule {
 
     @Provides
     @PopularTvList
-    public MovieAdapter getPopularTvAdapter() {
-        return new MovieAdapter(fragment);
+    public TvAdapter getPopularTvAdapter() {
+        return new TvAdapter(fragment);
     }
 
     @Provides
@@ -50,8 +51,8 @@ public class HomeFragmentModule {
 
     @Provides
     @TopTvShowsList
-    public MovieAdapter getTopTvShows() {
-        return new MovieAdapter(fragment);
+    public TvAdapter getTopTvShows() {
+        return new TvAdapter(fragment);
     }
 
 }

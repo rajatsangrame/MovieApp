@@ -35,9 +35,6 @@ public class MovieDB {
     @ColumnInfo(name = "overview")
     private String overview;
 
-    @ColumnInfo(name = "media_type")
-    private String mediaType;
-
     @ColumnInfo(name = "original_language")
     private String originalLanguage;
 
@@ -67,7 +64,6 @@ public class MovieDB {
                    String posterPath,
                    String backdropPath,
                    String overview,
-                   String mediaType,
                    double popularity,
                    double voteAverage,
                    long entryTimeStamp) {
@@ -78,7 +74,6 @@ public class MovieDB {
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
         this.overview = overview;
-        this.mediaType = mediaType;
         this.popularity = popularity;
         this.voteAverage = voteAverage;
         this.entryTimeStamp = entryTimeStamp;
@@ -170,14 +165,6 @@ public class MovieDB {
 
     public void setEntryTimeStamp(long entryTimeStamp) {
         this.entryTimeStamp = entryTimeStamp;
-    }
-
-    public String getMediaType() {
-        return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
     }
 
     public boolean isSaved() {

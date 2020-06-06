@@ -22,7 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.adapter.OnClickListener;
 import com.rajatsangrame.movie.adapter.SearchAdapter;
+import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.TVDB;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentSearchBinding;
 import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
@@ -40,7 +43,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
+public class SearchFragment extends Fragment implements OnClickListener {
 
     public static final String TAG = "SearchFragment";
 
@@ -149,6 +152,16 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnClickLis
     public void onDestroy() {
         compositeDisposable.dispose();
         super.onDestroy();
+    }
+
+    @Override
+    public void onItemClicked(MovieDB movie, View view) {
+
+    }
+
+    @Override
+    public void onItemClicked(TVDB movie, View view) {
+
     }
 
     @Override

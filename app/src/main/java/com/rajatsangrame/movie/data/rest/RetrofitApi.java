@@ -4,6 +4,8 @@ import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.movie.Movie;
 import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
+import com.rajatsangrame.movie.data.model.tv.TV;
+import com.rajatsangrame.movie.data.model.tv.TvDetail;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -20,7 +22,7 @@ public interface RetrofitApi {
     Single<ApiResponse<Movie>> getPopularMovies(@Query("page") long page);
 
     @GET("/3/tv/popular")
-    Single<ApiResponse<Movie>> getPopularTv(@Query("page") long page);
+    Single<ApiResponse<TV>> getPopularTv(@Query("page") long page);
 
     @GET("/3/movie/now_playing")
     Single<ApiResponse<Movie>> getNowPlaying(@Query("page") long page);
@@ -29,7 +31,7 @@ public interface RetrofitApi {
     Single<ApiResponse<Movie>> getTopRatedMovie(@Query("page") long page);
 
     @GET("/3/tv/top_rated")
-    Single<ApiResponse<Movie>> getTopRatedTv(@Query("page") long page);
+    Single<ApiResponse<TV>> getTopRatedTv(@Query("page") long page);
 
     @GET("/3/movie/{id}")
     Single<MovieDetail> getMovieDetails(@Path("id") int id);
@@ -38,10 +40,10 @@ public interface RetrofitApi {
     Single<ApiResponse<Movie>> getSimilarMovies(@Path("id") int id);
 
     @GET("/3/tv/{tv_id}")
-    Single<MovieDetail> getTvDetails(@Path("id") int id);
+    Single<TvDetail> getTvDetails(@Path("id") int id);
 
     @GET("/3/tv/{tv_id}")
-    Single<ApiResponse<Movie>> getSimilarTv(@Path("id") int id);
+    Single<ApiResponse<TV>> getSimilarTv(@Path("id") int id);
 
     @GET("/3/search/multi")
     Single<ApiResponse<SearchResult>> search(@Query("query") String query);

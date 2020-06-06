@@ -8,10 +8,12 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.TVDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.movie.Movie;
 import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
+import com.rajatsangrame.movie.data.model.tv.TV;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 
@@ -84,20 +86,49 @@ public class Utils {
         return list;
     }
 
-    public static Single<ApiResponse<Movie>> getSingle(RetrofitApi retrofitApi, Category category, long key) {
+    public static Single<ApiResponse<Movie>> getSingleMovie(RetrofitApi retrofitApi, Category category, long key) {
         switch (category) {
-            case POPULAR_TV:
-                return retrofitApi.getPopularTv(key);
             case NOW_PLAYING:
                 return retrofitApi.getNowPlaying(key);
             case TOP_RATED_MOVIE:
                 return retrofitApi.getTopRatedMovie(key);
-            case TOP_TV:
-                return retrofitApi.getTopRatedTv(key);
             default:
                 // POPULAR
                 return retrofitApi.getPopularMovies(key);
         }
+    }
+
+    public static Single<ApiResponse<TV>> getSingleTV(RetrofitApi retrofitApi, Category category, long key) {
+        switch (category) {
+            case TOP_TV:
+                return retrofitApi.getTopRatedTv(key);
+            default:
+                return retrofitApi.getPopularTv(key);
+        }
+    }
+
+    public static List<TVDB> getTVList(ApiResponse<TV> apiResponse, Category category) {
+        List<TVDB> dbList = new ArrayList<>();
+        if (apiResponse == null || apiResponse.getResults() == null)
+            return dbList;
+
+        for (TV tv : apiResponse.getResults()) {
+
+            //If response is TV. Change accordingly
+            TVDB db = new TVDB(
+                    tv.getId(),
+                    tv.getName(),
+                    category.name(),
+                    tv.getPosterPath(),
+                    tv.getBackdropPath(),
+                    tv.getOverview(),
+                    tv.getPopularity(),
+                    tv.getVoteAverage(),
+                    System.currentTimeMillis()
+            );
+            dbList.add(db);
+        }
+        return dbList;
     }
 
     public static List<MovieDB> getMovieList(ApiResponse<Movie> apiResponse, Category category) {
@@ -108,20 +139,13 @@ public class Utils {
         for (Movie movie : apiResponse.getResults()) {
 
             //If response is TV. Change accordingly
-            String title = movie.getTitle(), mediaType = "movie";
-            if (title == null) {
-                title = movie.getName();
-                mediaType = "tv";
-            }
-
             MovieDB db = new MovieDB(
                     movie.getId(),
-                    title,
+                    movie.getTitle(),
                     category.name(),
                     movie.getPosterPath(),
                     movie.getBackdropPath(),
                     movie.getOverview(),
-                    mediaType,
                     movie.getPopularity(),
                     movie.getVoteAverage(),
                     System.currentTimeMillis());

@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.adapter.OnClickListener;
 import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentHomeBinding;
 import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
 import com.rajatsangrame.movie.di.component.HomeFragmentComponent;
@@ -27,13 +30,14 @@ import com.rajatsangrame.movie.di.qualifier.PopularTvList;
 import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
 import com.rajatsangrame.movie.di.qualifier.TopMovieList;
-import com.rajatsangrame.movie.paging.MovieAdapter;
+import com.rajatsangrame.movie.adapter.MovieAdapter;
+import com.rajatsangrame.movie.adapter.TvAdapter;
 import com.rajatsangrame.movie.ui.detail.DetailActivity;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import javax.inject.Inject;
 
-public class HomeFragment extends Fragment implements MovieAdapter.OnClickListener {
+public class HomeFragment extends Fragment implements OnClickListener {
 
     public static final String TAG = "HomeFragment";
 
@@ -43,7 +47,7 @@ public class HomeFragment extends Fragment implements MovieAdapter.OnClickListen
 
     @Inject
     @PopularTvList
-    MovieAdapter popularTvAdapter;
+    TvAdapter popularTvAdapter;
 
     @Inject
     @NowPlayingList
@@ -51,7 +55,7 @@ public class HomeFragment extends Fragment implements MovieAdapter.OnClickListen
 
     @Inject
     @TopTvShowsList
-    MovieAdapter topTvShowAdapter;
+    TvAdapter topTvShowAdapter;
 
     @Inject
     @TopMovieList
@@ -117,9 +121,9 @@ public class HomeFragment extends Fragment implements MovieAdapter.OnClickListen
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         popularTvAdapter.setListener(this);
         binding.rvPopularTv.setAdapter(popularTvAdapter);
-        homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
+        homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<TVDB>>() {
             @Override
-            public void onChanged(PagedList<MovieDB> movies) {
+            public void onChanged(PagedList<TVDB> movies) {
                 popularTvAdapter.submitList(movies);
             }
         });
@@ -141,9 +145,9 @@ public class HomeFragment extends Fragment implements MovieAdapter.OnClickListen
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         topTvShowAdapter.setListener(this);
         binding.rvTopTv.setAdapter(topTvShowAdapter);
-        homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
+        homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<TVDB>>() {
             @Override
-            public void onChanged(PagedList<MovieDB> movies) {
+            public void onChanged(PagedList<TVDB> movies) {
                 topTvShowAdapter.submitList(movies);
             }
         });
@@ -174,4 +178,15 @@ public class HomeFragment extends Fragment implements MovieAdapter.OnClickListen
         intent.putExtra("title", movie.getTitle());
         startActivity(intent);
     }
+
+    @Override
+    public void onItemClicked(TVDB movie, View view) {
+
+    }
+
+    @Override
+    public void onItemClicked(SearchResult movie, View view) {
+
+    }
+
 }

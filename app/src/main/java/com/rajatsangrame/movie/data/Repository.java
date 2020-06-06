@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDatabase;
+import com.rajatsangrame.movie.data.db.TVDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
@@ -58,11 +59,23 @@ public class Repository {
         return database;
     }
 
-    public void insertBulk(List<MovieDB> movieList, final InsertCallback insertCallback) {
+    public void insertBulkMovie(List<MovieDB> movieList, final InsertCallback insertCallback) {
         ioExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 database.movieDao().bulkInsert(movieList);
+                if (insertCallback != null) {
+                    insertCallback.insertFinished();
+                }
+            }
+        });
+    }
+
+    public void insertBulkTV(List<TVDB> movieList, final InsertCallback insertCallback) {
+        ioExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.tvDao().bulkInsert(movieList);
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
                 }
