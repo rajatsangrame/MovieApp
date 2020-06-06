@@ -75,7 +75,7 @@ public class TvDetail{
 	private List<Integer> episodeRunTime;
 
 	@SerializedName("next_episode_to_air")
-	private Object nextEpisodeToAir;
+	private String nextEpisodeToAir;
 
 	@SerializedName("in_production")
 	private Boolean inProduction;
@@ -181,7 +181,7 @@ public class TvDetail{
 		return episodeRunTime;
 	}
 
-	public Object getNextEpisodeToAir(){
+	public String getNextEpisodeToAir(){
 		return nextEpisodeToAir;
 	}
 

@@ -9,10 +9,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {MovieDB.class}, version = 1)
+@Database(entities = {MovieDB.class, TVDB.class}, version = 1)
 public abstract class MovieDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();
+
+    public abstract TvDao tvDao();
 
     private static volatile MovieDatabase INSTANCE;
 
@@ -45,9 +47,11 @@ public abstract class MovieDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final MovieDao dao;
+        private final TvDao tvDao;
 
         PopulateDbAsync(MovieDatabase db) {
             dao = db.movieDao();
+            tvDao = db.tvDao();
         }
 
         @Override

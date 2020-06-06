@@ -8,6 +8,10 @@
         <variable
             name="movie"
             type="com.rajatsangrame.movie.data.db.MovieDB" />
+
+        <variable
+            name="tv"
+            type="com.rajatsangrame.movie.data.db.TVDB" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,7 +24,7 @@
 
         <ImageView
             android:id="@+id/iv_movie_image"
-            loadImageUrl="@{movie.posterPath}"
+            loadImageUrl="@{movie.posterPath != null ? movie.posterPath : tv.posterPath}"
             android:layout_width="100dp"
             android:layout_height="145dp"
             android:scaleType="centerCrop" />
