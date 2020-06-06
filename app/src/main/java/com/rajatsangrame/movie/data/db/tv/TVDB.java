@@ -1,10 +1,9 @@
-package com.rajatsangrame.movie.data.db;
+package com.rajatsangrame.movie.data.db.tv;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
 
 /**
  * Created by Rajat Sangrame on 22/4/20.
@@ -13,24 +12,15 @@ import androidx.room.PrimaryKey;
  * Ref: https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a
  */
 
-@Entity(tableName = "movie")
-public class MovieDB {
+@Entity(tableName = "tv")
+public class TVDB {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
     private int id;
 
-    @ColumnInfo(name = "title")
-    private String title;
-
-    @ColumnInfo(name = "fetch_category")
-    private String fetchCategory;
-
-    @ColumnInfo(name = "poster_path")
-    private String posterPath;
-
-    @ColumnInfo(name = "backdrop_path")
-    private String backdropPath;
+    @ColumnInfo(name = "first_air_date")
+    private String firstAirDate;
 
     @ColumnInfo(name = "overview")
     private String overview;
@@ -38,8 +28,14 @@ public class MovieDB {
     @ColumnInfo(name = "original_language")
     private String originalLanguage;
 
-    @ColumnInfo(name = "original_title")
-    private String originalTitle;
+    @ColumnInfo(name = "poster_path")
+    private String posterPath;
+
+    @ColumnInfo(name = "backdrop_path")
+    private String backdropPath;
+
+    @ColumnInfo(name = "original_name")
+    private String originalName;
 
     @ColumnInfo(name = "popularity")
     private double popularity;
@@ -47,19 +43,28 @@ public class MovieDB {
     @ColumnInfo(name = "vote_average")
     private double voteAverage;
 
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @ColumnInfo(name = "vote_count")
+    private int voteCount;
+
+    @ColumnInfo(name = "fetch_category")
+    private String fetchCategory;
+
     @ColumnInfo(name = "entry_timestamp")
     private long entryTimeStamp;
 
     @ColumnInfo(name = "saved")
     private boolean saved;
 
-    public MovieDB(int id) {
+    public TVDB(int id) {
         this.id = id;
     }
 
     @Ignore
-    public MovieDB(int id,
-                   String title,
+    public TVDB(int id,
+                   String name,
                    String fetchCategory,
                    String posterPath,
                    String backdropPath,
@@ -69,7 +74,7 @@ public class MovieDB {
                    long entryTimeStamp) {
 
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.fetchCategory = fetchCategory;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
@@ -87,36 +92,12 @@ public class MovieDB {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getFetchCategory() {
-        return fetchCategory;
-    }
-
-    public void setFetchCategory(String fetchCategory) {
-        this.fetchCategory = fetchCategory;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public String getOverview() {
@@ -135,12 +116,28 @@ public class MovieDB {
         this.originalLanguage = originalLanguage;
     }
 
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
     public double getPopularity() {
@@ -157,6 +154,30 @@ public class MovieDB {
 
     public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public String getFetchCategory() {
+        return fetchCategory;
+    }
+
+    public void setFetchCategory(String fetchCategory) {
+        this.fetchCategory = fetchCategory;
     }
 
     public long getEntryTimeStamp() {
@@ -176,49 +197,10 @@ public class MovieDB {
     }
 
     /*
-    @ColumnInfo(name = "release_date")
-    private String releaseDate;
+    @ColumnInfo(name = "origin_country")
+    private List<String> originCountry;
 
-    @ColumnInfo(name = "adult")
-    private boolean adult;
-
-    @ColumnInfo(name = "imdb_id")
-    private String imdbId;
-
-    @ColumnInfo(name = "revenue")
-    private int revenue;
-
-    @ColumnInfo(name = "budget")
-    private int budget;
-
-    @ColumnInfo(name = "runtime")
-    private int runtime;
-
-    @ColumnInfo(name = "tag_line")
-    private String tagLine;
-
-    @ColumnInfo(name = "homepage")
-    private String homepage;
-
-    @ColumnInfo(name = "status")
-    private String status;
-
------------------------------------------------------
-
-    @ColumnInfo(name = "spoken_languages")
-    //private List<SpokenLanguages> spokenLanguages;
-    private String spokenLanguages;
-
-    @ColumnInfo(name = "production_companies")
-    //private List<ProductionCompanies> productionCompanies;
-    private String productionCompanies;
-
-    @ColumnInfo(name = "genres")
-    //private List<Genre> genres;
-    private String genres;
-
-    @ColumnInfo(name = "production_countries")
-    //private List<ProductionCountries> productionCountries;
-    private String productionCountries;
-    */
+    @ColumnInfo(name = "genre_ids")
+    private List<int> genreIds;
+     */
 }

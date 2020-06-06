@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.data.db;
+package com.rajatsangrame.movie.data.db.movie;
 
 import androidx.paging.DataSource;
 import androidx.room.Dao;
@@ -14,6 +14,9 @@ public interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void bulkInsert(List<MovieDB> movieDBList);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(MovieDB movieDB);
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC")
     DataSource.Factory<Integer, MovieDB> getPopularDataSource(String category);

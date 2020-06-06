@@ -3,6 +3,8 @@ package com.rajatsangrame.movie.data.db;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+
 import java.util.List;
 
 /**

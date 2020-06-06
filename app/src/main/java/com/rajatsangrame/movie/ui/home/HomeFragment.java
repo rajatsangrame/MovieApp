@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.OnClickListener;
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.databinding.FragmentHomeBinding;
 import com.rajatsangrame.movie.di.component.DaggerHomeFragmentComponent;
@@ -176,12 +176,17 @@ public class HomeFragment extends Fragment implements OnClickListener {
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra("id", movie.getId());
         intent.putExtra("title", movie.getTitle());
+        intent.putExtra("type", "movie");
         startActivity(intent);
     }
 
     @Override
-    public void onItemClicked(TVDB movie, View view) {
-
+    public void onItemClicked(TVDB tv, View view) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("id", tv.getId());
+        intent.putExtra("title", tv.getName());
+        intent.putExtra("type", "tv");
+        startActivity(intent);
     }
 
     @Override

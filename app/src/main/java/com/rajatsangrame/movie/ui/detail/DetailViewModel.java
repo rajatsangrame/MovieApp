@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.rajatsangrame.movie.data.Repository;
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.model.search.SearchResult;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,21 +23,22 @@ public class DetailViewModel extends ViewModel {
     @Inject
     public DetailViewModel(Repository repository) {
         this.repository = repository;
-        init();
-    }
-
-    private void init() {
     }
 
     public void fetchMovieDetail(int id, CompositeDisposable disposable, ApiCallback callback) {
         repository.fetchMovieDetail(id, disposable, callback);
     }
 
-    public MutableLiveData<MovieDB> getMovieDetail() {
-        return repository.getLiveDataMovieDetail();
+    public void fetchTVDetail(int id, CompositeDisposable disposable, ApiCallback callback) {
+        repository.fetchTVDetail(id, disposable, callback);
     }
 
-    public void setQueryLiveData(List<SearchResult> resultList) {
-        repository.getSearchLiveData().setValue(resultList);
+    public MutableLiveData<MovieDB> getMovieDetail(int id) {
+        return repository.getLiveDataMovieDetail(id);
     }
+
+    public MutableLiveData<TVDB> getTvDetail(int id) {
+        return repository.getLiveDataTVDetail(id);
+    }
+
 }

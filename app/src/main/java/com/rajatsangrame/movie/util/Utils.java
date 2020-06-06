@@ -7,13 +7,14 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.rajatsangrame.movie.data.Repository;
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.movie.Movie;
 import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.model.tv.TV;
+import com.rajatsangrame.movie.data.model.tv.TvDetail;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 
@@ -93,7 +94,7 @@ public class Utils {
             case TOP_RATED_MOVIE:
                 return retrofitApi.getTopRatedMovie(key);
             default:
-                // POPULAR
+                //POPULAR
                 return retrofitApi.getPopularMovies(key);
         }
     }
@@ -103,8 +104,30 @@ public class Utils {
             case TOP_TV:
                 return retrofitApi.getTopRatedTv(key);
             default:
+                //POPULAR
                 return retrofitApi.getPopularTv(key);
         }
+    }
+
+    public static List<MovieDB> getMovieList(ApiResponse<Movie> apiResponse, Category category) {
+        List<MovieDB> dbList = new ArrayList<>();
+        if (apiResponse == null || apiResponse.getResults() == null)
+            return dbList;
+
+        for (Movie movie : apiResponse.getResults()) {
+            MovieDB db = new MovieDB(
+                    movie.getId(),
+                    movie.getTitle(),
+                    category.name(),
+                    movie.getPosterPath(),
+                    movie.getBackdropPath(),
+                    movie.getOverview(),
+                    movie.getPopularity(),
+                    movie.getVoteAverage(),
+                    System.currentTimeMillis());
+            dbList.add(db);
+        }
+        return dbList;
     }
 
     public static List<TVDB> getTVList(ApiResponse<TV> apiResponse, Category category) {
@@ -114,7 +137,6 @@ public class Utils {
 
         for (TV tv : apiResponse.getResults()) {
 
-            //If response is TV. Change accordingly
             TVDB db = new TVDB(
                     tv.getId(),
                     tv.getName(),
@@ -131,30 +153,49 @@ public class Utils {
         return dbList;
     }
 
-    public static List<MovieDB> getMovieList(ApiResponse<Movie> apiResponse, Category category) {
-        List<MovieDB> dbList = new ArrayList<>();
-        if (apiResponse == null || apiResponse.getResults() == null)
-            return dbList;
-
-        for (Movie movie : apiResponse.getResults()) {
-
-            //If response is TV. Change accordingly
-            MovieDB db = new MovieDB(
-                    movie.getId(),
-                    movie.getTitle(),
-                    category.name(),
-                    movie.getPosterPath(),
-                    movie.getBackdropPath(),
-                    movie.getOverview(),
-                    movie.getPopularity(),
-                    movie.getVoteAverage(),
-                    System.currentTimeMillis());
-            dbList.add(db);
-        }
-        return dbList;
+    public static MovieDB getMovieDB(MovieDetail movieDetail) {
+        int id = movieDetail.getId();
+        MovieDB movieDB = new MovieDB(id);
+        movieDB.setPosterPath(movieDetail.getPosterPath());
+        movieDB.setBackdropPath(movieDetail.getBackdropPath());
+        movieDB.setTitle(movieDetail.getTitle());
+        movieDB.setOriginalTitle(movieDetail.getOriginalTitle());
+        movieDB.setPopularity(movieDetail.getPopularity());
+        movieDB.setVoteAverage(movieDetail.getVoteAverage());
+        movieDB.setOverview(movieDetail.getOverview());
+        return movieDB;
     }
 
-    public static MovieDB getMovieDetail(MovieDetail movieDetail, Repository repository) {
-        return repository.getMovieDB(movieDetail);
+    public static TVDB getTVDB(TvDetail tvDetail) {
+        int id = tvDetail.getId();
+        TVDB tvdb = new TVDB(id);
+        tvdb.setPosterPath(tvDetail.getPosterPath());
+        tvdb.setBackdropPath(tvDetail.getBackdropPath());
+        tvdb.setName(tvDetail.getName());
+        tvdb.setOriginalName(tvDetail.getOriginalName());
+        tvdb.setPopularity(tvDetail.getPopularity());
+        tvdb.setVoteAverage(tvDetail.getVoteAverage());
+        tvdb.setOverview(tvDetail.getOverview());
+        return tvdb;
+    }
+
+    public static MovieDB updateMovieDB(MovieDB oldItem, MovieDB newItem) {
+        newItem.setFetchCategory(oldItem.getFetchCategory());
+        newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
+        return newItem;
+    }
+
+    public static TVDB updateTVDB(TVDB oldItem, TVDB newItem) {
+        newItem.setFetchCategory(oldItem.getFetchCategory());
+        newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
+        return newItem;
+    }
+
+    public static MovieDB getMovieDetail(MovieDetail movieDetail) {
+        return getMovieDB(movieDetail);
+    }
+
+    public static TVDB getTVDetail(TvDetail tvDetail) {
+        return getTVDB(tvDetail);
     }
 }

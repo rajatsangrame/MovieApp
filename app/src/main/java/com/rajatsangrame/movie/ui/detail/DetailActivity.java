@@ -13,7 +13,8 @@ import android.view.View;
 
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
 import com.rajatsangrame.movie.data.model.movie.Genre;
@@ -51,9 +52,10 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
         assert bundle != null;
         int id = bundle.getInt("id");
         String title = bundle.getString("title");
+        String type = bundle.getString("type");
         binding.toolbar.setTitle(title);
 
-        fetchData(id);
+        fetchData(id, type);
     }
 
     private void getDependency() {
@@ -66,14 +68,25 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
 
     }
 
-    private void fetchData(int id) {
-        detailViewModel.fetchMovieDetail(id, compositeDisposable, this);
-        detailViewModel.getMovieDetail().observe(this, new Observer<MovieDB>() {
-            @Override
-            public void onChanged(MovieDB movieDB) {
-                binding.setMovie(movieDB);
-            }
-        });
+    private void fetchData(int id, String type) {
+
+        if (type.equals("movie")) {
+            detailViewModel.fetchMovieDetail(id, compositeDisposable, this);
+            detailViewModel.getMovieDetail(id).observe(this, new Observer<MovieDB>() {
+                @Override
+                public void onChanged(MovieDB movieDB) {
+                    binding.setMovie(movieDB);
+                }
+            });
+        } else {
+            detailViewModel.fetchTVDetail(id, compositeDisposable, this);
+            detailViewModel.getTvDetail(id).observe(this, new Observer<TVDB>() {
+                @Override
+                public void onChanged(TVDB tvdb) {
+                    binding.setTv(tvdb);
+                }
+            });
+        }
     }
 
     @Override
@@ -146,7 +159,7 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
                         Bundle bundle = getIntent().getExtras();
                         assert bundle != null;
                         int id = bundle.getInt("id");
-                        fetchData(id);
+                        //fetchData(id);
                     }
                 });
         builder.show();

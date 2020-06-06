@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.paging.PagedList;
 
 import com.rajatsangrame.movie.data.Repository;
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.movie.Movie;
 import com.rajatsangrame.movie.data.model.tv.TV;
@@ -75,15 +75,12 @@ public class BoundaryCallBack<T> extends PagedList.BoundaryCallback<T> {
 
     private void requestMovieData() {
 
-        Log.d(TAG, "requestAndSaveData: started");
         int pageLimit = 5;
         if (lastRequestedPage > pageLimit) {
-            Log.i(TAG, "requestAndSaveData: page limit");
             return;
         }
 
         if (isRequestInProgress) {
-            Log.i(TAG, "requestAndSaveData: isRequestInProgress");
             return;
         }
 
@@ -118,15 +115,12 @@ public class BoundaryCallBack<T> extends PagedList.BoundaryCallback<T> {
 
     private void requestTVData() {
 
-        Log.d(TAG, "requestAndSaveData: started");
         int pageLimit = 5;
         if (lastRequestedPage > pageLimit) {
-            Log.i(TAG, "requestAndSaveData: page limit");
             return;
         }
 
         if (isRequestInProgress) {
-            Log.i(TAG, "requestAndSaveData: isRequestInProgress");
             return;
         }
 

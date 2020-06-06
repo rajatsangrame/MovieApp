@@ -2,8 +2,8 @@ package com.rajatsangrame.movie.adapter;
 
 import android.view.View;
 
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.TVDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 
 /**

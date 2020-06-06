@@ -9,7 +9,11 @@
 
         <variable
             name="movie"
-            type="com.rajatsangrame.movie.data.db.MovieDB" />
+            type="com.rajatsangrame.movie.data.db.movie.MovieDB" />
+
+        <variable
+            name="tv"
+            type="com.rajatsangrame.movie.data.db.tv.TVDB" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

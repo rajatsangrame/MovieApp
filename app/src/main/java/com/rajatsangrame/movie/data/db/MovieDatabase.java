@@ -9,6 +9,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDao;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
+import com.rajatsangrame.movie.data.db.tv.TvDao;
+
 @Database(entities = {MovieDB.class, TVDB.class}, version = 1)
 public abstract class MovieDatabase extends RoomDatabase {
 

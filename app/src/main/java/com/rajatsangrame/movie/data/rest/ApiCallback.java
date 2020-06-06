@@ -1,6 +1,6 @@
 package com.rajatsangrame.movie.data.rest;
 
-import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
 
 import java.util.List;
 

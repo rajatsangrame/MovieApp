@@ -13,7 +13,7 @@ import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
 

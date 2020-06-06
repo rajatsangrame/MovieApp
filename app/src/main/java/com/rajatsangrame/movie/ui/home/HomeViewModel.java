@@ -6,11 +6,11 @@ import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.rajatsangrame.movie.data.db.MovieDB;
-import com.rajatsangrame.movie.data.db.MovieDao;
+import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.movie.MovieDao;
 import com.rajatsangrame.movie.data.Repository;
-import com.rajatsangrame.movie.data.db.TVDB;
-import com.rajatsangrame.movie.data.db.TvDao;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
+import com.rajatsangrame.movie.data.db.tv.TvDao;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.paging.BoundaryCallBack;
 import com.rajatsangrame.movie.paging.MovieDataSource;
