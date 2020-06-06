@@ -9,8 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
-import com.rajatsangrame.movie.data.model.home.Movie;
-import com.rajatsangrame.movie.data.model.home.MovieDetail;
+import com.rajatsangrame.movie.data.model.movie.Movie;
+import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -107,10 +107,21 @@ public class Utils {
 
         for (Movie movie : apiResponse.getResults()) {
 
-            MovieDB db = new MovieDB(movie.getId(),
-                    movie.getTitle(),
+            //If response is TV. Change accordingly
+            String title = movie.getTitle(), mediaType = "movie";
+            if (title == null) {
+                title = movie.getName();
+                mediaType = "tv";
+            }
+
+            MovieDB db = new MovieDB(
+                    movie.getId(),
+                    title,
                     category.name(),
                     movie.getPosterPath(),
+                    movie.getBackdropPath(),
+                    movie.getOverview(),
+                    mediaType,
                     movie.getPopularity(),
                     movie.getVoteAverage(),
                     System.currentTimeMillis());

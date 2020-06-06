@@ -36,6 +36,7 @@
 
                 <include
                     android:id="@+id/layout_detail"
+                    bind:movie="@{movie}"
                     layout="@layout/layout_detail" />
 
             </androidx.core.widget.NestedScrollView>
@@ -58,6 +59,7 @@
 
                     <ImageView
                         android:id="@+id/imageViewCollapsing"
+                        loadImageUrl="@{movie.posterPath}"
                         android:layout_width="match_parent"
                         android:layout_height="500dp"
                         android:scaleType="fitXY"
@@ -78,7 +80,7 @@
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                        app:title="@string/movie_genre"
+                        app:title="@{movie.title}"
                         app:titleTextAppearance="@style/AppTheme.Bold"
                         app:titleTextColor="@color/colorWhite" />
 

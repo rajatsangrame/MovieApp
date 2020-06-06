@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import com.rajatsangrame.movie.di.key.ViewModelKey;
+import com.rajatsangrame.movie.ui.detail.DetailViewModel;
 import com.rajatsangrame.movie.ui.home.HomeViewModel;
 import com.rajatsangrame.movie.ui.search.SearchFragment;
 import com.rajatsangrame.movie.ui.search.SearchViewModel;
@@ -32,4 +33,9 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel.class)
     abstract ViewModel provideSearchViewModel(SearchViewModel searchViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel.class)
+    abstract ViewModel provideDetailViewModel(DetailViewModel detailViewModel);
 }

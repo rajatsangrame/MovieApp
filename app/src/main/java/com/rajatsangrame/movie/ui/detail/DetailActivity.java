@@ -5,7 +5,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStore;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,12 +16,11 @@ import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
-import com.rajatsangrame.movie.data.model.home.Genre;
-import com.rajatsangrame.movie.data.model.home.ProductionCompanies;
-import com.rajatsangrame.movie.data.model.home.SpokenLanguages;
+import com.rajatsangrame.movie.data.model.movie.Genre;
+import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
 import com.rajatsangrame.movie.di.component.DaggerDetailActivityComponent;
 import com.rajatsangrame.movie.di.component.DetailActivityComponent;
-import com.rajatsangrame.movie.di.module.DetailActivityModule;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;

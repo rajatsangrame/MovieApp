@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.data.model.home;
+package com.rajatsangrame.movie.data.model.movie;
 
 import androidx.annotation.Nullable;
 

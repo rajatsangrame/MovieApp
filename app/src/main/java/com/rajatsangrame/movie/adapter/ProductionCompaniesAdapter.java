@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.data.model.home.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.rajatsangrame.movie.data.model.home;
+package com.rajatsangrame.movie.data.model.movie;
 
 import java.util.List;
 
@@ -50,6 +50,9 @@ public class Movie {
 
     @SerializedName("media_type")
     private String mediaType;
+
+    @SerializedName("name")
+    private String name;
 
     public String getOverview() {
         return overview;
@@ -111,4 +114,7 @@ public class Movie {
         return mediaType;
     }
 
+    public String getName() {
+        return name;
+    }
 }

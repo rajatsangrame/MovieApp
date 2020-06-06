@@ -35,6 +35,9 @@ public class MovieDB {
     @ColumnInfo(name = "overview")
     private String overview;
 
+    @ColumnInfo(name = "media_type")
+    private String mediaType;
+
     @ColumnInfo(name = "original_language")
     private String originalLanguage;
 
@@ -50,18 +53,21 @@ public class MovieDB {
     @ColumnInfo(name = "entry_timestamp")
     private long entryTimeStamp;
 
-    @ColumnInfo(name = "is_saved")
-    private long isSaved;
+    @ColumnInfo(name = "saved")
+    private boolean saved;
 
-    @Ignore
     public MovieDB(int id) {
         this.id = id;
     }
 
+    @Ignore
     public MovieDB(int id,
                    String title,
                    String fetchCategory,
                    String posterPath,
+                   String backdropPath,
+                   String overview,
+                   String mediaType,
                    double popularity,
                    double voteAverage,
                    long entryTimeStamp) {
@@ -70,6 +76,9 @@ public class MovieDB {
         this.title = title;
         this.fetchCategory = fetchCategory;
         this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+        this.overview = overview;
+        this.mediaType = mediaType;
         this.popularity = popularity;
         this.voteAverage = voteAverage;
         this.entryTimeStamp = entryTimeStamp;
@@ -163,12 +172,20 @@ public class MovieDB {
         this.entryTimeStamp = entryTimeStamp;
     }
 
-    public long getIsSaved() {
-        return isSaved;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setIsSaved(long isSaved) {
-        this.isSaved = isSaved;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 
     /*
@@ -177,12 +194,6 @@ public class MovieDB {
 
     @ColumnInfo(name = "adult")
     private boolean adult;
-
-    @ColumnInfo(name = "vote_count")
-    private int voteCount;
-
-    @ColumnInfo(name = "media_type")
-    private String mediaType;
 
     @ColumnInfo(name = "imdb_id")
     private String imdbId;

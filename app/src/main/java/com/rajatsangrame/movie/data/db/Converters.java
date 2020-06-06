@@ -3,8 +3,7 @@ package com.rajatsangrame.movie.data.db;
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
-import com.rajatsangrame.movie.data.model.home.Genre;
+import com.rajatsangrame.movie.data.model.movie.Genre;
 
 import java.sql.Date;
 import java.util.Arrays;

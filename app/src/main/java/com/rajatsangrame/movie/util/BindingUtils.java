@@ -13,6 +13,10 @@ import java.util.List;
 
 import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
 
+/**
+ * Ref: https://developer.android.com/topic/libraries/data-binding/expressions
+ *
+ */
 public class BindingUtils {
 
     public final static String IMAGE_URL = "https://image.tmdb.org/t/p/w185";

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDatabase;
 import com.rajatsangrame.movie.data.model.ApiResponse;
-import com.rajatsangrame.movie.data.model.home.MovieDetail;
+import com.rajatsangrame.movie.data.model.movie.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -43,6 +43,7 @@ public class Repository {
         this.database = database;
         this.ioExecutor = Executors.newSingleThreadExecutor();
         liveDataSearchResult = new MutableLiveData<>();
+        liveDataMovieDetail = new MutableLiveData<>();
     }
 
     public MutableLiveData<List<SearchResult>> getSearchLiveData() {
@@ -69,11 +70,16 @@ public class Repository {
         });
     }
 
-    public void insert(MovieDB movieDB, final InsertCallback insertCallback) {
+    public void addDetail(MovieDB movieDB, final InsertCallback insertCallback) {
         ioExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                database.movieDao().insert(movieDB);
+                MovieDB db = database.movieDao().getMovieFromId(movieDB.getId());
+                if (db == null) {
+
+                } else {
+
+                }
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
                 }
@@ -122,7 +128,7 @@ public class Repository {
                 .subscribe(new Consumer<MovieDB>() {
                     @Override
                     public void accept(MovieDB movieDB) throws Exception {
-                        insert(movieDB, null);
+                        addDetail(movieDB, null);
                         liveDataMovieDetail.setValue(movieDB);
                     }
                 }, new Consumer<Throwable>() {
@@ -137,16 +143,14 @@ public class Repository {
 
     public MovieDB getMovieDB(MovieDetail movieDetail) {
         int id = movieDetail.getId();
-        MovieDB movieDB = database.movieDao().getMovieFromId(id);
-        if (movieDB == null) {
-            movieDB = new MovieDB(id);
-        }
-        movieDB.setPosterPath(movieDB.getPosterPath());
-        movieDB.setBackdropPath(movieDB.getBackdropPath());
+        MovieDB movieDB = new MovieDB(id);
+        movieDB.setPosterPath(movieDetail.getPosterPath());
+        movieDB.setBackdropPath(movieDetail.getBackdropPath());
         movieDB.setTitle(movieDetail.getTitle());
         movieDB.setOriginalTitle(movieDetail.getOriginalTitle());
         movieDB.setPopularity(movieDetail.getPopularity());
         movieDB.setVoteAverage(movieDetail.getVoteAverage());
+        movieDB.setOverview(movieDetail.getOverview());
         return movieDB;
     }
 

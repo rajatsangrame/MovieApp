@@ -8,7 +8,7 @@ import androidx.paging.PagedList;
 import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
-import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.movie.Movie;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
 import com.rajatsangrame.movie.util.Utils;

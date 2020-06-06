@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -13,9 +14,6 @@ public interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void bulkInsert(List<MovieDB> movieDBList);
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(MovieDB movieDB);
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC")
     DataSource.Factory<Integer, MovieDB> getPopularDataSource(String category);
@@ -26,9 +24,12 @@ public interface MovieDao {
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getDataSource(String category);
 
-    @Query("SELECT * FROM movie WHERE is_saved = 1")
+    @Query("SELECT * FROM movie WHERE saved = 1")
     List<MovieDB> getAllSaved();
 
     @Query("SELECT  * FROM movie WHERE id = :id")
     MovieDB getMovieFromId(int id);
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    void update(MovieDB movieDB);
 }
