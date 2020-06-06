@@ -2,6 +2,7 @@ package com.rajatsangrame.movie.data.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -48,6 +49,14 @@ public class MovieDB {
 
     @ColumnInfo(name = "entry_timestamp")
     private long entryTimeStamp;
+
+    @ColumnInfo(name = "is_saved")
+    private long isSaved;
+
+    @Ignore
+    public MovieDB(int id) {
+        this.id = id;
+    }
 
     public MovieDB(int id,
                    String title,
@@ -152,6 +161,14 @@ public class MovieDB {
 
     public void setEntryTimeStamp(long entryTimeStamp) {
         this.entryTimeStamp = entryTimeStamp;
+    }
+
+    public long getIsSaved() {
+        return isSaved;
+    }
+
+    public void setIsSaved(long isSaved) {
+        this.isSaved = isSaved;
     }
 
     /*

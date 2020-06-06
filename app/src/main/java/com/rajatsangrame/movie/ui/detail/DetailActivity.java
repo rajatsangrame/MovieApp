@@ -2,132 +2,86 @@ package com.rajatsangrame.movie.ui.detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.data.db.MovieDB;
+import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
 import com.rajatsangrame.movie.data.model.home.Genre;
-import com.rajatsangrame.movie.data.model.home.MovieDetail;
 import com.rajatsangrame.movie.data.model.home.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.home.SpokenLanguages;
+import com.rajatsangrame.movie.di.component.DaggerDetailActivityComponent;
+import com.rajatsangrame.movie.di.component.DetailActivityComponent;
+import com.rajatsangrame.movie.di.module.DetailActivityModule;
+import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
 
+import javax.inject.Inject;
 
-public class DetailActivity extends AppCompatActivity {
+import io.reactivex.disposables.CompositeDisposable;
 
-    private ActivityDetailBinding mBinding;
-    private MovieDetail movie;
+
+public class DetailActivity extends AppCompatActivity implements ApiCallback {
+
+    @Inject
+    ViewModelFactory viewModelFactory;
+
+    private DetailViewModel detailViewModel;
+    private ActivityDetailBinding binding;
+    private LiveData<MovieDB> movieDb;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+        getDependency();
+        detailViewModel = new ViewModelProvider(this, viewModelFactory).get(DetailViewModel.class);
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         int id = bundle.getInt("id");
         String title = bundle.getString("title");
-        mBinding.toolbar.setTitle(title);
+        binding.toolbar.setTitle(title);
 
         fetchData(id);
     }
 
+    private void getDependency() {
+
+        DetailActivityComponent component = DaggerDetailActivityComponent
+                .builder()
+                .applicationComponent(App.get(this).getComponent())
+                .build();
+        component.injectDetailActivity(this);
+
+    }
+
     private void fetchData(int id) {
+        detailViewModel.fetchMovieDetail(id, compositeDisposable, this);
+        detailViewModel.getMovieDetail().observe(this, new Observer<MovieDB>() {
+            @Override
+            public void onChanged(MovieDB movieDB) {
+                binding.setMovie(movieDB);
+            }
+        });
+    }
 
-//        mBinding.layoutProgress.progressBar.setVisibility(View.VISIBLE);
-//
-//        RetrofitApi api = RetrofitClient.getInstance();
-//        api.getMovieDetails(id).enqueue(new Callback<MovieDetail>() {
-//
-//            @SuppressLint("StringFormatMatches")
-//            @Override
-//            public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
-//
-//                if (response.body() == null) {
-//                    return;
-//                }
-//
-//                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
-//                movie = response.body();
-//
-//                mBinding.layoutDetail.tvDesc.setText(movie.getOverview());
-//                Glide.with(DetailActivity.this)
-//                        .load(Constants.IMAGE_URL + movie.getPosterPath())
-//                        .into(mBinding.imageViewCollapsing);
-//
-//
-//                String genre = getGenreFromList(movie.getGenres());
-//                mBinding.layoutDetail.tvGenre.setText(genre);
-//
-//                String[] date = movie.getReleaseDate().split("-");
-//                final String dot = "  •  ";
-//                int timeDuration = movie.getRuntime();
-//                String yearAndTime = getString(
-//                        R.string.movie_year_and_time,
-//                        date[0],
-//                        dot,
-//                        getRunTime(timeDuration)
-//                );
-//                mBinding.layoutDetail.tvYearDuration.setText(yearAndTime);
-//
-//                String ratingAndLike = getString(
-//                        R.string.movie_rating_and_likes,
-//                        movie.getVoteCount(),
-//                        "    ",
-//                        movie.getVoteAverage()
-//                );
-//
-//                mBinding.layoutDetail.tvPopularity.setText(ratingAndLike);
-//
-//                List<ProductionCompanies> itemList = movie.getProductionCompanies();
-//                if (itemList == null || itemList.isEmpty()) {
-//                    return;
-//                }
-//
-//                filterCompaniesList(itemList);
-//
-//                ProductionCompaniesAdapter adapter = new ProductionCompaniesAdapter(itemList,
-//                        DetailActivity.this);
-//                mBinding.layoutDetail.rvCompanies.setLayoutManager(
-//                        new LinearLayoutManager(DetailActivity.this));
-//                mBinding.layoutDetail.rvCompanies.setAdapter(adapter);
-//
-//                List<SpokenLanguages> languages = movie.getSpokenLanguages();
-//
-//                if (languages == null || languages.isEmpty()) {
-//                    return;
-//                }
-//
-//                filterLanguageList(languages);
-//                String lang = getLanguages(languages);
-//                mBinding.layoutDetail.tvLanguages.setText(lang);
-//
-//                if (movie.getHomepage() == null) {
-//                    mBinding.layoutDetail.ivLink.setVisibility(View.INVISIBLE);
-//
-//                }
-//
-//                if (movie.getImdbId() == null) {
-//                    mBinding.layoutDetail.ivImdb.setVisibility(View.INVISIBLE);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MovieDetail> call, Throwable t) {
-//
-//                mBinding.layoutProgress.progressBar.setVisibility(View.GONE);
-//                showAlert();
-//
-//            }
-//        });
-
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.dispose();
+        super.onDestroy();
     }
 
     private String getLanguages(List<SpokenLanguages> languages) {
@@ -229,17 +183,33 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void openLink(View view) {
-        Intent intent;
-        switch (view.getId()) {
-            case R.id.iv_imdb:
-                String URL = "https://www.imdb.com/title/" + movie.getImdbId();
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
-                startActivity(intent);
-                break;
-            case R.id.iv_link:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getHomepage()));
-                startActivity(intent);
-                break;
-        }
+//        Intent intent;
+//        switch (view.getId()) {
+//            case R.id.iv_imdb:
+//                String URL = "https://www.imdb.com/title/" + movie.getImdbId();
+//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+//                startActivity(intent);
+//                break;
+//            case R.id.iv_link:
+//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getHomepage()));
+//                startActivity(intent);
+//                break;
+//        }
+    }
+
+    @Override
+    public void onSuccess(List<MovieDB> movieDBList) {
+
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+
+        //Todo: Show Alert
     }
 }

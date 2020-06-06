@@ -43,11 +43,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@{search.title}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_save"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toTopOf="@id/iv_movie_image"
                 tools:text="@string/movie_title" />
@@ -65,16 +66,6 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
                 tools:text="@string/movie_genre" />
-
-            <ImageView
-                android:id="@+id/btn_save"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_save"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,12 +96,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:maxLines="2"
                 android:text="@{search.name}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_save_tv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_tv_image"
                 app:layout_constraintTop_toTopOf="@id/iv_tv_image"
                 tools:text="@string/movie_title" />
@@ -127,16 +119,6 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title_tv"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_tv"
                 tools:text="@string/movie_genre" />
-
-            <ImageView
-                android:id="@+id/btn_save_tv"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_save"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

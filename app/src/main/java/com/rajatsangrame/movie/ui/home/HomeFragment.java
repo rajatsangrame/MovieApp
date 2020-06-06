@@ -1,5 +1,6 @@
 package com.rajatsangrame.movie.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,12 @@ import com.rajatsangrame.movie.di.qualifier.PopularList;
 import com.rajatsangrame.movie.di.qualifier.TopTvShowsList;
 import com.rajatsangrame.movie.di.qualifier.TopMovieList;
 import com.rajatsangrame.movie.paging.MovieAdapter;
+import com.rajatsangrame.movie.ui.detail.DetailActivity;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import javax.inject.Inject;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MovieAdapter.OnClickListener {
 
     public static final String TAG = "HomeFragment";
 
@@ -101,6 +103,7 @@ public class HomeFragment extends Fragment {
         //Pop Movies
         binding.rvPopularMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        popularMovieAdapter.setListener(this);
         binding.rvPopularMovie.setAdapter(popularMovieAdapter);
         homeViewModel.getPagedListPopular().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
@@ -112,6 +115,7 @@ public class HomeFragment extends Fragment {
         //Popular Tv
         binding.rvPopularTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        popularTvAdapter.setListener(this);
         binding.rvPopularTv.setAdapter(popularTvAdapter);
         homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
@@ -123,6 +127,7 @@ public class HomeFragment extends Fragment {
         //Now Playing
         binding.rvNowPlayingMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        nowPlayingAdapter.setListener(this);
         binding.rvNowPlayingMovie.setAdapter(nowPlayingAdapter);
         homeViewModel.getPagedListNowPlaying().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
@@ -134,6 +139,7 @@ public class HomeFragment extends Fragment {
         //Top Tv Shows
         binding.rvTopTv.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        topTvShowAdapter.setListener(this);
         binding.rvTopTv.setAdapter(topTvShowAdapter);
         homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
@@ -145,6 +151,7 @@ public class HomeFragment extends Fragment {
         //Top Rated Movies
         binding.rvTopratedMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        topRatedMovieAdapter.setListener(this);
         binding.rvTopratedMovie.setAdapter(topRatedMovieAdapter);
         homeViewModel.getPagedListTopRatedMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
@@ -158,5 +165,13 @@ public class HomeFragment extends Fragment {
     public void onDestroy() {
         homeViewModel.dispose();
         super.onDestroy();
+    }
+
+    @Override
+    public void onItemClicked(MovieDB movie, View view) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("id", movie.getId());
+        intent.putExtra("title", movie.getTitle());
+        startActivity(intent);
     }
 }

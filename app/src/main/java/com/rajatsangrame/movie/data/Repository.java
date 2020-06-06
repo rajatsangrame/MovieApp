@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.db.MovieDatabase;
 import com.rajatsangrame.movie.data.model.ApiResponse;
+import com.rajatsangrame.movie.data.model.home.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -35,6 +36,7 @@ public class Repository {
     private final MovieDatabase database;
     private final Executor ioExecutor;
     private MutableLiveData<List<SearchResult>> liveDataSearchResult;
+    private MutableLiveData<MovieDB> liveDataMovieDetail;
 
     public Repository(RetrofitApi retrofitApi, MovieDatabase database) {
         this.retrofitApi = retrofitApi;
@@ -47,6 +49,10 @@ public class Repository {
         return liveDataSearchResult;
     }
 
+    public MutableLiveData<MovieDB> getLiveDataMovieDetail() {
+        return liveDataMovieDetail;
+    }
+
     public MovieDatabase getDatabase() {
         return database;
     }
@@ -56,6 +62,18 @@ public class Repository {
             @Override
             public void run() {
                 database.movieDao().bulkInsert(movieList);
+                if (insertCallback != null) {
+                    insertCallback.insertFinished();
+                }
+            }
+        });
+    }
+
+    public void insert(MovieDB movieDB, final InsertCallback insertCallback) {
+        ioExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                database.movieDao().insert(movieDB);
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
                 }
@@ -88,6 +106,48 @@ public class Repository {
                         Log.i(TAG, "accept: ");
                     }
                 }));
+    }
+
+    public void fetchMovieDetail(int id, CompositeDisposable disposable, final ApiCallback callback) {
+
+        Single<MovieDetail> single = retrofitApi.getMovieDetails(id);
+        disposable.add(single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<MovieDetail, MovieDB>() {
+                    @Override
+                    public MovieDB apply(MovieDetail movieDetail) throws Exception {
+                        return Utils.getMovieDetail(movieDetail, Repository.this);
+                    }
+                })
+                .subscribe(new Consumer<MovieDB>() {
+                    @Override
+                    public void accept(MovieDB movieDB) throws Exception {
+                        insert(movieDB, null);
+                        liveDataMovieDetail.setValue(movieDB);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (callback != null) {
+                            callback.onError(throwable.getMessage());
+                        }
+                    }
+                }));
+    }
+
+    public MovieDB getMovieDB(MovieDetail movieDetail) {
+        int id = movieDetail.getId();
+        MovieDB movieDB = database.movieDao().getMovieFromId(id);
+        if (movieDB == null) {
+            movieDB = new MovieDB(id);
+        }
+        movieDB.setPosterPath(movieDB.getPosterPath());
+        movieDB.setBackdropPath(movieDB.getBackdropPath());
+        movieDB.setTitle(movieDetail.getTitle());
+        movieDB.setOriginalTitle(movieDetail.getOriginalTitle());
+        movieDB.setPopularity(movieDetail.getPopularity());
+        movieDB.setVoteAverage(movieDetail.getVoteAverage());
+        return movieDB;
     }
 
     public interface InsertCallback {

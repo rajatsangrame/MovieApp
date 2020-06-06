@@ -25,4 +25,10 @@ public interface MovieDao {
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getDataSource(String category);
+
+    @Query("SELECT * FROM movie WHERE is_saved = 1")
+    List<MovieDB> getAllSaved();
+
+    @Query("SELECT  * FROM movie WHERE id = :id")
+    MovieDB getMovieFromId(int id);
 }

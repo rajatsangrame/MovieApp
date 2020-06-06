@@ -1,6 +1,7 @@
 package com.rajatsangrame.movie.ui.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,6 +29,7 @@ import com.rajatsangrame.movie.di.component.DaggerSearchFragmentComponent;
 import com.rajatsangrame.movie.di.component.SearchFragmentComponent;
 import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.di.module.SearchFragmentModule;
+import com.rajatsangrame.movie.ui.detail.DetailActivity;
 import com.rajatsangrame.movie.util.Utils;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
@@ -38,7 +40,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements SearchAdapter.OnClickListener {
 
     public static final String TAG = "SearchFragment";
 
@@ -106,6 +108,7 @@ public class SearchFragment extends Fragment {
         });
 
         binding.rvSearch.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        searchAdapter.setListener(this);
         binding.rvSearch.setAdapter(searchAdapter);
         searchViewModel.getQueryLiveData().observe(getViewLifecycleOwner(), new Observer<List<SearchResult>>() {
             @Override
@@ -146,5 +149,13 @@ public class SearchFragment extends Fragment {
     public void onDestroy() {
         compositeDisposable.dispose();
         super.onDestroy();
+    }
+
+    @Override
+    public void onItemClicked(SearchResult movie, View view) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("id", movie.getId());
+        intent.putExtra("title", movie.getTitle());
+        startActivity(intent);
     }
 }

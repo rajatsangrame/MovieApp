@@ -19,7 +19,7 @@ import com.rajatsangrame.movie.databinding.HomeListItemBinding;
 
 public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieViewHolder> {
 
-    private MoviesAdapterListener listener;
+    private OnClickListener listener;
     private Fragment fragment;
 
     public MovieAdapter(Fragment fragment) {
@@ -27,7 +27,7 @@ public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieVi
         this.fragment = fragment;
     }
 
-    public void setListener(MoviesAdapterListener listener) {
+    public void setListener(OnClickListener listener) {
         this.listener = listener;
     }
 
@@ -63,7 +63,7 @@ public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieVi
                 return;
             }
             MovieDB movie = getItem(getAdapterPosition());
-            listener.onMovieItemClicked(movie, view);
+            listener.onItemClicked(movie, view);
 
         }
     }
@@ -84,9 +84,7 @@ public class MovieAdapter extends PagedListAdapter<MovieDB, MovieAdapter.MovieVi
     };
 
 
-    public interface MoviesAdapterListener {
-
-        void onMovieItemClicked(MovieDB movie, View view);
-
+    public interface OnClickListener {
+        void onItemClicked(MovieDB movie, View view);
     }
 }

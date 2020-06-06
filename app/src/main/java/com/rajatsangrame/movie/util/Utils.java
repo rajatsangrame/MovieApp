@@ -6,9 +6,11 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.MovieDB;
 import com.rajatsangrame.movie.data.model.ApiResponse;
 import com.rajatsangrame.movie.data.model.home.Movie;
+import com.rajatsangrame.movie.data.model.home.MovieDetail;
 import com.rajatsangrame.movie.data.model.search.SearchResult;
 import com.rajatsangrame.movie.data.rest.Category;
 import com.rajatsangrame.movie.data.rest.RetrofitApi;
@@ -115,5 +117,9 @@ public class Utils {
             dbList.add(db);
         }
         return dbList;
+    }
+
+    public static MovieDB getMovieDetail(MovieDetail movieDetail, Repository repository) {
+        return repository.getMovieDB(movieDetail);
     }
 }

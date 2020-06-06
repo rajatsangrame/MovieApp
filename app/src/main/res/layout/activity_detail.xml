@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.rajatsangrame.movie.util.BindingUtils" />
+
+        <variable
+            name="movie"
+            type="com.rajatsangrame.movie.data.db.MovieDB" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

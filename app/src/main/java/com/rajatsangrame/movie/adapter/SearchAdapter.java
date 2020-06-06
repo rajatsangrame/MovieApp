@@ -24,7 +24,7 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewHolder> {
 
-    private MoviesAdapterListener listener;
+    private OnClickListener listener;
     private final Fragment fragment;
     private List<SearchResult> searchResultList;
 
@@ -37,7 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
         notifyDataSetChanged();
     }
 
-    public void setListener(MoviesAdapterListener listener) {
+    public void setListener(OnClickListener listener) {
         this.listener = listener;
     }
 
@@ -130,7 +130,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
         }
     }
 
-    public interface MoviesAdapterListener {
+    public interface OnClickListener {
         void onItemClicked(SearchResult movie, View view);
     }
+
 }
