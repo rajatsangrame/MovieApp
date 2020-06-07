@@ -24,10 +24,6 @@ public class SearchViewModel extends ViewModel {
     @Inject
     public SearchViewModel(Repository repository) {
         this.repository = repository;
-        init();
-    }
-
-    private void init() {
     }
 
     public void fetchQuery(String query, CompositeDisposable disposable, ApiCallback callback) {

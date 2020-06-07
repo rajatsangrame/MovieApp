@@ -1,5 +1,6 @@
 package com.rajatsangrame.movie.data.db.movie;
 
+import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -29,6 +30,9 @@ public interface MovieDao {
 
     @Query("SELECT * FROM movie WHERE saved = 1")
     List<MovieDB> getAllSaved();
+
+    @Query("SELECT  * FROM movie WHERE id = :id")
+    LiveData<MovieDB> getLiveMovieFromId(int id);
 
     @Query("SELECT  * FROM movie WHERE id = :id")
     MovieDB getMovieFromId(int id);

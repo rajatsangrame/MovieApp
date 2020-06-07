@@ -1,5 +1,6 @@
 package com.rajatsangrame.movie.data.db.tv;
 
+import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -31,6 +32,9 @@ public interface TvDao {
 
     @Query("SELECT * FROM tv WHERE saved = 1")
     List<TVDB> getAllSaved();
+
+    @Query("SELECT  * FROM tv WHERE id = :id")
+    LiveData<TVDB> getLiveMovieFromId(int id);
 
     @Query("SELECT  * FROM tv WHERE id = :id")
     TVDB getTVFromId(int id);

@@ -49,7 +49,7 @@ public class BindingUtils {
                     view.setVisibility(View.VISIBLE);
                 }
                 break;
-            case R.id.percent:
+            case R.id.ll_person:
                 if (mediaType.equals("person")) {
                     view.setVisibility(View.VISIBLE);
                 }

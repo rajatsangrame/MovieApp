@@ -168,7 +168,7 @@ public class SearchFragment extends Fragment implements OnClickListener {
     public void onItemClicked(SearchResult result, View view) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra("id", result.getId());
-        intent.putExtra("title", result.getTitle());
+        intent.putExtra("title", result.getTitle() != null ? result.getTitle() : result.getName());
         intent.putExtra("type", result.getMediaType());
         startActivity(intent);
     }

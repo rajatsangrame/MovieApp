@@ -1,8 +1,8 @@
 package com.rajatsangrame.movie.data;
 
-import android.graphics.Movie;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
@@ -51,28 +51,12 @@ public class Repository {
         return liveDataSearchResult;
     }
 
-    public MutableLiveData<MovieDB> getLiveDataMovieDetail(int id) {
-        MutableLiveData<MovieDB> liveData = new MutableLiveData<>();
-        ioExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                MovieDB movieDB = database.movieDao().getMovieFromId(id);
-                if (movieDB != null) liveData.postValue(movieDB);
-            }
-        });
-        return liveData;
+    public LiveData<MovieDB> getLiveDataMovieDetail(int id) {
+        return database.movieDao().getLiveMovieFromId(id);
     }
 
-    public MutableLiveData<TVDB> getLiveDataTVDetail(int id) {
-        MutableLiveData<TVDB> liveData = new MutableLiveData<>();
-        ioExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                TVDB tvdb = database.tvDao().getTVFromId(id);
-                if (tvdb != null) liveData.postValue(tvdb);
-            }
-        });
-        return liveData;
+    public LiveData<TVDB> getLiveDataTVDetail(int id) {
+        return database.tvDao().getLiveMovieFromId(id);
     }
 
     public MovieDatabase getDatabase() {

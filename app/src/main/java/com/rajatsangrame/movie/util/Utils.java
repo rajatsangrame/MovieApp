@@ -136,7 +136,6 @@ public class Utils {
             return dbList;
 
         for (TV tv : apiResponse.getResults()) {
-
             TVDB db = new TVDB(
                     tv.getId(),
                     tv.getName(),
