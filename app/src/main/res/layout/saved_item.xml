@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.rajatsangrame.movie.util.BindingUtils" />
+
+        <variable
+            name="movie"
+            type="com.rajatsangrame.movie.data.db.movie.MovieDB" />
+
+        <variable
+            name="tv"
+            type="com.rajatsangrame.movie.data.db.tv.TVDB" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_movie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{movie!=null? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_movie_image"
+                loadImageUrl="@{movie.backdropPath}"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                android:src="@color/cardBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@{movie.title}"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
+                app:layout_constraintTop_toTopOf="@id/iv_movie_image"
+                tools:text="@string/movie_title" />
+
+            <TextView
+                android:id="@+id/tv_movie_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:maxLines="1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_movie_title"
+                app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+                tools:text="@string/movie_genre" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{tv!=null? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_tv_image"
+                loadImageUrl="@{tv.backdropPath}"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
+                android:src="@color/cardBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="2"
+                android:text="@{tv.name}"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_tv_image"
+                app:layout_constraintTop_toTopOf="@id/iv_tv_image"
+                tools:text="@string/movie_title" />
+
+            <TextView
+                android:id="@+id/tv_genre_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:maxLines="1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_tv"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_tv"
+                tools:text="@string/movie_genre" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

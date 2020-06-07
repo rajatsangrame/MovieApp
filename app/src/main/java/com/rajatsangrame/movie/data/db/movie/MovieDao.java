@@ -29,7 +29,7 @@ public interface MovieDao {
     DataSource.Factory<Integer, MovieDB> getDataSource(String category);
 
     @Query("SELECT * FROM movie WHERE saved = 1")
-    List<MovieDB> getAllSaved();
+    LiveData<List<MovieDB>> getAllSaved();
 
     @Query("SELECT  * FROM movie WHERE id = :id")
     LiveData<MovieDB> getLiveMovieFromId(int id);

@@ -31,7 +31,7 @@ public interface TvDao {
     DataSource.Factory<Integer, TVDB> getDataSource(String category);
 
     @Query("SELECT * FROM tv WHERE saved = 1")
-    List<TVDB> getAllSaved();
+    LiveData<List<TVDB>> getAllSaved();
 
     @Query("SELECT  * FROM tv WHERE id = :id")
     LiveData<TVDB> getLiveMovieFromId(int id);

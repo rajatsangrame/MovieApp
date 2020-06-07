@@ -181,12 +181,14 @@ public class Utils {
     public static MovieDB updateMovieDB(MovieDB oldItem, MovieDB newItem) {
         newItem.setFetchCategory(oldItem.getFetchCategory());
         newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
+        newItem.setSaved(oldItem.isSaved());
         return newItem;
     }
 
     public static TVDB updateTVDB(TVDB oldItem, TVDB newItem) {
         newItem.setFetchCategory(oldItem.getFetchCategory());
         newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
+        newItem.setSaved(oldItem.isSaved());
         return newItem;
     }
 

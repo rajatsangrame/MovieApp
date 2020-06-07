@@ -47,18 +47,6 @@ public class Repository {
         liveDataSearchResult = new MutableLiveData<>();
     }
 
-    public MutableLiveData<List<SearchResult>> getSearchLiveData() {
-        return liveDataSearchResult;
-    }
-
-    public LiveData<MovieDB> getLiveDataMovieDetail(int id) {
-        return database.movieDao().getLiveMovieFromId(id);
-    }
-
-    public LiveData<TVDB> getLiveDataTVDetail(int id) {
-        return database.tvDao().getLiveMovieFromId(id);
-    }
-
     public MovieDatabase getDatabase() {
         return database;
     }
@@ -111,6 +99,15 @@ public class Repository {
         });
     }
 
+    //region DetailActivity
+    public LiveData<MovieDB> getLiveDataMovieDetail(int id) {
+        return database.movieDao().getLiveMovieFromId(id);
+    }
+
+    public LiveData<TVDB> getLiveDataTVDetail(int id) {
+        return database.tvDao().getLiveMovieFromId(id);
+    }
+
     public void addMovieDetail(MovieDB movieDB, final InsertCallback insertCallback) {
         ioExecutor.execute(new Runnable() {
             @Override
@@ -147,33 +144,6 @@ public class Repository {
                 }
             }
         });
-    }
-
-    public void fetchQuery(String query, CompositeDisposable disposable, final ApiCallback callback) {
-
-        Single<ApiResponse<SearchResult>> single = retrofitApi.search(query);
-        disposable.add(single.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<ApiResponse<SearchResult>, List<SearchResult>>() {
-                    @Override
-                    public List<SearchResult> apply(ApiResponse<SearchResult> movieApi) throws Exception {
-                        return Utils.prepareListForSearchAdapter(movieApi);
-                    }
-                })
-                .subscribe(new Consumer<List<SearchResult>>() {
-                    @Override
-                    public void accept(List<SearchResult> movies) throws Exception {
-                        liveDataSearchResult.postValue(movies);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (callback != null) {
-                            callback.onError(throwable.getMessage());
-                        }
-                        Log.i(TAG, "accept: ");
-                    }
-                }));
     }
 
     public void fetchMovieDetail(int id, CompositeDisposable disposable, final ApiCallback callback) {
@@ -227,6 +197,50 @@ public class Repository {
                     }
                 }));
     }
+    //endregion
+
+    //region SearchFragment
+    public MutableLiveData<List<SearchResult>> getSearchLiveData() {
+        return liveDataSearchResult;
+    }
+
+    public void fetchQuery(String query, CompositeDisposable disposable, final ApiCallback callback) {
+
+        Single<ApiResponse<SearchResult>> single = retrofitApi.search(query);
+        disposable.add(single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<ApiResponse<SearchResult>, List<SearchResult>>() {
+                    @Override
+                    public List<SearchResult> apply(ApiResponse<SearchResult> movieApi) throws Exception {
+                        return Utils.prepareListForSearchAdapter(movieApi);
+                    }
+                })
+                .subscribe(new Consumer<List<SearchResult>>() {
+                    @Override
+                    public void accept(List<SearchResult> movies) throws Exception {
+                        liveDataSearchResult.postValue(movies);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (callback != null) {
+                            callback.onError(throwable.getMessage());
+                        }
+                        Log.i(TAG, "accept: ");
+                    }
+                }));
+    }
+    //endregion
+
+    //region SavedFragment
+    public LiveData<List<MovieDB>> getLiveDataSavedMovie() {
+        return database.movieDao().getAllSaved();
+    }
+
+    public LiveData<List<TVDB>> getLiveDataSavedTV() {
+        return database.tvDao().getAllSaved();
+    }
+    //endregion
 
     public interface InsertCallback {
         void insertFinished();

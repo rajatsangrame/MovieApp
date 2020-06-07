@@ -8,6 +8,7 @@ import com.rajatsangrame.movie.custom.LockableViewPager;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 import com.rajatsangrame.movie.ui.main.MainActivity;
+import com.rajatsangrame.movie.ui.saved.SavedFragment;
 import com.rajatsangrame.movie.ui.search.SearchFragment;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class MainActivityModule {
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(0, HomeFragment.newInstance());
         fragmentList.add(1, SearchFragment.newInstance());
-        fragmentList.add(2, new Fragment());
+        fragmentList.add(2, SavedFragment.newInstance());
         return fragmentList;
     }
 
