@@ -26,11 +26,11 @@ public class ProductionCompaniesAdapter extends
         RecyclerView.Adapter<ProductionCompaniesAdapter.ViewHolder> {
 
     private List<ProductionCompanies> list;
-    private Context context;
 
-    public ProductionCompaniesAdapter(List<ProductionCompanies> list, Context context) {
+    public void setList(List<ProductionCompanies> list) {
+        if (list == null) return;
         this.list = list;
-        this.context = context;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,17 +48,16 @@ public class ProductionCompaniesAdapter extends
         holder.title.setText(list.get(position).getName());
 
         final String URL = IMAGE_URL + list.get(position).getLogoPath();
-        Glide.with(context)
+        Glide.with(holder.image.getContext())
                 .load(URL)
-                .error(context.getResources()
-                        .getDrawable(R.color.cardBackground))
+                .placeholder(R.color.cardBackground)
                 .into(holder.image);
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list != null ? list.size() :0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

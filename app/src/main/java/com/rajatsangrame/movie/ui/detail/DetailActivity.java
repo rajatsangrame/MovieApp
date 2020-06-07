@@ -5,14 +5,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
+import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
@@ -29,6 +33,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DetailActivity extends AppCompatActivity implements ApiCallback {
@@ -95,51 +102,6 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
         super.onDestroy();
     }
 
-    private String getLanguages(List<SpokenLanguages> languages) {
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < languages.size(); i++) {
-
-            final String dot = "  •  ";
-            builder.append(dot);
-            builder.append(languages.get(i).getName());
-
-            if (i != languages.size() - 1) {
-                builder.append("\n\n");
-            }
-        }
-
-        return builder.toString();
-    }
-
-    private void filterCompaniesList(List<ProductionCompanies> list) {
-
-        for (int i = 0; i < list.size(); i++) {
-
-            if (list.get(i).getLogoPath() == null) {
-
-                list.remove(i);
-                filterCompaniesList(list);
-                break;
-
-            }
-        }
-    }
-
-    private void filterLanguageList(List<SpokenLanguages> list) {
-
-        for (int i = 0; i < list.size(); i++) {
-
-            if (list.get(i).getName().isEmpty()) {
-
-                list.remove(i);
-                filterLanguageList(list);
-                break;
-
-            }
-        }
-    }
-
     private void showAlert() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -165,33 +127,6 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
         builder.show();
     }
 
-    private String getGenreFromList(List<Genre> genreList) {
-
-        final String dot = "  •  ";
-        StringBuilder genre = new StringBuilder();
-
-        if (genreList == null) {
-            return genre.toString();
-        }
-
-        for (int i = 0; i < genreList.size(); i++) {
-
-            genre.append(genreList.get(i).getName());
-
-            if (i < genreList.size() - 1) {
-                genre.append(dot);
-            }
-        }
-        return genre.toString();
-    }
-
-    private String getRunTime(int time) {
-
-        int hours = time / 60; //since both are ints, you get an int
-        int minutes = time % 60;
-        //System.out.printf("%d:%02d", hours, minutes);
-        return String.format("%dh %02dmin", hours, minutes);
-    }
 
     public void openLink(View view) {
 //        Intent intent;
@@ -208,6 +143,7 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
 //        }
     }
 
+
     @Override
     public void onSuccess(List<MovieDB> movieDBList) {
 
@@ -221,6 +157,5 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
     @Override
     public void onError(String errorMessage) {
 
-        //Todo: Show Alert
     }
 }

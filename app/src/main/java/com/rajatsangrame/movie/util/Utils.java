@@ -165,6 +165,9 @@ public class Utils {
         movieDB.setGenres(movieDetail.getGenres());
         movieDB.setProductionCompanies(movieDetail.getProductionCompanies());
         movieDB.setSpokenLanguages(movieDetail.getSpokenLanguages());
+        movieDB.setVoteCount(movieDetail.getVoteCount());
+        movieDB.setRuntime(movieDetail.getRuntime());
+        movieDB.setReleaseDate(movieDetail.getReleaseDate());
         return movieDB;
     }
 

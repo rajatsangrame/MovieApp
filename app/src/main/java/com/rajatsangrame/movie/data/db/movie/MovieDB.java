@@ -6,6 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.google.gson.annotations.SerializedName;
 import com.rajatsangrame.movie.data.db.DbTypeConverter;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
@@ -181,6 +182,12 @@ public class MovieDB {
     @ColumnInfo(name = "homepage")
     private String homepage;
 
+    @ColumnInfo(name = "runtime")
+    private int runtime;
+
+    @ColumnInfo(name = "vote_count")
+    private int voteCount;
+
     @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "spoken_languages")
     private List<SpokenLanguages> spokenLanguages;
@@ -239,6 +246,22 @@ public class MovieDB {
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
     public List<Genre> getGenres() {
