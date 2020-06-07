@@ -165,10 +165,11 @@ public class SearchFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public void onItemClicked(SearchResult movie, View view) {
+    public void onItemClicked(SearchResult result, View view) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", movie.getId());
-        intent.putExtra("title", movie.getTitle());
+        intent.putExtra("id", result.getId());
+        intent.putExtra("title", result.getTitle());
+        intent.putExtra("type", result.getMediaType());
         startActivity(intent);
     }
 }

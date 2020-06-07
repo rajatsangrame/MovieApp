@@ -39,10 +39,10 @@ public interface RetrofitApi {
     @GET("/3/movie/{id}/similar")
     Single<ApiResponse<Movie>> getSimilarMovies(@Path("id") int id);
 
-    @GET("/3/tv/{tv_id}")
+    @GET("/3/tv/{id}")
     Single<TvDetail> getTvDetails(@Path("id") int id);
 
-    @GET("/3/tv/{tv_id}")
+    @GET("/3/tv/{id}")
     Single<ApiResponse<TV>> getSimilarTv(@Path("id") int id);
 
     @GET("/3/search/multi")

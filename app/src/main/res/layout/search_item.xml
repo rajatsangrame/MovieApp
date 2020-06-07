@@ -19,6 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_movie"
+            toggleVisibility="@{search.mediaType}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -72,6 +73,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_tv"
+            toggleVisibility="@{search.mediaType}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -125,6 +127,7 @@
 
         <LinearLayout
             android:id="@+id/ll_person"
+            toggleVisibility="@{search.mediaType}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"

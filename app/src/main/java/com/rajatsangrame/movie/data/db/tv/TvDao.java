@@ -18,7 +18,7 @@ public interface TvDao {
     void bulkInsert(List<TVDB> tvdbList);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(TVDB tvdb);
+    long insert(TVDB tvdb);
 
     @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY popularity DESC")
     DataSource.Factory<Integer, TVDB> getPopularTVDataSource(String category);

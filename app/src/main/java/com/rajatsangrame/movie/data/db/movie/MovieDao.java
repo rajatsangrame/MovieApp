@@ -16,7 +16,7 @@ public interface MovieDao {
     void bulkInsert(List<MovieDB> movieDBList);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(MovieDB movieDB);
+    long insert(MovieDB movieDB);
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC")
     DataSource.Factory<Integer, MovieDB> getPopularDataSource(String category);

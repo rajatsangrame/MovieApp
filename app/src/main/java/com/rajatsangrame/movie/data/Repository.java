@@ -134,10 +134,10 @@ public class Repository {
                 MovieDB oldItem = database.movieDao().getMovieFromId(movieDB.getId());
                 if (oldItem == null) {
                     /*Case when called form Search Fragment*/
-                    insertMovie(movieDB, null);
+                    database.movieDao().insert(movieDB);
                 } else {
                     MovieDB newItem = Utils.updateMovieDB(oldItem, movieDB);
-                    insertMovie(newItem, null);
+                    database.movieDao().update(newItem);
                 }
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
@@ -153,10 +153,10 @@ public class Repository {
                 TVDB oldItem = database.tvDao().getTVFromId(tvdb.getId());
                 if (oldItem == null) {
                     /*Case when called form Search Fragment*/
-                    insertTV(tvdb, null);
+                    database.tvDao().insert(tvdb);
                 } else {
                     TVDB newItem = Utils.updateTVDB(oldItem, tvdb);
-                    insertTV(newItem, null);
+                    database.tvDao().update(newItem);
                 }
                 if (insertCallback != null) {
                     insertCallback.insertFinished();

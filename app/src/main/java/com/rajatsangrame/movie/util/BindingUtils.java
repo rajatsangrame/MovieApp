@@ -1,9 +1,11 @@
 package com.rajatsangrame.movie.util;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -15,7 +17,6 @@ import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
 
 /**
  * Ref: https://developer.android.com/topic/libraries/data-binding/expressions
- *
  */
 public class BindingUtils {
 
@@ -32,6 +33,28 @@ public class BindingUtils {
                 .placeholder(context.getResources().getDrawable(R.color.cardBackground))
                 .into(imageView);
 
+    }
+
+    @BindingAdapter({"toggleVisibility"})
+    public static void visibility(View view, String mediaType) {
+
+        switch (view.getId()) {
+            case R.id.ll_movie:
+                if (mediaType.equals("movie")) {
+                    view.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.ll_tv:
+                if (mediaType.equals("tv")) {
+                    view.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.percent:
+                if (mediaType.equals("person")) {
+                    view.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
     }
 
     @BindingAdapter({"genre"})

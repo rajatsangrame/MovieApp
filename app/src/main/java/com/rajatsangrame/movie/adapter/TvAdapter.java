@@ -2,6 +2,7 @@ package com.rajatsangrame.movie.adapter;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,8 @@ public class TvAdapter extends PagedListAdapter<TVDB, TvAdapter.MovieViewHolder>
         @SuppressLint("DiffUtilEquals")
         @Override
         public boolean areContentsTheSame(@NonNull TVDB oldItem, @NonNull TVDB newItem) {
-            return oldItem == newItem;
+            //return oldItem == newItem;
+            return oldItem.getId() == newItem.getId();
         }
     };
 

@@ -91,6 +91,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
         public MovieViewHolder(SearchItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
         }
 
         public MovieViewHolder(SearchItemHeaderBinding binding) {
@@ -101,13 +102,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
         void bind(SearchResult result) {
 
             if (binding != null) {
-                if (result.getMediaType().equals("person")) {
-                    binding.llPerson.setVisibility(View.VISIBLE);
-                } else if (result.getMediaType().equals("tv")) {
-                    binding.llTv.setVisibility(View.VISIBLE);
-                } else {
-                    binding.llMovie.setVisibility(View.VISIBLE);
-                }
                 binding.setSearch(result);
                 binding.executePendingBindings();
                 return;
@@ -124,9 +118,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MovieViewH
                 return;
             }
             int index = this.getAdapterPosition();
-            SearchResult movie = searchResultList.get(index);
-            listener.onItemClicked(movie, view);
-
+            SearchResult result = searchResultList.get(index);
+            if (!result.getMediaType().equals("person")) // Temporary
+                listener.onItemClicked(result, view);
         }
     }
 }

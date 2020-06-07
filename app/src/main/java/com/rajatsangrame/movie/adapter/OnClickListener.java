@@ -16,6 +16,6 @@ public interface OnClickListener {
 
     void onItemClicked(TVDB movie, View view);
 
-    void onItemClicked(SearchResult movie, View view);
+    void onItemClicked(SearchResult searchResult, View view);
 
 }
