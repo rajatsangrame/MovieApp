@@ -162,6 +162,9 @@ public class Utils {
         movieDB.setPopularity(movieDetail.getPopularity());
         movieDB.setVoteAverage(movieDetail.getVoteAverage());
         movieDB.setOverview(movieDetail.getOverview());
+        movieDB.setGenres(movieDetail.getGenres());
+        movieDB.setProductionCompanies(movieDetail.getProductionCompanies());
+        movieDB.setSpokenLanguages(movieDetail.getSpokenLanguages());
         return movieDB;
     }
 

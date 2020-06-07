@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
@@ -15,6 +16,7 @@ import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.db.tv.TvDao;
 
 @Database(entities = {MovieDB.class, TVDB.class}, version = 1)
+@TypeConverters({DbTypeConverter.class})
 public abstract class MovieDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();

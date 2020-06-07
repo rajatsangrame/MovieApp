@@ -4,6 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.rajatsangrame.movie.data.db.DbTypeConverter;
+import com.rajatsangrame.movie.data.model.movie.Genre;
+import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
+
+import java.util.List;
 
 
 /**
@@ -34,12 +42,6 @@ public class MovieDB {
 
     @ColumnInfo(name = "overview")
     private String overview;
-
-    @ColumnInfo(name = "original_language")
-    private String originalLanguage;
-
-    @ColumnInfo(name = "original_title")
-    private String originalTitle;
 
     @ColumnInfo(name = "popularity")
     private double popularity;
@@ -127,22 +129,6 @@ public class MovieDB {
         this.overview = overview;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
     public double getPopularity() {
         return popularity;
     }
@@ -175,7 +161,14 @@ public class MovieDB {
         this.saved = saved;
     }
 
-    /*
+    /* Fetched in Detail API */
+
+    @ColumnInfo(name = "original_language")
+    private String originalLanguage;
+
+    @ColumnInfo(name = "original_title")
+    private String originalTitle;
+
     @ColumnInfo(name = "release_date")
     private String releaseDate;
 
@@ -185,40 +178,90 @@ public class MovieDB {
     @ColumnInfo(name = "imdb_id")
     private String imdbId;
 
-    @ColumnInfo(name = "revenue")
-    private int revenue;
-
-    @ColumnInfo(name = "budget")
-    private int budget;
-
-    @ColumnInfo(name = "runtime")
-    private int runtime;
-
-    @ColumnInfo(name = "tag_line")
-    private String tagLine;
-
     @ColumnInfo(name = "homepage")
     private String homepage;
 
-    @ColumnInfo(name = "status")
-    private String status;
-
------------------------------------------------------
-
+    @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "spoken_languages")
-    //private List<SpokenLanguages> spokenLanguages;
-    private String spokenLanguages;
+    private List<SpokenLanguages> spokenLanguages;
 
+    @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "production_companies")
-    //private List<ProductionCompanies> productionCompanies;
-    private String productionCompanies;
+    private List<ProductionCompanies> productionCompanies;
 
+    @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "genres")
-    //private List<Genre> genres;
-    private String genres;
+    private List<Genre> genres;
 
-    @ColumnInfo(name = "production_countries")
-    //private List<ProductionCountries> productionCountries;
-    private String productionCountries;
-    */
+    public String getOriginalLanguage() {
+        return originalLanguage;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<ProductionCompanies> getProductionCompanies() {
+        return productionCompanies;
+    }
+
+    public void setProductionCompanies(List<ProductionCompanies> productionCompanies) {
+        this.productionCompanies = productionCompanies;
+    }
+
+    public List<SpokenLanguages> getSpokenLanguages() {
+        return spokenLanguages;
+    }
+
+    public void setSpokenLanguages(List<SpokenLanguages> spokenLanguages) {
+        this.spokenLanguages = spokenLanguages;
+    }
 }
