@@ -82,4 +82,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rx_java"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rx_android"
 
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+
 }

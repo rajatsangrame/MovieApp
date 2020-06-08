@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.adapter.TvSeasonAdapter;
@@ -23,6 +24,8 @@ import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
 import com.rajatsangrame.movie.data.model.tv.Seasons;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.rajatsangrame.movie.util.Constants.getGenreFromId;
 
@@ -43,6 +46,20 @@ public class BindingUtils {
                 .load(URL)
                 .placeholder(context.getResources().getDrawable(R.color.cardBackground))
                 .transform(new CenterCrop(), new RoundedCorners(8))
+                .into(imageView);
+
+    }
+
+    @BindingAdapter({"applyBlur"})
+    public static void applyBlur(ImageView imageView, String url) {
+
+        Context context = imageView.getContext();
+        final String URL = IMAGE_URL + url;
+
+        Glide.with(context)
+                .load(URL)
+                .placeholder(context.getResources().getDrawable(R.color.cardBackground))
+                .transform(new BlurTransformation(25, 5))
                 .into(imageView);
 
     }
@@ -159,12 +176,10 @@ public class BindingUtils {
     public static void getYearAndTime(TextView textView, MovieDB movie) {
         try {
             String[] date = movie.getReleaseDate().split("-");
-            final String dot = "  •  ";
             int timeDuration = movie.getRuntime();
             String string = textView.getContext().getString(
                     R.string.movie_year_and_time,
                     date[0],
-                    dot,
                     getRunTime(timeDuration)
             );
             textView.setText(string);
@@ -177,13 +192,11 @@ public class BindingUtils {
     public static void setYearAndSeason(TextView textView, TVDB tv) {
         try {
             String[] date = tv.getFirstAirDate().split("-");
-            final String dot = "  •  ";
             int season = tv.getNumberOfSeasons();
             int episodes = tv.getNumberOfEpisodes();
             String string = textView.getContext().getString(
                     R.string.tv_year_and_season,
                     date[0],
-                    dot,
                     season,
                     episodes
             );
@@ -252,8 +265,6 @@ public class BindingUtils {
         //System.out.printf("%d:%02d", hours, minutes);
         return String.format("%dh %02dmin", hours, minutes);
     }
-
-
 }
 
 

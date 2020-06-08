@@ -5,9 +5,9 @@
     <string name="movie_desc">A group of misfits encounter a young Yeti named Everest, and they set off to reunite the magical creature with his family on the mountain of his namesake.</string>
     <string name="movie_title">Avengers: Infinity War</string>
     <string name="movie_year">\u2605 %.02f %s %s</string>
-    <string name="movie_year_and_time">%s %s %s</string>
+    <string name="movie_year_and_time">%s • %s</string>
     <string name="movie_rating_and_likes">\u2764 %d  %s \u2605 %.02f</string>
-    <string name="tv_year_and_season">%s %s %d season %d episodes</string>
+    <string name="tv_year_and_season">%s • %d season • %d episodes</string>
     <string name="movie_genre">Action </string>
     <string name="no_internet_connection">No internet connection </string>
     <string name="please_wait">Fetching data. Please wait..</string>
