@@ -1,7 +1,9 @@
 package com.rajatsangrame.movie.ui.home;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -179,18 +181,32 @@ public class HomeFragment extends Fragment implements OnClickListener {
     @Override
     public void onItemClicked(MovieDB movie, View view) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", movie.getId());
-        intent.putExtra("title", movie.getTitle());
-        intent.putExtra("type", "movie");
+        intent.putExtra(getString(R.string.id), movie.getId());
+        intent.putExtra(getString(R.string.title), movie.getTitle());
+        intent.putExtra(getString(R.string.type), "movie");
+        View v1 = view.findViewById(R.id.iv_poster);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(), v1, v1.getTransitionName());
+            startActivity(intent, options.toBundle());
+            return;
+        }
         startActivity(intent);
     }
 
     @Override
     public void onItemClicked(TVDB tv, View view) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", tv.getId());
-        intent.putExtra("title", tv.getName());
-        intent.putExtra("type", "tv");
+        intent.putExtra(getString(R.string.id), tv.getId());
+        intent.putExtra(getString(R.string.title), tv.getName());
+        intent.putExtra(getString(R.string.type), "tv");
+        View v1 = view.findViewById(R.id.iv_poster);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(), v1, v1.getTransitionName());
+            startActivity(intent, options.toBundle());
+            return;
+        }
         startActivity(intent);
     }
 

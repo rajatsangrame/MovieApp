@@ -1,5 +1,6 @@
 package com.rajatsangrame.movie.ui.saved;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -159,19 +160,21 @@ public class SavedFragment extends Fragment implements OnClickListener {
     @Override
     public void onItemClicked(MovieDB movie, View view) {
         if (view.getTag() != null && view.getTag().equals("save")) {
-            repository.saveMovie(movie.getId(),null);
+            repository.saveMovie(movie.getId(), null);
             return;
         }
-        startDetailActivity(movie.getId(), movie.getTitle(), "movie");
+        View v1 = view.findViewById(R.id.tv_movie_title);
+        startDetailActivity(movie.getId(), movie.getTitle(), "movie", v1);
     }
 
     @Override
     public void onItemClicked(TVDB tv, View view) {
         if (view.getTag() != null && view.getTag().equals("save")) {
-            repository.saveTV(tv.getId(),null);
+            repository.saveTV(tv.getId(), null);
             return;
         }
-        startDetailActivity(tv.getId(), tv.getName(), "tv");
+        View v = view.findViewById(R.id.tv_title_tv);
+        startDetailActivity(tv.getId(), tv.getName(), "tv", v);
     }
 
     @Override
@@ -179,12 +182,19 @@ public class SavedFragment extends Fragment implements OnClickListener {
 
     }
 
-    private void startDetailActivity(int id, String name, String type) {
+    private void startDetailActivity(int id, String name, String type, View view) {
 
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", id);
-        intent.putExtra("title", name);
-        intent.putExtra("type", type);
+        intent.putExtra(getString(R.string.id), id);
+        intent.putExtra(getString(R.string.title), name);
+        intent.putExtra(getString(R.string.type), type);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(), view, view.getTransitionName());
+            startActivity(intent, options.toBundle());
+            return;
+        }
         startActivity(intent);
 
     }

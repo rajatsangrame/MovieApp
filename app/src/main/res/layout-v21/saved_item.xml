@@ -5,11 +5,17 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <import type="com.rajatsangrame.movie.util.BindingUtils" />
 
         <variable
-            name="search"
-            type="com.rajatsangrame.movie.data.model.search.SearchResult" />
+            name="movie"
+            type="com.rajatsangrame.movie.data.db.movie.MovieDB" />
+
+        <variable
+            name="tv"
+            type="com.rajatsangrame.movie.data.db.tv.TVDB" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,18 +25,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_movie"
-            toggleVisibility="@{search.mediaType}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="@{movie!=null? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_poster"
-                loadImageUrl="@{search.backdropPath}"
+                loadImageUrl="@{movie.backdropPath}"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
@@ -44,19 +49,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="@{search.title}"
+                android:text="@{movie.title}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:transitionName="@string/title"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_movie"
                 app:layout_constraintStart_toEndOf="@+id/iv_poster"
                 app:layout_constraintTop_toTopOf="@id/iv_poster"
                 tools:text="@string/movie_title" />
 
             <TextView
                 android:id="@+id/tv_movie_genre"
-                genreId="@{search.genreIds}"
+                genre="@{movie.genres}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -68,23 +73,42 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
                 tools:text="@string/movie_genre" />
 
+            <LinearLayout
+                android:id="@+id/btn_save_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:tag="save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    save="@{movie.saved}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_save" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_tv"
-            toggleVisibility="@{search.mediaType}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="@{tv!=null? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_tv_image"
-                loadImageUrl="@{search.backdropPath}"
+                loadImageUrl="@{tv.backdropPath}"
                 android:layout_width="120dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"
@@ -98,20 +122,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:maxLines="2"
-                android:text="@{search.name}"
+                android:text="@{tv.name}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:transitionName="@string/title"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_tv"
                 app:layout_constraintStart_toEndOf="@+id/iv_tv_image"
                 app:layout_constraintTop_toTopOf="@id/iv_tv_image"
                 tools:text="@string/movie_title" />
 
             <TextView
                 android:id="@+id/tv_genre_tv"
-                genreId="@{search.genreIds}"
+                genre="@{tv.genres}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
@@ -122,44 +146,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_tv"
                 tools:text="@string/movie_genre" />
 
+            <LinearLayout
+                android:id="@+id/btn_save_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:tag="save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    save="@{tv.saved}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_save" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <LinearLayout
-            android:id="@+id/ll_person"
-            toggleVisibility="@{search.mediaType}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tv_person_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@{search.name}"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="14sp"
-                tools:text="Johny Depp" />
-
-            <TextView
-                android:id="@+id/tv_person_known"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/roboto_regular"
-                android:maxLines="1"
-                android:text="@{search.knownForDepartment}"
-                android:textSize="12sp"
-                tools:text="Acting" />
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

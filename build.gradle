@@ -43,6 +43,7 @@ allprojects {
         rx_java = "2.2.10"
         rx_android = "2.1.1"
         view_pager2 = "1.0.0"
+        glide_transformation = "4.1.0"
     }
 }
 
