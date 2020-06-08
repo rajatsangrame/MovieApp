@@ -112,6 +112,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
         homeViewModel.getPagedListPopular().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
             public void onChanged(PagedList<MovieDB> movies) {
+                binding.layoutPopularMovies.setVisibility(View.VISIBLE);
                 popularMovieAdapter.submitList(movies);
             }
         });
@@ -124,6 +125,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
         homeViewModel.getPagedListPopularTv().observe(getViewLifecycleOwner(), new Observer<PagedList<TVDB>>() {
             @Override
             public void onChanged(PagedList<TVDB> movies) {
+                binding.layoutPopTvShows.setVisibility(View.VISIBLE);
                 popularTvAdapter.submitList(movies);
             }
         });
@@ -136,6 +138,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
         homeViewModel.getPagedListNowPlaying().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
             public void onChanged(PagedList<MovieDB> movies) {
+                binding.layoutNowPlayingMovie.setVisibility(View.VISIBLE);
                 nowPlayingAdapter.submitList(movies);
             }
         });
@@ -148,18 +151,20 @@ public class HomeFragment extends Fragment implements OnClickListener {
         homeViewModel.getPagedListTopTv().observe(getViewLifecycleOwner(), new Observer<PagedList<TVDB>>() {
             @Override
             public void onChanged(PagedList<TVDB> movies) {
+                binding.layoutTopTvShows.setVisibility(View.VISIBLE);
                 topTvShowAdapter.submitList(movies);
             }
         });
 
         //Top Rated Movies
-        binding.rvTopratedMovie.setLayoutManager(new LinearLayoutManager(
+        binding.rvTopRatedMovie.setLayoutManager(new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false));
         topRatedMovieAdapter.setListener(this);
-        binding.rvTopratedMovie.setAdapter(topRatedMovieAdapter);
+        binding.rvTopRatedMovie.setAdapter(topRatedMovieAdapter);
         homeViewModel.getPagedListTopRatedMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieDB>>() {
             @Override
             public void onChanged(PagedList<MovieDB> movies) {
+                binding.layoutTopRatedMovie.setVisibility(View.VISIBLE);
                 topRatedMovieAdapter.submitList(movies);
             }
         });

@@ -69,12 +69,15 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_home:
                     binding.viewPager.setCurrentItem(0, false);
+                    binding.toolbar.setTitle(R.string.app_name);
                     return true;
                 case R.id.navigation_search:
                     binding.viewPager.setCurrentItem(1, false);
+                    binding.toolbar.setTitle(R.string.title_search);
                     return true;
                 case R.id.navigation_saved:
                     binding.viewPager.setCurrentItem(2, false);
+                    binding.toolbar.setTitle(R.string.title_saved);
                     return true;
             }
             return false;

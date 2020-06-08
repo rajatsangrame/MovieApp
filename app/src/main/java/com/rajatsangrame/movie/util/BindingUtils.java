@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.adapter.TvSeasonAdapter;
@@ -39,6 +42,7 @@ public class BindingUtils {
         Glide.with(imageView)
                 .load(URL)
                 .placeholder(context.getResources().getDrawable(R.color.cardBackground))
+                .transform(new CenterCrop(), new RoundedCorners(8))
                 .into(imageView);
 
     }

@@ -123,7 +123,7 @@ public class SearchFragment extends Fragment implements OnClickListener {
                 }
             }
         });
-        binding.ivClear.setOnClickListener(new View.OnClickListener() {
+        binding.btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requestFocus();
