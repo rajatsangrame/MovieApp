@@ -168,6 +168,8 @@ public class Utils {
         movieDB.setVoteCount(movieDetail.getVoteCount());
         movieDB.setRuntime(movieDetail.getRuntime());
         movieDB.setReleaseDate(movieDetail.getReleaseDate());
+        movieDB.setImdbId(movieDetail.getImdbId());
+        movieDB.setHomepage(movieDetail.getHomepage());
         return movieDB;
     }
 

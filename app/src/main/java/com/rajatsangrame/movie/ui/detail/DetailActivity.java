@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
 import com.rajatsangrame.movie.di.component.DaggerDetailActivityComponent;
 import com.rajatsangrame.movie.di.component.DetailActivityComponent;
+import com.rajatsangrame.movie.ui.LinkBottomSheet;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
@@ -50,6 +53,7 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private int id;
     private String type;
+    private MovieDB movieDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +88,9 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
             detailViewModel.fetchMovieDetail(id, compositeDisposable, this);
             detailViewModel.getMovieDetail(id).observe(this, new Observer<MovieDB>() {
                 @Override
-                public void onChanged(MovieDB movieDB) {
+                public void onChanged(MovieDB movie) {
                     binding.setMovie(movieDB);
+                    movieDB = movie;
                 }
             });
         } else {
@@ -105,45 +110,20 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
         super.onDestroy();
     }
 
-    private void showAlert() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false)
-                .setMessage("No Internet Connection.")
-                .setTitle("Alert")
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Bundle bundle = getIntent().getExtras();
-                        assert bundle != null;
-                        int id = bundle.getInt("id");
-                        //fetchData(id);
-                    }
-                });
-        builder.show();
-    }
-
-
     public void openLink(View view) {
-//        Intent intent;
-//        switch (view.getId()) {
-//            case R.id.iv_imdb:
-//                String URL = "https://www.imdb.com/title/" + movie.getImdbId();
-//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
-//                startActivity(intent);
-//                break;
-//            case R.id.iv_link:
-//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getHomepage()));
-//                startActivity(intent);
-//                break;
-//        }
+
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.iv_imdb:
+                String URL = "https://www.imdb.com/title/" + movieDB.getImdbId();
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+                startActivity(intent);
+                break;
+            case R.id.iv_link:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movieDB.getHomepage()));
+                startActivity(intent);
+                break;
+        }
     }
 
 

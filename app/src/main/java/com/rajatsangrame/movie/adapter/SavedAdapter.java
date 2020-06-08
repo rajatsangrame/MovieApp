@@ -75,6 +75,8 @@ public class SavedAdapter<T> extends RecyclerView.Adapter<SavedAdapter.ViewHolde
             super(binding.getRoot());
             this.binding = binding;
             this.binding.getRoot().setOnClickListener(this);
+            this.binding.btnSaveMovie.setOnClickListener(this);
+            this.binding.btnSaveTv.setOnClickListener(this);
         }
 
         @Override

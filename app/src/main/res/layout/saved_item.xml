@@ -20,8 +20,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_movie"
@@ -49,18 +49,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@{movie.title}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_movie"
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toTopOf="@id/iv_movie_image"
                 tools:text="@string/movie_title" />
 
             <TextView
                 android:id="@+id/tv_movie_genre"
+                genre="@{movie.genres}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -71,6 +71,26 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_movie_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
                 tools:text="@string/movie_genre" />
+
+            <LinearLayout
+                android:id="@+id/btn_save_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:tag="save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    save="@{movie.saved}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_save" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,19 +121,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto_bold"
                 android:maxLines="2"
                 android:text="@{tv.name}"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_tv"
                 app:layout_constraintStart_toEndOf="@+id/iv_tv_image"
                 app:layout_constraintTop_toTopOf="@id/iv_tv_image"
                 tools:text="@string/movie_title" />
 
             <TextView
                 android:id="@+id/tv_genre_tv"
+                genre="@{tv.genres}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
@@ -123,6 +143,27 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title_tv"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_tv"
                 tools:text="@string/movie_genre" />
+
+            <LinearLayout
+                android:id="@+id/btn_save_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:tag="save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    save="@{tv.saved}"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_save" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

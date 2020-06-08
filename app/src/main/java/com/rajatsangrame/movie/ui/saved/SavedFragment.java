@@ -158,24 +158,34 @@ public class SavedFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onItemClicked(MovieDB movie, View view) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", movie.getId());
-        intent.putExtra("title", movie.getTitle());
-        intent.putExtra("type", "movie");
-        startActivity(intent);
+        if (view.getTag() != null && view.getTag().equals("save")) {
+            repository.saveMovie(movie.getId(),null);
+            return;
+        }
+        startDetailActivity(movie.getId(), movie.getTitle(), "movie");
     }
 
     @Override
-    public void onItemClicked(TVDB movie, View view) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra("id", movie.getId());
-        intent.putExtra("title", movie.getName());
-        intent.putExtra("type", "tv");
-        startActivity(intent);
+    public void onItemClicked(TVDB tv, View view) {
+        if (view.getTag() != null && view.getTag().equals("save")) {
+            repository.saveTV(tv.getId(),null);
+            return;
+        }
+        startDetailActivity(tv.getId(), tv.getName(), "tv");
     }
 
     @Override
     public void onItemClicked(SearchResult result, View view) {
+
+    }
+
+    private void startDetailActivity(int id, String name, String type) {
+
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("title", name);
+        intent.putExtra("type", type);
+        startActivity(intent);
 
     }
 }

@@ -130,7 +130,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_save"
+                app:layout_constraintEnd_toStartOf="@+id/btn_save_movie"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout3"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -151,7 +151,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_save"
+                android:id="@+id/btn_save_movie"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clickable="true"
