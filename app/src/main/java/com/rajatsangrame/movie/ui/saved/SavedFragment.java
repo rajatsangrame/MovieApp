@@ -163,8 +163,7 @@ public class SavedFragment extends Fragment implements OnClickListener {
             repository.saveMovie(movie.getId(), null);
             return;
         }
-        View v1 = view.findViewById(R.id.tv_movie_title);
-        startDetailActivity(movie.getId(), movie.getTitle(), "movie", v1);
+        startDetailActivity(movie.getId(), movie.getTitle(), "movie");
     }
 
     @Override
@@ -173,8 +172,7 @@ public class SavedFragment extends Fragment implements OnClickListener {
             repository.saveTV(tv.getId(), null);
             return;
         }
-        View v = view.findViewById(R.id.tv_title_tv);
-        startDetailActivity(tv.getId(), tv.getName(), "tv", v);
+        startDetailActivity(tv.getId(), tv.getName(), "tv");
     }
 
     @Override
@@ -182,19 +180,12 @@ public class SavedFragment extends Fragment implements OnClickListener {
 
     }
 
-    private void startDetailActivity(int id, String name, String type, View view) {
+    private void startDetailActivity(int id, String name, String type) {
 
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(getString(R.string.id), id);
         intent.putExtra(getString(R.string.title), name);
         intent.putExtra(getString(R.string.type), type);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                    getActivity(), view, view.getTransitionName());
-            startActivity(intent, options.toBundle());
-            return;
-        }
         startActivity(intent);
 
     }

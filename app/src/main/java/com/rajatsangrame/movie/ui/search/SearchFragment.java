@@ -171,18 +171,6 @@ public class SearchFragment extends Fragment implements OnClickListener {
         intent.putExtra(getString(R.string.id), result.getId());
         intent.putExtra(getString(R.string.title), result.getTitle() != null ? result.getTitle() : result.getName());
         intent.putExtra(getString(R.string.type), result.getMediaType());
-        View v1;
-        if (result.getMediaType().equals("movie")) {
-            v1 = view.findViewById(R.id.tv_movie_title);
-        } else {
-            v1 = view.findViewById(R.id.tv_title_tv);
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                    getActivity(), v1, v1.getTransitionName());
-            startActivity(intent, options.toBundle());
-            return;
-        }
         startActivity(intent);
     }
 }

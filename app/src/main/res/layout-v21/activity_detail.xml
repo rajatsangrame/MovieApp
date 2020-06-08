@@ -102,7 +102,6 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:transitionName="@string/title"
                         app:layout_collapseMode="pin"
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
