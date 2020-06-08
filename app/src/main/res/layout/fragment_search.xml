@@ -46,7 +46,8 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_close" />
+                    android:src="@drawable/ic_close"
+                    />
             </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView

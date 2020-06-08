@@ -30,7 +30,7 @@ public interface TvDao {
     @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY entry_timestamp ASC")
     DataSource.Factory<Integer, TVDB> getDataSource(String category);
 
-    @Query("SELECT * FROM tv WHERE saved = 1")
+    @Query("SELECT * FROM tv WHERE saved = 1 ORDER BY saved_time DESC")
     LiveData<List<TVDB>> getAllSaved();
 
     @Query("SELECT  * FROM tv WHERE id = :id")

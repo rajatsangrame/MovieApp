@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
 import com.rajatsangrame.movie.adapter.TvSeasonAdapter;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
+import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
@@ -166,6 +166,26 @@ public class BindingUtils {
                     date[0],
                     dot,
                     getRunTime(timeDuration)
+            );
+            textView.setText(string);
+        } catch (NullPointerException e) {
+            //ignored.
+        }
+    }
+
+    @BindingAdapter({"setYearAndTime"})
+    public static void setYearAndSeason(TextView textView, TVDB tv) {
+        try {
+            String[] date = tv.getFirstAirDate().split("-");
+            final String dot = "  •  ";
+            int season = tv.getNumberOfSeasons();
+            int episodes = tv.getNumberOfEpisodes();
+            String string = textView.getContext().getString(
+                    R.string.tv_year_and_season,
+                    date[0],
+                    dot,
+                    season,
+                    episodes
             );
             textView.setText(string);
         } catch (NullPointerException e) {

@@ -188,6 +188,8 @@ public class Utils {
         tvdb.setProductionCompanies(tvDetail.getProductionCompanies());
         tvdb.setFirstAirDate(tvDetail.getFirstAirDate());
         tvdb.setSeasons(tvDetail.getSeasons());
+        tvdb.setNumberOfEpisodes(tvDetail.getNumberOfEpisodes());
+        tvdb.setNumberOfSeasons(tvDetail.getNumberOfSeasons());
         return tvdb;
     }
 
@@ -195,6 +197,7 @@ public class Utils {
         newItem.setFetchCategory(oldItem.getFetchCategory());
         newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
         newItem.setSaved(oldItem.isSaved());
+        newItem.setSavedTime(oldItem.getSavedTime());
         return newItem;
     }
 
@@ -202,6 +205,7 @@ public class Utils {
         newItem.setFetchCategory(oldItem.getFetchCategory());
         newItem.setEntryTimeStamp(oldItem.getEntryTimeStamp());
         newItem.setSaved(oldItem.isSaved());
+        newItem.setSavedTime(oldItem.getSavedTime());
         return newItem;
     }
 

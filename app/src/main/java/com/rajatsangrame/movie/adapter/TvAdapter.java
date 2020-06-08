@@ -2,7 +2,6 @@ package com.rajatsangrame.movie.adapter;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.databinding.HomeListItemBinding;
-
 
 public class TvAdapter extends PagedListAdapter<TVDB, TvAdapter.MovieViewHolder> {
 

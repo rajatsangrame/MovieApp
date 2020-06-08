@@ -9,9 +9,9 @@
     <color name="colorTextPrimary">#ffffff</color>
     <color name="colorTextSecondary">#000000</color>
     <color name="cardBackground">#ddd</color>
-    <color name="gradient_start">#7f000000</color>
-    <color name="gradient_end">#00000000</color>
-    <color name="option_item_tint_color">#ad000000</color>
+    <color name="gradientStart">#7f000000</color>
+    <color name="gradientEnd">#00000000</color>
+    <color name="optionItemTintColor">#ad000000</color>
     <color name="colorGrey">#9E9E9E</color>
 
 </resources>

@@ -6,13 +6,10 @@ import androidx.lifecycle.ViewModel;
 import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.data.db.tv.TVDB;
-import com.rajatsangrame.movie.data.rest.ApiCallback;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Rajat Sangrame on 1/6/20.

@@ -2,35 +2,22 @@ package com.rajatsangrame.movie.ui.detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
-import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
 import com.rajatsangrame.movie.databinding.ActivityDetailBinding;
-import com.rajatsangrame.movie.data.model.movie.Genre;
-import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
-import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
 import com.rajatsangrame.movie.di.component.DaggerDetailActivityComponent;
 import com.rajatsangrame.movie.di.component.DetailActivityComponent;
-import com.rajatsangrame.movie.ui.LinkBottomSheet;
 import com.rajatsangrame.movie.util.ViewModelFactory;
 
 import java.util.List;
@@ -38,10 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 public class DetailActivity extends AppCompatActivity implements ApiCallback {
 

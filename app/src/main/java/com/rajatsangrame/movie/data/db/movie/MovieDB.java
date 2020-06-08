@@ -6,7 +6,6 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.google.gson.annotations.SerializedName;
 import com.rajatsangrame.movie.data.db.DbTypeConverter;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
@@ -55,6 +54,9 @@ public class MovieDB {
 
     @ColumnInfo(name = "saved")
     private boolean saved;
+
+    @ColumnInfo(name = "saved_time")
+    private long savedTime;
 
     public MovieDB(int id) {
         this.id = id;
@@ -286,5 +288,13 @@ public class MovieDB {
 
     public void setSpokenLanguages(List<SpokenLanguages> spokenLanguages) {
         this.spokenLanguages = spokenLanguages;
+    }
+
+    public long getSavedTime() {
+        return savedTime;
+    }
+
+    public void setSavedTime(long savedTime) {
+        this.savedTime = savedTime;
     }
 }

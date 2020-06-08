@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_movie"
             toggleVisibility="@{search.mediaType}"
@@ -159,7 +158,6 @@
                 android:text="@{search.knownForDepartment}"
                 android:textSize="12sp"
                 tools:text="Acting" />
-
 
         </LinearLayout>
 

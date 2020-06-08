@@ -94,6 +94,7 @@ public class Repository {
             public void run() {
                 MovieDB movie = database.movieDao().getMovieFromId(id);
                 movie.setSaved(!movie.isSaved());
+                movie.setSavedTime(System.currentTimeMillis());
                 database.movieDao().update(movie);
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
@@ -108,6 +109,7 @@ public class Repository {
             public void run() {
                 TVDB tv = database.tvDao().getTVFromId(id);
                 tv.setSaved(!tv.isSaved());
+                tv.setSavedTime(System.currentTimeMillis());
                 database.tvDao().update(tv);
                 if (insertCallback != null) {
                     insertCallback.insertFinished();

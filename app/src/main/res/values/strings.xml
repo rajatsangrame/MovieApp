@@ -1,19 +1,16 @@
 <resources>
     <string name="app_name">Movie</string>
-
     <string name="title_search">Search</string>
     <string name="title_saved">Saved</string>
-
     <string name="movie_desc">A group of misfits encounter a young Yeti named Everest, and they set off to reunite the magical creature with his family on the mountain of his namesake.</string>
     <string name="movie_title">Avengers: Infinity War</string>
     <string name="movie_year">\u2605 %.02f %s %s</string>
     <string name="movie_year_and_time">%s %s %s</string>
     <string name="movie_rating_and_likes">\u2764 %d  %s \u2605 %.02f</string>
-
+    <string name="tv_year_and_season">%s %s %d season %d episodes</string>
     <string name="movie_genre">Action </string>
     <string name="no_internet_connection">No internet connection </string>
     <string name="please_wait">Fetching data. Please wait..</string>
-
     <string name="Rs">\u20B9</string>
     <string name="filled_bullet">\u25CF</string>
     <string name="linear_bullet">\u25CB</string>
@@ -22,17 +19,15 @@
     <string name="true_tick">\u2713</string>
     <string name="star">\u2605</string>
     <string name="heart">\u2764</string>
-
     <string name="popular_movies">Popular Movies</string>
     <string name="popular_tv_shows">Popular TV Shows</string>
     <string name="latest_movies">Latest Movies</string>
     <string name="top_tv_shows">Top TV Shows</string>
     <string name="top_rated_movie">Top Rated Movies</string>
-
     <string name="et_search_hint">Search for movies, tv or person</string>
-
-
-
-
+    <string name="id">id</string>
+    <string name="type">type</string>
+    <string name="title">Saved</string>
+    <string name="links">Links</string>
 
 </resources>

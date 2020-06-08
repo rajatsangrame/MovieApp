@@ -166,8 +166,8 @@
 
                 <ImageView
                     save="@{movie.saved}"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_save" />
 
             </LinearLayout>
@@ -262,7 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Links"
+            android:text="@string/links"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintStart_toStartOf="@+id/view3"

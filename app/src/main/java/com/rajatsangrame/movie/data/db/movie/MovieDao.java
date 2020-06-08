@@ -28,7 +28,7 @@ public interface MovieDao {
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getDataSource(String category);
 
-    @Query("SELECT * FROM movie WHERE saved = 1")
+    @Query("SELECT * FROM movie WHERE saved = 1 ORDER BY saved_time DESC")
     LiveData<List<MovieDB>> getAllSaved();
 
     @Query("SELECT  * FROM movie WHERE id = :id")

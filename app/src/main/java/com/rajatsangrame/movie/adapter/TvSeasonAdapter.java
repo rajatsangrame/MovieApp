@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
-import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.tv.Seasons;
 
 import java.util.List;

@@ -67,6 +67,15 @@ public class TVDB {
     @ColumnInfo(name = "saved")
     private boolean saved;
 
+    @ColumnInfo(name = "saved_time")
+    private long savedTime;
+
+    @ColumnInfo(name = "number_of_seasons")
+    private int numberOfSeasons;
+
+    @ColumnInfo(name = "number_of_episodes")
+    private int numberOfEpisodes;
+
     @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "genres")
     private List<Genre> genres;
@@ -239,5 +248,29 @@ public class TVDB {
 
     public void setSeasons(List<Seasons> seasons) {
         this.seasons = seasons;
+    }
+
+    public long getSavedTime() {
+        return savedTime;
+    }
+
+    public void setSavedTime(long savedTime) {
+        this.savedTime = savedTime;
+    }
+
+    public int getNumberOfSeasons() {
+        return numberOfSeasons;
+    }
+
+    public void setNumberOfSeasons(int numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public int getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
+    public void setNumberOfEpisodes(int numberOfEpisodes) {
+        this.numberOfEpisodes = numberOfEpisodes;
     }
 }
