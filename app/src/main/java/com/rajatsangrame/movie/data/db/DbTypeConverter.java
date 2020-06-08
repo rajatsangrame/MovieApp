@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
+import com.rajatsangrame.movie.data.model.tv.Seasons;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -56,6 +57,21 @@ public class DbTypeConverter implements Serializable {
 
     @TypeConverter
     public String spokenLanguagesString(List<SpokenLanguages> genreList) {
+        Gson gson = new Gson();
+        return gson.toJson(genreList);
+    }
+
+
+    @TypeConverter
+    public List<Seasons> tvSeasonList(String jsonString) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Seasons>>() {
+        }.getType();
+        return gson.fromJson(jsonString, type);
+    }
+
+    @TypeConverter
+    public String tvSeasonString(List<Seasons> genreList) {
         Gson gson = new Gson();
         return gson.toJson(genreList);
     }

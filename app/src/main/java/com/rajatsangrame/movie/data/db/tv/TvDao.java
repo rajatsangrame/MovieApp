@@ -21,10 +21,10 @@ public interface TvDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(TVDB tvdb);
 
-    @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY popularity DESC")
+    @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY popularity DESC, entry_timestamp ASC")
     DataSource.Factory<Integer, TVDB> getPopularTVDataSource(String category);
 
-    @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY vote_average DESC")
+    @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY vote_average DESC, entry_timestamp ASC")
     DataSource.Factory<Integer, TVDB> getTopRatedTVDataSource(String category);
 
     @Query("SELECT * FROM tv WHERE fetch_category = :category ORDER BY entry_timestamp ASC")

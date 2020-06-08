@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
             detailViewModel.getMovieDetail(id).observe(this, new Observer<MovieDB>() {
                 @Override
                 public void onChanged(MovieDB movie) {
-                    binding.setMovie(movieDB);
+                    binding.setMovie(movie);
                     movieDB = movie;
                 }
             });

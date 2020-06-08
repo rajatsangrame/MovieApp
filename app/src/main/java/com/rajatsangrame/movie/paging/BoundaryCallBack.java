@@ -52,16 +52,19 @@ public class BoundaryCallBack<T> extends PagedList.BoundaryCallback<T> {
             requestTVData();
             return;
         }
+        Log.d(TAG, "onZeroItemsLoaded: " + lastRequestedPage);
         requestMovieData();
     }
 
     @Override
     public void onItemAtFrontLoaded(@NonNull T itemAtFront) {
+        Log.d(TAG, "onItemAtFrontLoaded: " + lastRequestedPage);
         requestData(itemAtFront);
     }
 
     @Override
     public void onItemAtEndLoaded(@NonNull T itemAtEnd) {
+        Log.d(TAG, "onItemAtEndLoaded: " + lastRequestedPage);
         requestData(itemAtEnd);
     }
 

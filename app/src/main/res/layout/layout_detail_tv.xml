@@ -20,20 +20,6 @@
         android:visibility="@{tv != null? View.VISIBLE : View.GONE}">
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Seasons"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintEnd_toEndOf="@+id/tv_desc"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_desc"
-            app:layout_constraintTop_toBottomOf="@+id/view3"
-            tools:text="Seasons" />
-
-        <TextView
             android:id="@+id/tv_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -73,18 +59,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_desc"
             tools:text="@string/movie_genre" />
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tv_desc"
-            app:layout_constraintStart_toStartOf="@+id/tv_desc"
-            app:layout_constraintTop_toBottomOf="@+id/rv_companies"
-            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_popularity"
@@ -185,29 +159,65 @@
             app:layout_constraintStart_toStartOf="@+id/tv_desc"
             app:layout_constraintTop_toBottomOf="@+id/ll_popularity" />
 
+        <LinearLayout
+            android:id="@+id/ll_companies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/tv_desc"
+            app:layout_constraintStart_toStartOf="@+id/tv_desc"
+            app:layout_constraintTop_toBottomOf="@+id/view2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Production"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="Production" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_companies"
+                productionCompanies="@{tv.productionCompanies}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:overScrollMode="never" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent" />
+
+        </LinearLayout>
+
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Production"
+            android:text="Seasons"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="@+id/tv_desc"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_desc"
-            app:layout_constraintTop_toBottomOf="@+id/view2"
-            tools:text="Production" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_companies"
+            tools:text="Seasons" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_companies"
-            productionCompanies="@{tv.productionCompanies}"
+            android:id="@+id/rv_seasons"
+            season="@{tv.seasons}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

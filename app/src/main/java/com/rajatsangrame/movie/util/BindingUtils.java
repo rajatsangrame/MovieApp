@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
+import com.rajatsangrame.movie.adapter.TvSeasonAdapter;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 import com.rajatsangrame.movie.data.model.movie.SpokenLanguages;
+import com.rajatsangrame.movie.data.model.tv.Seasons;
 
 import java.util.List;
 
@@ -71,6 +73,17 @@ public class BindingUtils {
         ProductionCompaniesAdapter adapter = new ProductionCompaniesAdapter();
         filterCompaniesList(companiesList);
         adapter.setList(companiesList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"season"})
+    public static void seasonList(RecyclerView recyclerView, List<Seasons> seasonsList) {
+        if (seasonsList == null) return;
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        TvSeasonAdapter adapter = new TvSeasonAdapter();
+        adapter.setList(seasonsList);
         recyclerView.setAdapter(adapter);
     }
 

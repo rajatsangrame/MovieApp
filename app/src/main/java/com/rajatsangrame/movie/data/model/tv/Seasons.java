@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Seasons {
 
 	@SerializedName("air_date")
-	private Object airDate;
+	private String airDate;
 
 	@SerializedName("overview")
 	private String overview;
@@ -23,9 +23,9 @@ public class Seasons {
 	private int id;
 
 	@SerializedName("poster_path")
-	private Object posterPath;
+	private String posterPath;
 
-	public Object getAirDate(){
+	public String getAirDate(){
 		return airDate;
 	}
 
@@ -49,7 +49,7 @@ public class Seasons {
 		return id;
 	}
 
-	public Object getPosterPath(){
+	public String getPosterPath(){
 		return posterPath;
 	}
 }

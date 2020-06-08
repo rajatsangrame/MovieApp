@@ -19,10 +19,10 @@ public interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(MovieDB movieDB);
 
-    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC")
+    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY popularity DESC, entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getPopularDataSource(String category);
 
-    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY vote_average DESC")
+    @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY vote_average DESC, entry_timestamp ASC")
     DataSource.Factory<Integer, MovieDB> getTopRatedDataSource(String category);
 
     @Query("SELECT * FROM movie WHERE fetch_category = :category ORDER BY entry_timestamp ASC")

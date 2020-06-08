@@ -6,9 +6,11 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.google.gson.annotations.SerializedName;
 import com.rajatsangrame.movie.data.db.DbTypeConverter;
 import com.rajatsangrame.movie.data.model.movie.Genre;
 import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
+import com.rajatsangrame.movie.data.model.tv.Seasons;
 
 import java.util.List;
 
@@ -70,6 +72,10 @@ public class TVDB {
     private List<Genre> genres;
 
     @TypeConverters(DbTypeConverter.class)
+    @ColumnInfo(name = "seasons")
+    private List<Seasons> seasons;
+
+    @TypeConverters(DbTypeConverter.class)
     @ColumnInfo(name = "production_companies")
     private List<ProductionCompanies> productionCompanies;
 
@@ -79,14 +85,14 @@ public class TVDB {
 
     @Ignore
     public TVDB(int id,
-                   String name,
-                   String fetchCategory,
-                   String posterPath,
-                   String backdropPath,
-                   String overview,
-                   double popularity,
-                   double voteAverage,
-                   long entryTimeStamp) {
+                String name,
+                String fetchCategory,
+                String posterPath,
+                String backdropPath,
+                String overview,
+                double popularity,
+                double voteAverage,
+                long entryTimeStamp) {
 
         this.id = id;
         this.name = name;
@@ -225,5 +231,13 @@ public class TVDB {
 
     public void setProductionCompanies(List<ProductionCompanies> productionCompanies) {
         this.productionCompanies = productionCompanies;
+    }
+
+    public List<Seasons> getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(List<Seasons> seasons) {
+        this.seasons = seasons;
     }
 }

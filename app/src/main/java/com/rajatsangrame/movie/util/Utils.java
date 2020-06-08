@@ -187,6 +187,7 @@ public class Utils {
         tvdb.setGenres(tvDetail.getGenres());
         tvdb.setProductionCompanies(tvDetail.getProductionCompanies());
         tvdb.setFirstAirDate(tvDetail.getFirstAirDate());
+        tvdb.setSeasons(tvDetail.getSeasons());
         return tvdb;
     }
 
