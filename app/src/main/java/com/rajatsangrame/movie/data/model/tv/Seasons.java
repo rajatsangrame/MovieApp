@@ -11,16 +11,16 @@ public class Seasons {
 	private String overview;
 
 	@SerializedName("episode_count")
-	private Integer episodeCount;
+	private int episodeCount;
 
 	@SerializedName("name")
 	private String name;
 
 	@SerializedName("season_number")
-	private Integer seasonNumber;
+	private int seasonNumber;
 
 	@SerializedName("id")
-	private Integer id;
+	private int id;
 
 	@SerializedName("poster_path")
 	private Object posterPath;
@@ -33,7 +33,7 @@ public class Seasons {
 		return overview;
 	}
 
-	public Integer getEpisodeCount(){
+	public int getEpisodeCount(){
 		return episodeCount;
 	}
 
@@ -41,11 +41,11 @@ public class Seasons {
 		return name;
 	}
 
-	public Integer getSeasonNumber(){
+	public int getSeasonNumber(){
 		return seasonNumber;
 	}
 
-	public Integer getId(){
+	public int getId(){
 		return id;
 	}
 

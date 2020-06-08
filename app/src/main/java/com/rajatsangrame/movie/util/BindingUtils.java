@@ -138,6 +138,50 @@ public class BindingUtils {
         textView.setText(builder.toString());
     }
 
+    @BindingAdapter({"getYearAndTime"})
+    public static void getYearAndTime(TextView textView, MovieDB movie) {
+        try {
+            String[] date = movie.getReleaseDate().split("-");
+            final String dot = "  •  ";
+            int timeDuration = movie.getRuntime();
+            String string = textView.getContext().getString(
+                    R.string.movie_year_and_time,
+                    date[0],
+                    dot,
+                    getRunTime(timeDuration)
+            );
+            textView.setText(string);
+        } catch (NullPointerException e) {
+            //ignored.
+        }
+    }
+
+    @BindingAdapter({"like"})
+    public static void like(TextView textView, int voteCount) {
+        try {
+            textView.setText(voteCount + "");
+        } catch (NullPointerException e) {
+            //ignored
+        }
+    }
+
+    @BindingAdapter({"rating"})
+    public static void rating(TextView textView, double voteAverage) {
+        try {
+            textView.setText(voteAverage + "");
+        } catch (NullPointerException e) {
+            //ignored
+        }
+    }
+
+    @BindingAdapter({"save"})
+    public static void updateSave(ImageView imageView, boolean isSaved) {
+
+        if (isSaved)
+            imageView.setImageResource(R.drawable.ic_saved);
+        else imageView.setImageResource(R.drawable.ic_save);
+    }
+
     private static void filterLanguageList(List<SpokenLanguages> list) {
 
         for (int i = 0; i < list.size(); i++) {
@@ -163,57 +207,6 @@ public class BindingUtils {
             }
         }
     }
-
-    @BindingAdapter({"getYearAndTime"})
-    public static void getYearAndTime(TextView textView, MovieDB movie) {
-        try {
-            String[] date = movie.getReleaseDate().split("-");
-            final String dot = "  •  ";
-            int timeDuration = movie.getRuntime();
-            String string = textView.getContext().getString(
-                    R.string.movie_year_and_time,
-                    date[0],
-                    dot,
-                    getRunTime(timeDuration)
-            );
-            textView.setText(string);
-        } catch (NullPointerException e) {
-            //ignored.
-        }
-    }
-
-    @BindingAdapter({"like"})
-    public static void like(TextView textView, MovieDB movie) {
-        try {
-            textView.setText(movie.getVoteCount() + "");
-        } catch (NullPointerException e) {
-            //ignored
-        }
-    }
-
-    @BindingAdapter({"rating"})
-    public static void rating(TextView textView, MovieDB movie) {
-        try {
-            textView.setText(movie.getVoteAverage() + "");
-        } catch (NullPointerException e) {
-            //ignored
-        }
-    }
-
-    /*
-    @BindingAdapter({"getYearAndTime"})
-    public static String getYearAndTime(TextView textView, TVDB movie) {
-        String[] date = movie.getReleaseDate().split("-");
-        final String dot = "  •  ";
-        int timeDuration = movie.getRuntime();
-        return textView.getContext().getString(
-                R.string.movie_year_and_time,
-                date[0],
-                dot,
-                getRunTime(timeDuration)
-        );
-    }
-    */
 
     private static String getRunTime(int time) {
 

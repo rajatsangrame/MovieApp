@@ -42,4 +42,11 @@ public class DetailViewModel extends ViewModel {
         return repository.getLiveDataTVDetail(id);
     }
 
+    public void updateMovieSave(int id, Repository.InsertCallback callback) {
+        repository.saveMovie(id, callback);
+    }
+
+    public void updateTVSave(int id, Repository.InsertCallback callback) {
+        repository.saveTV(id, callback);
+    }
 }

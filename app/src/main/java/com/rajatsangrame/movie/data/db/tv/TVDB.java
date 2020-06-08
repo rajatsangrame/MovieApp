@@ -4,6 +4,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.rajatsangrame.movie.data.db.DbTypeConverter;
+import com.rajatsangrame.movie.data.model.movie.Genre;
+import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
+
+import java.util.List;
 
 /**
  * Created by Rajat Sangrame on 22/4/20.
@@ -57,6 +64,14 @@ public class TVDB {
 
     @ColumnInfo(name = "saved")
     private boolean saved;
+
+    @TypeConverters(DbTypeConverter.class)
+    @ColumnInfo(name = "genres")
+    private List<Genre> genres;
+
+    @TypeConverters(DbTypeConverter.class)
+    @ColumnInfo(name = "production_companies")
+    private List<ProductionCompanies> productionCompanies;
 
     public TVDB(int id) {
         this.id = id;
@@ -196,11 +211,19 @@ public class TVDB {
         this.saved = saved;
     }
 
-    /*
-    @ColumnInfo(name = "origin_country")
-    private List<String> originCountry;
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
-    @ColumnInfo(name = "genre_ids")
-    private List<int> genreIds;
-     */
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<ProductionCompanies> getProductionCompanies() {
+        return productionCompanies;
+    }
+
+    public void setProductionCompanies(List<ProductionCompanies> productionCompanies) {
+        this.productionCompanies = productionCompanies;
+    }
 }

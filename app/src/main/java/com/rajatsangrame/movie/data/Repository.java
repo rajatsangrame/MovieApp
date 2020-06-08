@@ -2,6 +2,7 @@ package com.rajatsangrame.movie.data;
 
 import android.util.Log;
 
+import androidx.annotation.UiThread;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -80,6 +81,34 @@ public class Repository {
             @Override
             public void run() {
                 database.tvDao().insert(tvdb);
+                if (insertCallback != null) {
+                    insertCallback.insertFinished();
+                }
+            }
+        });
+    }
+
+    public void saveMovie(int id, final InsertCallback insertCallback) {
+        ioExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                MovieDB movie = database.movieDao().getMovieFromId(id);
+                movie.setSaved(!movie.isSaved());
+                database.movieDao().update(movie);
+                if (insertCallback != null) {
+                    insertCallback.insertFinished();
+                }
+            }
+        });
+    }
+
+    public void saveTV(int id, final InsertCallback insertCallback) {
+        ioExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                TVDB tv = database.tvDao().getTVFromId(id);
+                tv.setSaved(!tv.isSaved());
+                database.tvDao().update(tv);
                 if (insertCallback != null) {
                     insertCallback.insertFinished();
                 }
@@ -243,6 +272,7 @@ public class Repository {
     //endregion
 
     public interface InsertCallback {
+
         void insertFinished();
     }
 }

@@ -181,6 +181,10 @@ public class Utils {
         tvdb.setPopularity(tvDetail.getPopularity());
         tvdb.setVoteAverage(tvDetail.getVoteAverage());
         tvdb.setOverview(tvDetail.getOverview());
+        tvdb.setVoteCount(tvDetail.getVoteCount());
+        tvdb.setGenres(tvDetail.getGenres());
+        tvdb.setProductionCompanies(tvDetail.getProductionCompanies());
+        tvdb.setFirstAirDate(tvDetail.getFirstAirDate());
         return tvdb;
     }
 

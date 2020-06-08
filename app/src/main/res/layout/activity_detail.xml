@@ -38,11 +38,21 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <include
-                    android:id="@+id/layout_detail"
-                    layout="@layout/layout_detail"
-                    bind:movie="@{movie}"
-                    bind:tv="@{tv}" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/layout_detail"
+                        layout="@layout/layout_detail_movie"
+                        bind:movie="@{movie}" />
+
+                    <include
+                        android:id="@+id/layout_detail_tv"
+                        layout="@layout/layout_detail_tv"
+                        bind:tv="@{tv}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>
 

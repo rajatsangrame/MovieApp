@@ -2,6 +2,8 @@ package com.rajatsangrame.movie.data.model.tv;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
+import com.rajatsangrame.movie.data.model.movie.Genre;
+import com.rajatsangrame.movie.data.model.movie.ProductionCompanies;
 
 public class TvDetail{
 
@@ -9,7 +11,7 @@ public class TvDetail{
 	private String originalLanguage;
 
 	@SerializedName("number_of_episodes")
-	private Integer numberOfEpisodes;
+	private int numberOfEpisodes;
 
 	@SerializedName("networks")
 	private List<NetworksItem> networks;
@@ -21,19 +23,19 @@ public class TvDetail{
 	private String backdropPath;
 
 	@SerializedName("genres")
-	private List<Genres> genres;
+	private List<Genre> genres;
 
 	@SerializedName("popularity")
-	private Double popularity;
+	private double popularity;
 
 	@SerializedName("id")
-	private Integer id;
+	private int id;
 
 	@SerializedName("number_of_seasons")
-	private Integer numberOfSeasons;
+	private int numberOfSeasons;
 
 	@SerializedName("vote_count")
-	private Integer voteCount;
+	private int voteCount;
 
 	@SerializedName("first_air_date")
 	private String firstAirDate;
@@ -66,7 +68,7 @@ public class TvDetail{
 	private String originalName;
 
 	@SerializedName("vote_average")
-	private Double voteAverage;
+	private double voteAverage;
 
 	@SerializedName("name")
 	private String name;
@@ -93,7 +95,7 @@ public class TvDetail{
 		return originalLanguage;
 	}
 
-	public Integer getNumberOfEpisodes(){
+	public int getNumberOfEpisodes(){
 		return numberOfEpisodes;
 	}
 
@@ -109,23 +111,23 @@ public class TvDetail{
 		return backdropPath;
 	}
 
-	public List<Genres> getGenres(){
+	public List<Genre> getGenres(){
 		return genres;
 	}
 
-	public Double getPopularity(){
+	public double getPopularity(){
 		return popularity;
 	}
 
-	public Integer getId(){
+	public int getId(){
 		return id;
 	}
 
-	public Integer getNumberOfSeasons(){
+	public int getNumberOfSeasons(){
 		return numberOfSeasons;
 	}
 
-	public Integer getVoteCount(){
+	public int getVoteCount(){
 		return voteCount;
 	}
 
@@ -169,7 +171,7 @@ public class TvDetail{
 		return originalName;
 	}
 
-	public Double getVoteAverage(){
+	public double getVoteAverage(){
 		return voteAverage;
 	}
 

@@ -11,7 +11,7 @@ public class NetworksItem{
 	private String name;
 
 	@SerializedName("id")
-	private Integer id;
+	private int id;
 
 	@SerializedName("origin_country")
 	private String originCountry;
@@ -24,7 +24,7 @@ public class NetworksItem{
 		return name;
 	}
 
-	public Integer getId(){
+	public int getId(){
 		return id;
 	}
 

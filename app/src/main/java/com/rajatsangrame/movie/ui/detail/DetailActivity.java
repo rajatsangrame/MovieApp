@@ -12,11 +12,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rajatsangrame.movie.App;
 import com.rajatsangrame.movie.R;
 import com.rajatsangrame.movie.adapter.ProductionCompaniesAdapter;
+import com.rajatsangrame.movie.data.Repository;
 import com.rajatsangrame.movie.data.db.movie.MovieDB;
 import com.rajatsangrame.movie.data.db.tv.TVDB;
 import com.rajatsangrame.movie.data.rest.ApiCallback;
@@ -45,8 +47,9 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
 
     private DetailViewModel detailViewModel;
     private ActivityDetailBinding binding;
-    private LiveData<MovieDB> movieDb;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private int id;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,9 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        int id = bundle.getInt("id");
+        id = bundle.getInt("id");
+        type = bundle.getString("type");
         String title = bundle.getString("title");
-        String type = bundle.getString("type");
         binding.toolbar.setTitle(title);
 
         fetchData(id, type);
@@ -157,5 +160,13 @@ public class DetailActivity extends AppCompatActivity implements ApiCallback {
     @Override
     public void onError(String errorMessage) {
 
+    }
+
+    public void onSaveButtonClicked(View view) {
+        if (type.equals("movie")) {
+            detailViewModel.updateMovieSave(id, null);
+        } else {
+            detailViewModel.updateTVSave(id, null);
+        }
     }
 }

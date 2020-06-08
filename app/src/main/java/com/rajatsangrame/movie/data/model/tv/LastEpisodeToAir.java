@@ -14,28 +14,28 @@ public class LastEpisodeToAir{
 	private String overview;
 
 	@SerializedName("episode_number")
-	private Integer episodeNumber;
+	private int episodeNumber;
 
 	@SerializedName("show_id")
-	private Integer showId;
+	private int showId;
 
 	@SerializedName("vote_average")
-	private Integer voteAverage;
+	private double voteAverage;
 
 	@SerializedName("name")
 	private String name;
 
 	@SerializedName("season_number")
-	private Integer seasonNumber;
+	private int seasonNumber;
 
 	@SerializedName("id")
-	private Integer id;
+	private int id;
 
 	@SerializedName("still_path")
 	private String stillPath;
 
 	@SerializedName("vote_count")
-	private Integer voteCount;
+	private int voteCount;
 
 	public String getProductionCode(){
 		return productionCode;
@@ -49,15 +49,15 @@ public class LastEpisodeToAir{
 		return overview;
 	}
 
-	public Integer getEpisodeNumber(){
+	public int getEpisodeNumber(){
 		return episodeNumber;
 	}
 
-	public Integer getShowId(){
+	public int getShowId(){
 		return showId;
 	}
 
-	public Integer getVoteAverage(){
+	public double getVoteAverage(){
 		return voteAverage;
 	}
 
@@ -65,11 +65,11 @@ public class LastEpisodeToAir{
 		return name;
 	}
 
-	public Integer getSeasonNumber(){
+	public int getSeasonNumber(){
 		return seasonNumber;
 	}
 
-	public Integer getId(){
+	public int getId(){
 		return id;
 	}
 
@@ -77,7 +77,7 @@ public class LastEpisodeToAir{
 		return stillPath;
 	}
 
-	public Integer getVoteCount(){
+	public int getVoteCount(){
 		return voteCount;
 	}
 }
