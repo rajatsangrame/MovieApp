@@ -1,5 +1,5 @@
 # Movies
-This app fetches the information from [www.themoviedb.org](www.themoviedb.org). Users can get the information of the top movies and tv shows. Users can also can search for movies, tv shows, person and similar movies. It allow the users to favourite their movies or tv-shows. The fetched information is also available offlline.
+This app fetches the information from [www.themoviedb.org](www.themoviedb.org). Users can get the information of the top movies and tv shows. Users can also search for movies, tv shows, person and similar movies. It allow the users to favourite their movies or tv-shows. The fetched information is also available offlline.
 
 #### Motivation
 - Cover maximum topics in single project.
