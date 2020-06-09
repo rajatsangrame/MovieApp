@@ -5,7 +5,7 @@ This app fetches the information from [www.themoviedb.org](www.themoviedb.org). 
 - Cover maximum topics in single project.
 - Dagger2, RxJava
 - Application Architecture
-- Offline Loading with Pagination and View Model
+- Offline Loading with Paging and View Model
 - Instagram like bottom navigation and maintain fragment stack.
 
 #### Libraries

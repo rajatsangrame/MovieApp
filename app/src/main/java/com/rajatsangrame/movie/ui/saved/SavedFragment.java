@@ -1,6 +1,5 @@
 package com.rajatsangrame.movie.ui.saved;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

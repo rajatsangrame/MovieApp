@@ -1,6 +1,5 @@
 package com.rajatsangrame.movie.util;
 
-
 import java.util.Hashtable;
 
 public class Constants {

@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void addToStackList(int index) {
         if (index == 0) {
-            stackList = new ArrayList<>();
+            stackList.clear();
+            stackList.add(0);
             return;
         }
         if (stackList.contains(index)) {
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
         int lastIndex = stackList.get(stackList.size() - 1);
         binding.navigation.setSelectedItemId(tabs[lastIndex]);
         if (lastIndex == 0) {
-            stackList = new ArrayList<>();
+            stackList.clear();
+            stackList.add(0);
         }
     }
     //endregion
