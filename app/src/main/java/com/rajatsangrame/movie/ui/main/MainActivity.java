@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,7 +18,6 @@ import com.rajatsangrame.movie.di.component.MainActivityComponent;
 import com.rajatsangrame.movie.di.module.MainActivityModule;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
