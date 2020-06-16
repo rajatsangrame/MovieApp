@@ -61,6 +61,7 @@
             android:background="?android:attr/windowBackground"
             app:itemIconTint="@color/tab_icon_selector"
             app:itemTextColor="@color/tab_icon_selector"
+            app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/navigation" />

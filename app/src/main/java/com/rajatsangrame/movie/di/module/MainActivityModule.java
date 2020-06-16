@@ -1,10 +1,8 @@
 package com.rajatsangrame.movie.di.module;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.rajatsangrame.movie.adapter.ViewPagerAdapter;
-import com.rajatsangrame.movie.custom.LockableViewPager;
 import com.rajatsangrame.movie.di.scope.MainActivityScope;
 import com.rajatsangrame.movie.ui.home.HomeFragment;
 import com.rajatsangrame.movie.ui.main.MainActivity;

@@ -25,9 +25,9 @@
         <ImageView
             android:id="@+id/iv_poster"
             loadImageUrl="@{movie.posterPath != null ? movie.posterPath : tv.posterPath}"
-            android:layout_width="100dp"
-            android:transitionName="@string/imagePoster"
-            android:layout_height="145dp"
-            android:scaleType="centerCrop" />
+            android:layout_width="120dp"
+            android:layout_height="175dp"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/imagePoster" />
     </FrameLayout>
 </layout>
